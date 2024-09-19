@@ -6,7 +6,6 @@ import { Button, ButtonText } from './components/ui/button';
 import { Input, InputField } from '@/components/ui/input';
 import { FormControl } from '@/components/ui/form-control';
 import { VStack } from '@/components/ui/vstack';
-import { Heading } from '@/components/ui/heading';
 import { Select, SelectBackdrop, SelectContent, SelectDragIndicator, SelectDragIndicatorWrapper, SelectIcon, SelectInput, SelectItem, SelectPortal, SelectTrigger } from '@/components/ui/select';
 
 /**
@@ -35,7 +34,7 @@ const CadastroServico = () => {
     <GluestackUIProvider mode="light"><View style={styles.container}>
       <FormControl className='p-4'>
         <VStack space='xl'>
-          <Heading className='text-typography-900 leading-1'>Cadastro de Serviço</Heading>
+          <Text className='text-typography-900 leading-1 text-xl font-bold'>Cadastro de Serviço</Text>
           <VStack space='xs'>
             <Text className='text-typography-500 leading-1'>Endereço</Text>
             <Input>
