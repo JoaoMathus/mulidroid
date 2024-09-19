@@ -15,7 +15,7 @@ const App = () => {
   return (
     <GluestackUIProvider mode="light"><View style={styles.container}>
       <Button size="md" variant="solid" action="primary">
-        <ButtonText>Hello World!</ButtonText>
+        <ButtonText>Branch Dev</ButtonText>
       </Button>
     </View></GluestackUIProvider>
   );
