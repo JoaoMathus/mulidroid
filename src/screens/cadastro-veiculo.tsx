@@ -1,4 +1,4 @@
-import "@/global.css";
+
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { Text, View } from 'react-native';
 import { Button, ButtonText } from '@/components/ui/button';

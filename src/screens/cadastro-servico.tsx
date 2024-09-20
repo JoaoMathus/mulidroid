@@ -20,59 +20,61 @@ import { Center } from '@/components/ui/center';
 
 const CadastroServico = () => {
   return (
-    <GluestackUIProvider mode="light"><View>
-      <FormControl className='p-4'>
-        <VStack space='xl'>
-          <Text className='text-typography-900 leading-1 text-xl font-bold'>Cadastro de Serviço</Text>
-          <VStack space='xs'>
-            <Text className='text-typography-500 leading-1'>Endereço</Text>
-            <Input>
-              <InputField type='text' />
-            </Input>
+    <GluestackUIProvider mode="light">
+      <View>
+        <FormControl className='p-4'>
+          <VStack space='xl'>
+            <Text className='text-typography-900 leading-1 text-xl font-bold'>Cadastro de Serviço</Text>
+            <VStack space='xs'>
+              <Text className='text-typography-500 leading-1'>Endereço</Text>
+              <Input>
+                <InputField type='text' />
+              </Input>
+            </VStack>
+            <VStack>
+              <Text className='text-typography-500 leading-1'>Valor</Text>
+              <Input>
+                <InputField type='text' />
+              </Input>
+            </VStack>
+            <VStack>
+              <Text className='text-typography-500 leading-1'>Data</Text>
+              <Input>
+                <InputField type='text' />
+              </Input>
+            </VStack>
+            <VStack>
+              <Text className='text-typography-500 leading-1'>Veículo</Text>
+              <Input>
+                <InputField type='text' />
+              </Input>
+            </VStack>
+            <VStack>
+              <Text className='text-typography-500 leading-1'>Selecionar Ajudantes</Text>
+              <Select>
+                <SelectTrigger variant='outline' size='md'>
+                  <SelectInput placeholder='Selecione' />
+                </SelectTrigger>
+                <SelectPortal>
+                  <SelectBackdrop />
+                  <SelectContent>
+                    <SelectDragIndicatorWrapper>
+                      <SelectDragIndicator />
+                    </SelectDragIndicatorWrapper>
+                    <SelectItem label='Negueba' value='Negueba' />
+                    <SelectItem label='Alomomola' value='Alomomola' />
+                    <SelectItem label='Garbodor' value='Garbodor' />
+                  </SelectContent>
+                </SelectPortal>
+              </Select>
+            </VStack>
+            <Button className='px-6'>
+              <ButtonText className='text-typography-0'>Cadastrar</ButtonText>
+            </Button>
           </VStack>
-          <VStack>
-          <Text className='text-typography-500 leading-1'>Valor</Text>
-          <Input>
-            <InputField type='text' />
-          </Input>
-          </VStack>
-          <VStack>
-          <Text className='text-typography-500 leading-1'>Data</Text>
-          <Input>
-            <InputField type='text' />
-          </Input>
-          </VStack>
-          <VStack>
-          <Text className='text-typography-500 leading-1'>Veículo</Text>
-          <Input>
-            <InputField type='text' />
-          </Input>
-          </VStack>
-          <VStack>
-            <Text className='text-typography-500 leading-1'>Selecionar Ajudantes</Text>
-            <Select>
-              <SelectTrigger variant='outline' size='md'>
-                <SelectInput placeholder='Selecione' />
-              </SelectTrigger>
-              <SelectPortal>
-                <SelectBackdrop />
-                <SelectContent>
-                  <SelectDragIndicatorWrapper>
-                    <SelectDragIndicator />
-                  </SelectDragIndicatorWrapper>
-                  <SelectItem label='Negueba' value='Negueba' />
-                  <SelectItem label='Alomomola' value='Alomomola' />
-                  <SelectItem label='Garbodor' value='Garbodor' />
-                </SelectContent>
-              </SelectPortal>
-            </Select>
-          </VStack>
-          <Button className='px-6'>
-            <ButtonText className='text-typography-0'>Cadastrar</ButtonText>
-          </Button>
-        </VStack>
-      </FormControl>
-    </View></GluestackUIProvider>
+        </FormControl>
+      </View>
+    </GluestackUIProvider>
   )
 }
 

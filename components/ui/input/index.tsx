@@ -266,7 +266,7 @@ const InputField = React.forwardRef<
 
   return (
     <UIInput.Input
-      style={{fontFamily: "Outfit_400Regular"}}
+      style={{fontFamily: "Outfit_300Light"}}
       ref={ref}
       {...props}
       className={inputFieldStyle({

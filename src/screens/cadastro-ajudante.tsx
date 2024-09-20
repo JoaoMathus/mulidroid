@@ -1,16 +1,17 @@
-import { View } from "react-native"
-import { Heading } from "../../components/ui/heading"
+import { TouchableOpacity, View } from "react-native"
 import { Input, InputField } from "../../components/ui/input";
 import { VStack } from "../../components/ui/vstack";
-import { Text } from "../../components/ui/text";
+import { Text } from "react-native";
+import Heading from "@/components/ui/heading/heading";
+import { Button, ButtonText } from "@/components/ui/button";
 
 const CadastroAjudante = () => {
   return (
-    <View className="h-screen items-start p-8 py-12">
-      <Heading className="font-bold mb-12" size="2xl">
-        Cadastro de Ajudante
-      </Heading>
-      <VStack className="w-full" space="2xl">
+    <View className="h-screen justify-center px-8">
+      <VStack space="xl">
+        <Heading className="text-3xl">
+          Cadastro de Ajudante
+        </Heading>
         <Input size="xl">
           <InputField placeholder="Apelido"/>
         </Input>
@@ -26,8 +27,10 @@ const CadastroAjudante = () => {
         <Input size="xl">
           <InputField placeholder="Usuário"/>
         </Input>
+        <Button size="xl">
+          <ButtonText className="mt-1">Cadastrar</ButtonText>
+        </Button>
       </VStack>
-      <Text>CASCO DA GAMAS</Text>
     </View>
   )
 }
