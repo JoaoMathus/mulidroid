@@ -1,8 +1,53 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { VStack } from "../../components/ui/vstack";
 import { Box } from "../../components/ui/box";
 import { HStack } from "../../components/ui/hstack";
 import { Button, ButtonText } from "@/components/ui/button";
+
+const DADOS_TESTE = [
+	{
+		id: '1',
+		endereco: 'Estrada da Vitória',
+		data: '20/10/2024',
+		valor: 'R$ 10.000,00'
+	},
+	{
+		id: '2',
+		endereco: 'Rota 1',
+		data: '1/8/2003',
+		valor: 'R$ 10,00'
+	},
+	{
+		id: '3',
+		endereco: 'Centro Pokemon, Monte Lua',
+		data: '6/12/2013',
+		valor: 'R$ 500,00'
+	},
+]
+
+const Item = ({endereco, data, valor}) => (
+	<View className="p-2" style={{backgroundColor: 'lightgray',
+		marginTop: 2}}>
+		<Text className="text-2xl p-1">
+			Endereço:
+			<Text className="text-2xl font-semibold">
+				{endereco}
+			</Text>
+		</Text>
+		<Text className="text-2xl">
+			Data:
+			<Text className="text-2xl font-semibold">
+				{data}
+			</Text>
+		</Text>
+		<Text className="text-2xl">
+			Valor:
+			<Text className="text-2xl font-semibold">
+				{valor}
+			</Text>
+		</Text>
+	</View>
+);
 
 const TelaHome = () => {
 	return (
@@ -34,16 +79,14 @@ const TelaHome = () => {
 						<ButtonText className="mt-1">Ajudantes</ButtonText>
 					</Button>
 				</HStack>
-				<Text className="text-3xl">DEBUG: Será uma lista:</Text>
-				<Text className="text-2xl">
-					Endereço
-				</Text>
-				<Text className="text-2xl">
-					Data
-				</Text>
-				<Text className="text-2xl">
-					R$ Valor
-				</Text>
+				<FlatList
+					data={DADOS_TESTE}
+					renderItem={({item}) => <Item
+						endereco={item.endereco}
+						data={item.data}
+						valor={item.valor} />}
+					keyExtractor={item => item.id}
+				/>
 			</VStack>
 		</View>
 	)
