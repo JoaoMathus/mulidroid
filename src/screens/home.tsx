@@ -1,8 +1,20 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { VStack } from "../../components/ui/vstack";
 import { Box } from "../../components/ui/box";
 import { HStack } from "../../components/ui/hstack";
 import { Button, ButtonText } from "@/components/ui/button";
+
+const styles = StyleSheet.create({
+	container: {
+		padding: 7,
+		marginHorizontal: 10,
+		backgroundColor: 'aliceblue',
+		borderWidth: 1,
+		borderTopLeftRadius: 15,
+		borderBottomRightRadius: 15,
+		borderStyle: 'dashed'
+	}
+});
 
 const DADOS_TESTE = [
 	{
@@ -26,8 +38,12 @@ const DADOS_TESTE = [
 ]
 
 const Item = ({endereco, data, valor}) => (
-	<View className="p-2" style={{backgroundColor: 'lightgray',
-		marginTop: 2}}>
+	<View className="p-2" style={{
+			marginTop: 5,
+			borderWidth: 1,
+			borderRadius: 10,
+			borderStyle: 'dashed'
+		}}>
 		<Text className="text-2xl p-1">
 			Endereço:
 			<Text className="text-2xl font-semibold">
@@ -51,23 +67,23 @@ const Item = ({endereco, data, valor}) => (
 
 const TelaHome = () => {
 	return (
-		<View className="p-4" style={{marginTop: 30}}>
+		<View className="p-4" style={{marginTop: 40}}>
 			<VStack space="xl">
 				<VStack space="xl">
-					<Box className="p-2 items-center">
+					<Box style={styles.container}>
 						<Text className="text-2xl">
 							Faturamento
 						</Text>
-						<Text className="text-2xl">
-							R$ Quantidade
+						<Text className="text-2xl font-semibold">
+							R$ 1.000,00
 						</Text>
 					</Box>
-					<Box className="p-2 items-center">
+					<Box style={styles.container}>
 						<Text className="text-2xl">
 							Valor das diárias
 						</Text>
-						<Text className="text-2xl">
-							R$ Quantidade
+						<Text className="text-2xl font-semibold">
+							R$ 50,00
 						</Text>
 					</Box>
 				</VStack>
