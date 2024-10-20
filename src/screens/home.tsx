@@ -1,23 +1,31 @@
 import { View, Text } from "react-native";
 import { VStack } from "../../components/ui/vstack";
+import { Box } from "../../components/ui/box";
+import { HStack } from "../../components/ui/hstack";
 import { Button, ButtonText } from "@/components/ui/button";
 
 const TelaHome = () => {
 	return (
-		<View className="h-screen justify-center px-8">
+		<View className="p-4">
 			<VStack space="xl">
-				<Text className="text-3xl">
-					Faturamento
-				</Text>
-				<Text className="text-3xl">
-					R$ Quantidade
-				</Text>
-				<Text className="text-3xl">
-					Valor das diárias
-				</Text>
-				<Text className="text-3xl">
-					R$ Quantidade
-				</Text>
+				<VStack space="x2">
+					<Box className="p-2">
+						<Text className="text-2xl">
+							Faturamento
+						</Text>
+						<Text className="text-2xl">
+							R$ Quantidade
+						</Text>
+					</Box>
+					<Box className="p-2">
+						<Text className="text-2xl">
+							Valor das diárias
+						</Text>
+						<Text className="text-2xl">
+							R$ Quantidade
+						</Text>
+					</Box>
+				</VStack>
 				<Button size="x1">
 					<ButtonText className="mt-1">Serviços</ButtonText>
 				</Button>
