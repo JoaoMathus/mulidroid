@@ -6,10 +6,10 @@ import { Button, ButtonText } from "@/components/ui/button";
 
 const TelaHome = () => {
 	return (
-		<View className="p-4">
+		<View className="p-4" style={{marginTop: 30}}>
 			<VStack space="xl">
-				<VStack space="x2">
-					<Box className="p-2">
+				<VStack space="xl">
+					<Box className="p-2 items-center">
 						<Text className="text-2xl">
 							Faturamento
 						</Text>
@@ -17,7 +17,7 @@ const TelaHome = () => {
 							R$ Quantidade
 						</Text>
 					</Box>
-					<Box className="p-2">
+					<Box className="p-2 items-center">
 						<Text className="text-2xl">
 							Valor das diárias
 						</Text>
@@ -26,12 +26,14 @@ const TelaHome = () => {
 						</Text>
 					</Box>
 				</VStack>
-				<Button size="x1">
-					<ButtonText className="mt-1">Serviços</ButtonText>
-				</Button>
-				<Button size="x1">
-					<ButtonText className="mt-1">Ajudantes</ButtonText>
-				</Button>
+				<HStack space="xl" style={{justifyContent: 'center'}}>
+					<Button size="xl">
+						<ButtonText className="mt-1">Serviços</ButtonText>
+					</Button>
+					<Button size="xl">
+						<ButtonText className="mt-1">Ajudantes</ButtonText>
+					</Button>
+				</HStack>
 				<Text className="text-3xl">DEBUG: Será uma lista:</Text>
 				<Text className="text-2xl">
 					Endereço
