@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import { Text, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { VStack } from '../../components/ui/vstack';
 import { FormControl, FormControlLabel, FormControlLabelText } from '../../components/ui/form-control';
 import { Button, ButtonText } from '../../components/ui/button';
 import { Input, InputField } from '../../components/ui/input';
 
+/**
+ *  Tela de Login.
+ *
+ *  IMPORTANTE: não usei Tailwind. Por algum motivo, ele não funciona.
+ */
 const TelaLogin = () => {
 	const [valorUsuario, setValorUsuario] = useState("");
 	const [valorSenha, setValorSenha] = useState("");
@@ -45,7 +50,7 @@ const TelaLogin = () => {
 						onChange={(e) => setValorSenha(e.target.value)}
 					/>
 				</Input>
-				<Button className="w-fit self-end mt-4" size="xl">
+				<Button size="xl">
 					<ButtonText>Login</ButtonText>
 				</Button>
 			</FormControl>
