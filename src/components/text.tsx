@@ -1,8 +1,17 @@
-import { Text as RNText } from 'react-native';
+import { Text as RNText } from "react-native";
+import { fontVariants } from "../utils/fontVariants";
+import React from "react";
 
-const Text = ({children}) => {
+interface TextProps {
+  children: React.ReactNode;
+  weight?: string;
+}
+
+const Text = ({ children, weight = "regular" }: TextProps) => {
   return (
-    <RNText style={{fontFamily: "SofiaSans_600SemiBold"}}>{children}</RNText>
+    <RNText style={{ fontFamily: fontVariants[weight]}}>
+      {children}
+    </RNText>
   )
 }
 

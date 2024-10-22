@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 import "./global.css";
-import Text from './src/components/text';
-import * as SplashScreen from 'expo-splash-screen';
+import Text from "./src/components/text";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
   SofiaSans_100Thin,
@@ -23,8 +23,8 @@ import {
   SofiaSans_700Bold_Italic,
   SofiaSans_800ExtraBold_Italic,
   SofiaSans_900Black_Italic,
-} from '@expo-google-fonts/sofia-sans';
-import { useEffect } from 'react';
+} from "@expo-google-fonts/sofia-sans";
+import { useEffect } from "react";
 
 
 export default function App() {
@@ -53,7 +53,7 @@ export default function App() {
 
   return (
     <View className="flex items-center h-screen justify-center">
-      <Text>Mulidroid</Text>
+      <Text weight="black">Mulidroid</Text>
       <StatusBar style="auto" />
     </View>
   );
