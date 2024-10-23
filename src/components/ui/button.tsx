@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 
 interface ButtonProps {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 const Button = ({children, className}: ButtonProps) => {
