@@ -28,6 +28,10 @@ const Item = ({endereco, valor}) => (
     </View>
 );
 
+/**
+ * 
+ * Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
+ */
 const TelaPerfil = () => {
     return (
         <View className="w-full mt-3 gap-2">

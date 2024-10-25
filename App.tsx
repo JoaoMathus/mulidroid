@@ -20,6 +20,7 @@ import Button from "./src/components/ui/button";
 import AjudanteForm from "./src/screens/ajudante-form";
 import ServicoForm from './src/screens/servico-form';
 import TelaPerfil from './src/screens/perfil';
+import TelaHome from './src/screens/home';
 
 
 export default function App() {
@@ -48,7 +49,7 @@ export default function App() {
 
   return (
     <View className="flex items-center h-screen p-10">
-      <TelaPerfil />
+      <TelaHome />
     </View>
   );
 }
