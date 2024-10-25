@@ -5,13 +5,14 @@ import Text from "./text";
 
 interface InputProps {
   label: string;
+  secureTextEntry?: boolean;
 }
 
-const Input = ({label}: InputProps) => {
+const Input = ({label, secureTextEntry}: InputProps) => {
   return (
-    <View className="w-full">
+    <View className="w-full relative">
       <Text className="mb-2" weight="medium">{label}</Text>
-      <TextInput cursorColor={"#0077ff"} className="placeholder:text-black/20 rounded-md border border-black/10 bg-white w-full py-4 px-4 text-xl" style={{ fontFamily: fontVariants["light"] }}/>
+      <TextInput secureTextEntry={secureTextEntry} textContentType="password" cursorColor={"#0077ff"} className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl" style={{ fontFamily: fontVariants["light"] }}/>
     </View>
   )
 }
