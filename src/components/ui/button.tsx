@@ -1,16 +1,16 @@
 import React from "react";
-import Text from "./text";
 import { TouchableOpacity } from "react-native";
 
 interface ButtonProps {
   children: React.ReactNode;
   className?: string;
+  onPress?: () => void;
 }
 
-const Button = ({children, className}: ButtonProps) => {
+const Button = ({children, className, onPress}: ButtonProps) => {
 
   return (
-    <TouchableOpacity className={className} activeOpacity={0.5}>
+    <TouchableOpacity onPress={onPress} className={className} activeOpacity={0.5}>
       {children}
     </TouchableOpacity>
   )
