@@ -45,7 +45,7 @@ const ServicoForm = () => {
                         Alert.alert("Data salva!");
                         setMostrarDatePicker(!mostrarDatePicker);
                     }}>
-                    <View>
+                    <View className="mt-10 p-6">
                         <DateTimePicker
                             mode="single"
                             date={data}
