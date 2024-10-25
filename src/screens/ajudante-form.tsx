@@ -6,8 +6,8 @@ import Button from "../components/ui/button";
 
 const AjudanteForm = () => {
   return (
-    <View className="mt-10 w-full gap-5">
-      <Text className="text-left text-2xl" weight="black">Cadastro de Ajudante</Text>
+    <View className="w-full gap-5">
+      <Text className="text-left text-3xl" weight="black">Cadastro de Ajudante</Text>
       <Input label="Apelido"/>
       <Input label="Nome"/>
       <Input label="Telefone"/>
