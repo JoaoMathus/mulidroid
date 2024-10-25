@@ -5,9 +5,10 @@ import Button from "../components/ui/button";
 
 const ServicoForm = () => {
     return (
-        <View className="mt-10 w-full gap-5">
+        <View className="mt-10 w-full gap-2">
             <Text className="text-left text-2xl" weight="black">Cadastro de Serviço</Text>
             <Input label="Endereço" />
+            <Input label="Bairro" />
             <Input label="Valor" />
             <Input label="Data" />
             <Input label="Veículo" />
