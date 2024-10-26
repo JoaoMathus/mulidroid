@@ -8,14 +8,11 @@ import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 
-/**
- * 
- * TODO: gerar um alerta para revisar e confirmar os dados.
- */
 const ServicoForm = () => {
     const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
     const [data, setData] = useState(dayjs());
     const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
+    const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
     const dados = [
         {key: "1", value: "Alomomola"},
@@ -31,12 +28,12 @@ const ServicoForm = () => {
                 <Input label="Bairro" />
                 <Input label="Valor" />
                 <Input label="Veículo" />
-                <Text className="text-lg text-center text-black" weight="semiBold">
-                    Data: {data.format("DD/MM/YYYY")}
-                </Text>
                 <Pressable className="bg-blue-500 p-4 rounded-md mt-4"
                     onPress={() => setMostrarDatePicker(true)}>
-                    <Text className="text-lg text-center text-white">Configurar data</Text>
+                    <Text className="text-2xl text-center text-white" weight="extraBold">Configurar data</Text>
+                    <Text className="text-xl text-center text-white" weight="bold">
+                        Data: {data.format("DD/MM/YYYY")}
+                    </Text>
                 </Pressable>
                 <Modal
                     animationType="fade"
@@ -71,8 +68,42 @@ const ServicoForm = () => {
                     placeholder="Selecionar ajudantes"
                     search={false}
                 />
-                <Button className="bg-blue-500 p-4 rounded-md mt-4">
-                    <Text className="text-lg text-center text-white" weight="semiBold">Cadastrar</Text>
+                <Modal
+                    animationType="slide"
+                    visible={mostrarConfirmacao}
+                    onRequestClose={() => {
+                        Alert.alert("Cancelado!");
+                    }}
+                >
+                    <View className="mt-10 p-6 gap-5">
+                        <Text className="text-xl text-center" weight="extraBold">Tem certeza do que está fazendo?</Text>
+                        <Text className="text-xl" weight="extraBold">-- Dados entrados</Text>
+                        <View className="bg-slate-200 p-5 rounded-md">
+                            <Text className="text-xl" weight="bold">Endereço:</Text>
+                            <Text>Ruínas Sinjoh</Text>
+                            <Text className="text-xl" weight="bold">Bairro:</Text>
+                            <Text>Indeterminado</Text>
+                            <Text className="text-xl" weight="bold">Valor:</Text>
+                            <Text>R$ 100.000,00</Text>
+                            <Text className="text-xl" weight="bold">Veículo:</Text>
+                            <Text>Arceus</Text>
+                            <Text className="text-xl" weight="bold">Data:</Text>
+                            <Text>17/08/2007</Text>
+                            <Text className="text-xl" weight="bold">Ajudantes:</Text>
+                            <Text>Typhlosion, Ariados, Dunsparce, Quagsire, Muk, Electabuzz</Text>
+                        </View>
+                        <View className="gap-2">
+                            <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}>
+                                <Text className="text-xl text-center text-white">Cancelar</Text>
+                            </Button>
+                            <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Chama função que confirma a mudança no banco local")}>
+                                <Text className="text-xl text-center text-white">Tenho absoluta certeza!</Text>
+                            </Button>
+                        </View>
+                    </View>
+                </Modal>
+                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(true)}>
+                    <Text className="text-xl text-center text-white" weight="semiBold">Cadastrar</Text>
                 </Button>
             </View>
         </ScrollView>
