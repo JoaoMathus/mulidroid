@@ -31,12 +31,12 @@ const ServicoForm = () => {
                 <Input label="Bairro" />
                 <Input label="Valor" />
                 <Input label="Veículo" />
-                <Text className="text-lg text-center text-black" weight="semiBold">
-                    Data: {data.format("DD/MM/YYYY")}
-                </Text>
                 <Pressable className="bg-blue-500 p-4 rounded-md mt-4"
                     onPress={() => setMostrarDatePicker(true)}>
-                    <Text className="text-lg text-center text-white">Configurar data</Text>
+                    <Text className="text-2xl text-center text-white" weight="extraBold">Configurar data</Text>
+                    <Text className="text-xl text-center text-white" weight="bold">
+                        Data: {data.format("DD/MM/YYYY")}
+                    </Text>
                 </Pressable>
                 <Modal
                     animationType="fade"
@@ -71,7 +71,7 @@ const ServicoForm = () => {
                     placeholder="Selecionar ajudantes"
                     search={false}
                 />
-                <Button className="bg-blue-500 p-4 rounded-md mt-4">
+                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Cadastrado!")}>
                     <Text className="text-lg text-center text-white" weight="semiBold">Cadastrar</Text>
                 </Button>
             </View>

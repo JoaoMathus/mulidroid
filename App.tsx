@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <View className="flex items-center h-screen p-10">
-      <TelaHome />
+      <ServicoForm />
     </View>
   );
 }
