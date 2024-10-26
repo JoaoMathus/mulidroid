@@ -16,6 +16,7 @@ const ServicoForm = () => {
     const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
     const [data, setData] = useState(dayjs());
     const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
+    const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
     const dados = [
         {key: "1", value: "Alomomola"},
@@ -71,8 +72,25 @@ const ServicoForm = () => {
                     placeholder="Selecionar ajudantes"
                     search={false}
                 />
-                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Cadastrado!")}>
-                    <Text className="text-lg text-center text-white" weight="semiBold">Cadastrar</Text>
+                <Modal
+                    animationType="slide"
+                    visible={mostrarConfirmacao}
+                    onRequestClose={() => {
+                        Alert.alert("Cancelado!");
+                    }}
+                >
+                    <View className="mt-10 p-6">
+                        <Text className="text-xl text-center" weight="extraBold">Tem certeza do que está fazendo?</Text>
+                        <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}>
+                            <Text className="text-xl text-center text-white">Cancelar</Text>
+                        </Button>
+                        <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Chama função que confirma a mudança no banco local")}>
+                            <Text className="text-xl text-center text-white">Tenho absoluta certeza!</Text>
+                        </Button>
+                    </View>
+                </Modal>
+                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(true)}>
+                    <Text className="text-xl text-center text-white" weight="semiBold">Cadastrar</Text>
                 </Button>
             </View>
         </ScrollView>
