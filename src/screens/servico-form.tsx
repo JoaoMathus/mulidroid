@@ -8,10 +8,6 @@ import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 
-/**
- * 
- * TODO: gerar um alerta para revisar e confirmar os dados.
- */
 const ServicoForm = () => {
     const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
     const [data, setData] = useState(dayjs());
@@ -79,14 +75,31 @@ const ServicoForm = () => {
                         Alert.alert("Cancelado!");
                     }}
                 >
-                    <View className="mt-10 p-6">
+                    <View className="mt-10 p-6 gap-5">
                         <Text className="text-xl text-center" weight="extraBold">Tem certeza do que está fazendo?</Text>
-                        <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}>
-                            <Text className="text-xl text-center text-white">Cancelar</Text>
-                        </Button>
-                        <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Chama função que confirma a mudança no banco local")}>
-                            <Text className="text-xl text-center text-white">Tenho absoluta certeza!</Text>
-                        </Button>
+                        <Text className="text-xl" weight="extraBold">-- Dados entrados</Text>
+                        <View className="bg-slate-200 p-5 rounded-md">
+                            <Text className="text-xl" weight="bold">Endereço:</Text>
+                            <Text>Ruínas Sinjoh</Text>
+                            <Text className="text-xl" weight="bold">Bairro:</Text>
+                            <Text>Indeterminado</Text>
+                            <Text className="text-xl" weight="bold">Valor:</Text>
+                            <Text>R$ 100.000,00</Text>
+                            <Text className="text-xl" weight="bold">Veículo:</Text>
+                            <Text>Arceus</Text>
+                            <Text className="text-xl" weight="bold">Data:</Text>
+                            <Text>17/08/2007</Text>
+                            <Text className="text-xl" weight="bold">Ajudantes:</Text>
+                            <Text>Typhlosion, Ariados, Dunsparce, Quagsire, Muk, Electabuzz</Text>
+                        </View>
+                        <View className="gap-2">
+                            <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}>
+                                <Text className="text-xl text-center text-white">Cancelar</Text>
+                            </Button>
+                            <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Chama função que confirma a mudança no banco local")}>
+                                <Text className="text-xl text-center text-white">Tenho absoluta certeza!</Text>
+                            </Button>
+                        </View>
                     </View>
                 </Modal>
                 <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(true)}>
