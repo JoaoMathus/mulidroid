@@ -5,3 +5,5 @@ interface IAjudante {
   birthDate: string;
   driver: boolean;
 }
+
+export default IAjudante;
