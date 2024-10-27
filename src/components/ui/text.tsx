@@ -6,11 +6,12 @@ interface TextProps {
   children: React.ReactNode;
   weight?: string;
   className?: string;
+  lines?: number;
 }
 
-const Text = ({ children, className, weight = "regular" }: TextProps) => {
+const Text = ({ children, className, lines, weight = "regular" }: TextProps) => {
   return (
-    <RNText className={className} style={{ fontFamily: fontVariants[weight] }}>
+    <RNText numberOfLines={lines} className={className} style={{ fontFamily: fontVariants[weight] }}>
       {children}
     </RNText>
   )

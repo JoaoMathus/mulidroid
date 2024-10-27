@@ -6,7 +6,7 @@ import Text from "../components/ui/text"
 
 const Login = () => {
   return (
-    <View className="w-full gap-6">
+    <View className="w-full h-full justify-center gap-6">
       <View className="items-center">
         <Image className="w-52 h-52" source={require("../../assets/mulidroid_logo.png")}/>
       </View>
