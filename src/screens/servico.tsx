@@ -1,11 +1,69 @@
 import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { FlatList, ScrollView, View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar, DollarSign } from "lucide-react-native";
 import Divider from "../components/ui/divider";
+import CardAjudante from "../components/card-ajudante";
 
-//TO-DO: CRIAR COMPONENTE CARD PARA O SERVIÇO
+const ajudantes = [
+  {
+    alias: "Alomomola",
+    name: "Zé Carambola",
+    phoneNumber: "21999999999",
+    birthDate: "04/04/2004",
+    driver: false
+  },
+  {
+    alias: "Garbodor",
+    name: "Anderson Linhares",
+    phoneNumber: "2177377773",
+    birthDate: "26/06/2006",
+    driver: false
+  },
+  {
+    alias: "Alomomola",
+    name: "Zé Carambola",
+    phoneNumber: "21999999991",
+    birthDate: "04/04/2004",
+    driver: false
+  },
+  {
+    alias: "Garbodor",
+    name: "Anderson Linhares",
+    phoneNumber: "21777117777",
+    birthDate: "26/06/2006",
+    driver: false
+  },
+  {
+    alias: "Alomomola",
+    name: "Zé Carambola",
+    phoneNumber: "21996999999",
+    birthDate: "04/04/2004",
+    driver: false
+  },
+  {
+    alias: "Garbodor",
+    name: "Anderson Linhares",
+    phoneNumber: "21775777777",
+    birthDate: "26/06/2006",
+    driver: false
+  },
+  {
+    alias: "Alomomola",
+    name: "Zé Carambola",
+    phoneNumber: "21999299999",
+    birthDate: "04/04/2004",
+    driver: false
+  },
+  {
+    alias: "Garbodor",
+    name: "Anderson Linhares",
+    phoneNumber: "21737777777",
+    birthDate: "26/06/2006",
+    driver: false
+  }
+]
 
 const Servico = () => {
 
@@ -25,18 +83,14 @@ const Servico = () => {
       </View>
       <Divider margin={6} />
       <Text className="text-xl mb-3" weight="bold">Ajudantes</Text>
-      <View className="h-full">
-        <ScrollView className="max-h-[480px] shadow-lg">
-          <View className="mb-2 border border-zinc-200/70 rounded-md flex-row justify-between items-center px-3 py-6">
-            <Text className="text-xl" weight="semiBold">Alomomola</Text>
-            <View className="flex-row items-center">
-              <DollarSign size={20} color={"#f44336"} />
-              <Text className="text-xl mt-px text-black/80" weight="regular">90,00</Text>
-            </View>
-          </View>
-        </ScrollView>
-        <Button className="bg-blue-500 p-6 mt-2 rounded-md">
-          <Text className="text-center text-white" weight="semiBold">Editar</Text>
+      <View className="h-full max-h-[540px]">
+        <FlatList 
+          data={ajudantes} 
+          renderItem={(item) => <CardAjudante ajudante={item} />} 
+          keyExtractor={(item) => item.phoneNumber} 
+        />
+        <Button className="bg-blue-500 p-5 mt-2 rounded-md">
+          <Text className="text-center text-white text-lg" weight="semiBold">Editar</Text>
         </Button>
       </View>
     </View>
