@@ -69,6 +69,7 @@ const ServicoForm = () => {
                     search={false}
                 />
                 <Modal
+                    testID="modal-confirmacao"
                     animationType="slide"
                     visible={mostrarConfirmacao}
                     onRequestClose={() => {
