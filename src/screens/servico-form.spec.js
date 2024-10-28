@@ -12,4 +12,13 @@ describe('ServicoForm', () => {
             expect(modal).toHaveProp("visible", true);
         });
     });
+    describe('clicar em configurar data', () => {
+        it('mostra modal de seleção da data', () => {
+            render(<ServicoForm />);
+
+            fireEvent.press(screen.getByText('Configurar data'));
+            const modal = screen.getByTestId('modal-date-time-picker');
+            expect(modal).toHaveProp("visible", true);
+        })
+    })
 });
