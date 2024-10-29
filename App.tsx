@@ -21,6 +21,7 @@ import AjudanteForm from "./src/screens/ajudante-form";
 import ServicoForm from './src/screens/servico-form';
 import TelaPerfil from './src/screens/perfil';
 import TelaHome from './src/screens/home';
+import Login from "./src/screens/login";
 
 
 export default function App() {
@@ -49,7 +50,7 @@ export default function App() {
 
   return (
     <View className="flex items-center h-screen p-10">
-      <ServicoForm />
+      <Login />
     </View>
   );
 }
