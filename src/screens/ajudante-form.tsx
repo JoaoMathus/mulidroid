@@ -7,7 +7,7 @@ import CheckBox from "../components/ui/checkbox";
 
 const AjudanteForm = () => {
   return (
-    <View className="w-full gap-5">
+    <View className="w-full gap-5 p-8 my-auto">
       <Text className="text-left text-3xl" weight="black">Cadastro de Ajudante</Text>
       <Input label="Apelido"/>
       <Input label="Nome"/>

@@ -21,7 +21,7 @@ const ServicoForm = () => {
     ]
 
     return (
-        <ScrollView className="mt-10 w-full">
+        <ScrollView className="mt-10 w-full p-8">
             <View className="gap-5">
                 <Text className="text-left text-2xl" weight="black">Cadastro de Serviço</Text>
                 <Input label="Endereço" />

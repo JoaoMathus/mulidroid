@@ -6,7 +6,7 @@ import Button from "../components/ui/button";
 
 const VeiculoForm = () => {
   return (
-    <View className="mt-10 w-full gap-5">
+    <View className="mt-10 w-full gap-5 p-8">
       <Text className="text-left text-2xl" weight="black">Cadastro de Veículos</Text>
       <Input label="Placa"/>
       <Input label="Modelo"/>
