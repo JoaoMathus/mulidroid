@@ -36,6 +36,7 @@ const ServicoForm = () => {
                     </Text>
                 </Pressable>
                 <Modal
+                    testID="modal-date-time-picker"
                     animationType="fade"
                     transparent={false}
                     visible={mostrarDatePicker}
@@ -69,6 +70,7 @@ const ServicoForm = () => {
                     search={false}
                 />
                 <Modal
+                    testID="modal-confirmacao"
                     animationType="slide"
                     visible={mostrarConfirmacao}
                     onRequestClose={() => {
