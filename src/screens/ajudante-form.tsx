@@ -5,6 +5,10 @@ import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import CheckBox from "../components/ui/checkbox";
 
+/**
+ * 
+ * Sugestão: quando tocar em cadastrar, aparecer uma modal de confirmação.
+ */
 const AjudanteForm = () => {
   return (
     <View className="w-full gap-5 p-8 my-auto">
