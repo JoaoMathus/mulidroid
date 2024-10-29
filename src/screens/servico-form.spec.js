@@ -19,6 +19,6 @@ describe('ServicoForm', () => {
             fireEvent.press(screen.getByText('Configurar data'));
             const modal = screen.getByTestId('modal-date-time-picker');
             expect(modal).toHaveProp("visible", true);
-        })
-    })
+        });
+    });
 });
