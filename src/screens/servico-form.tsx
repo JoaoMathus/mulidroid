@@ -68,27 +68,25 @@ const ServicoForm = () => {
                         </Button>
                     </View>
                 </Modal>
-                <MultiSelect
-                    dropdownPosition="top"
-                    style={styles.dropdown}
-                    placeholderStyle={{
-                        fontSize: 14
-                    }}
-                    selectedTextStyle={{
-                        fontSize: 14
-                    }}
-                    containerStyle={styles.container}
-                    search
-                    data={dados}
-                    labelField="label"
-                    valueField="value"
-                    placeholder="Selecionar ajudantes"
-                    searchPlaceholder="Procurar..."
-                    value={ajudantesSelecionados}
-                    onChange={item => {
-                        setAjudantesSelecionados(item);
-                    }}
-                />
+                <View>
+                    <Text className="mb-2" weight="medium">Selecionar ajudantes</Text>
+                    <MultiSelect
+                        dropdownPosition="top"
+                        style={styles.dropdown}
+                        fontFamily={fontVariants['light']}
+                        containerStyle={styles.container}
+                        search
+                        data={dados}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Selecione"
+                        searchPlaceholder="Procurar..."
+                        value={ajudantesSelecionados}
+                        onChange={item => {
+                            setAjudantesSelecionados(item);
+                        }}
+                    />
+                </View>
                 <Modal
                     testID="modal-confirmacao"
                     animationType="slide"
@@ -134,14 +132,17 @@ const ServicoForm = () => {
 
 const styles = StyleSheet.create({
     dropdown: {
-        height: 50,
+        paddingVertical: 16,
+        paddingHorizontal: 16,
         backgroundColor: 'transparent',
-        borderBottomColor: 'gray',
-        borderBottomWidth: 0.5,
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     },
     container: {
-        borderWidth: 0.5,
-        borderColor: '#000'
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     }
 });
 
