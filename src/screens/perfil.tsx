@@ -35,6 +35,7 @@ const Item = ({endereco, valor}) => (
  */
 const TelaPerfil = () => {
     const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
+    const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
     return (
         <View className="w-full mt-3 gap-2">
             <Text className="text-xl" weight="extraBold">Perfil</Text>
@@ -56,7 +57,7 @@ const TelaPerfil = () => {
                 <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarModalSenha(true)}>
                     <Text className="text-lg text-center text-white" weight="semiBold">Alterar senha</Text>
                 </Button>
-                <Button className="bg-blue-500 p-4 rounded-md mt-4">
+                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarModalNomeUsuario(true)}>
                     <Text className="text-lg text-center text-white" weight="semiBold">Alterar nome de usuário</Text>
                 </Button>
             </View>
@@ -66,22 +67,46 @@ const TelaPerfil = () => {
                 visible={mostrarModalSenha}
                 onRequestClose={() => {
                     setMostrarModalSenha(!mostrarModalSenha);
-                }}>
-                    <View className='h-full mx-6 justify-center gap-5'>
-                        <Input label='Nova senha' />
-                        <View>
-                            <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarModalSenha(false)}>
-                                <Text className="text-lg text-center text-white">Cancelar</Text>
-                            </Button>
-                            <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => {
-                                Alert.alert('Senha salva!');
-                                setMostrarModalSenha(false);
-                            }}>
-                                <Text className="text-lg text-center text-white">Salvar</Text>
-                            </Button>
-                        </View>
+                }}
+            >
+                <View className='h-full mx-6 justify-center gap-5'>
+                    <Input label='Nova senha' />
+                    <View>
+                        <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarModalSenha(false)}>
+                            <Text className="text-lg text-center text-white">Cancelar</Text>
+                        </Button>
+                        <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => {
+                            Alert.alert('Senha salva!');
+                            setMostrarModalSenha(false);
+                        }}>
+                            <Text className="text-lg text-center text-white">Salvar</Text>
+                        </Button>
                     </View>
-                </Modal>
+                </View>
+            </Modal>
+            <Modal
+                testID='modal-nome-usuario'
+                animationType='fade'
+                visible={mostrarModalNomeUsuario}
+                onRequestClose={() => {
+                    setMostrarModalSenha(!mostrarModalNomeUsuario);
+                }}
+            >
+                <View className='h-full mx-6 justify-center gap-5'>
+                    <Input label='Mudar nome de usuário' />
+                    <View>
+                        <Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setMostrarModalNomeUsuario(false)}>
+                            <Text className="text-lg text-center text-white">Cancelar</Text>
+                        </Button>
+                        <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => {
+                            Alert.alert('Nome salvo!');
+                            setMostrarModalNomeUsuario(false);
+                        }}>
+                            <Text className="text-lg text-center text-white">Salvar</Text>
+                        </Button>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
