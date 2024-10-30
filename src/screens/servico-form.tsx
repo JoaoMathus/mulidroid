@@ -1,31 +1,30 @@
 import { useState } from "react";
-import { View, ScrollView, Modal, Alert } from "react-native";
+import { View, ScrollView, Modal, Alert, StyleSheet } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
 import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
+import { MultiSelect } from "react-native-element-dropdown";
 
-/**
- * 
- * TODO: mudar de biblioteca de dropdown.
- */
+const dados = [
+    { label: 'Alomomola', value: '1' },
+    { label: 'Garbodor', value: '2' },
+    { label: 'Girafarig', value: '3' },
+];
+
 const ServicoForm = () => {
     const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
     const [data, setData] = useState(dayjs());
     const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
     const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
-    const dados = [
-        { key: "1", value: "Alomomola" },
-        { key: "2", value: "Garbodor" },
-        { key: "3", value: "Girafarig" },
-    ]
-
     return (
-        <ScrollView className="mt-10 w-full p-8">
+        <ScrollView
+            className="m-10 w-full gap-2"
+            contentContainerClassName="py-5"
+            >
             <View className="gap-5">
                 <Text className="text-left text-2xl" weight="black">Cadastro de Serviço</Text>
                 <Input label="Endereço" />
@@ -69,13 +68,25 @@ const ServicoForm = () => {
                         </Button>
                     </View>
                 </Modal>
-                <MultipleSelectList
-                    setSelected={(valor) => setAjudantesSelecionados(valor)}
-                    data={dados}
-                    save="value"
-                    placeholder="Selecionar ajudantes"
-                    search={false}
-                />
+                <View>
+                    <Text className="mb-2" weight="medium">Selecionar ajudantes</Text>
+                    <MultiSelect
+                        dropdownPosition="top"
+                        style={styles.dropdown}
+                        fontFamily={fontVariants['light']}
+                        containerStyle={styles.container}
+                        search
+                        data={dados}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Selecione"
+                        searchPlaceholder="Procurar..."
+                        value={ajudantesSelecionados}
+                        onChange={item => {
+                            setAjudantesSelecionados(item);
+                        }}
+                    />
+                </View>
                 <Modal
                     testID="modal-confirmacao"
                     animationType="slide"
@@ -118,5 +129,21 @@ const ServicoForm = () => {
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    dropdown: {
+        paddingVertical: 16,
+        paddingHorizontal: 16,
+        backgroundColor: 'transparent',
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    container: {
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    }
+});
 
 export default ServicoForm;
