@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, ScrollView, Modal, Alert, Pressable } from "react-native";
+import { View, ScrollView, Modal, Alert } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
@@ -15,9 +15,9 @@ const ServicoForm = () => {
     const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
     const dados = [
-        {key: "1", value: "Alomomola"},
-        {key: "2", value: "Garbodor"},
-        {key: "3", value: "Girafarig"},
+        { key: "1", value: "Alomomola" },
+        { key: "2", value: "Garbodor" },
+        { key: "3", value: "Girafarig" },
     ]
 
     return (
@@ -28,13 +28,15 @@ const ServicoForm = () => {
                 <Input label="Bairro" />
                 <Input label="Valor" />
                 <Input label="Veículo" />
-                <Pressable className="bg-blue-500 p-4 rounded-md mt-4"
-                    onPress={() => setMostrarDatePicker(true)}>
-                    <Text className="text-2xl text-center text-white" weight="extraBold">Configurar data</Text>
-                    <Text className="text-xl text-center text-white" weight="bold">
-                        Data: {data.format("DD/MM/YYYY")}
-                    </Text>
-                </Pressable>
+                <View>
+                    <Text className="mb-2" weight="medium">Data do serviço</Text>
+                    <Button className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
+                        onPress={() => setMostrarDatePicker(true)}>
+                        <Text className="text-xl text-black" weight="light">
+                            {data.format("DD/MM/YYYY")}
+                        </Text>
+                    </Button>
+                </View>
                 <Modal
                     testID="modal-date-time-picker"
                     animationType="fade"
@@ -46,20 +48,21 @@ const ServicoForm = () => {
                     }}>
                     <View className="mt-10 p-6">
                         <DateTimePicker
-                            calendarTextStyle={{fontFamily: fontVariants["regular"]}}
-                            selectedTextStyle={{fontFamily: fontVariants["bold"]}}
-                            headerTextStyle={{textTransform: "capitalize"}}
-                            headerButtonStyle={{backgroundColor: "#3b82f6", borderRadius: 100, padding: 6}}
+                            calendarTextStyle={{ fontFamily: fontVariants["regular"] }}
+                            selectedTextStyle={{ fontFamily: fontVariants["bold"] }}
+                            headerTextStyle={{ textTransform: "capitalize" }}
+                            headerButtonStyle={{ backgroundColor: "#3b82f6", borderRadius: 100, padding: 6 }}
                             headerButtonColor="#fff"
+                            selectedItemColor="#3b82f6"
                             locale={dayjs.locale("pt-br")}
                             mode="single"
                             date={data}
                             onChange={(params) => setData(dayjs(params.date))}
                         />
-                        <Pressable className="bg-blue-500 p-4 rounded-md mt-4"
-                            onPress={() => { setMostrarDatePicker(!mostrarDatePicker)}}>
+                        <Button className="bg-blue-500 p-4 rounded-md mt-4"
+                            onPress={() => { setMostrarDatePicker(!mostrarDatePicker) }}>
                             <Text className="text-lg text-center text-white">Selecionar</Text>
-                        </Pressable>
+                        </Button>
                     </View>
                 </Modal>
                 <MultipleSelectList
