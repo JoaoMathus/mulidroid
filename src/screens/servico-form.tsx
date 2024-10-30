@@ -8,6 +8,10 @@ import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 
+/**
+ * 
+ * TODO: mudar de biblioteca de dropdown.
+ */
 const ServicoForm = () => {
     const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
     const [data, setData] = useState(dayjs());

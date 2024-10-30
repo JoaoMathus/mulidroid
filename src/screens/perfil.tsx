@@ -32,6 +32,13 @@ const Item = ({endereco, valor}) => (
 /**
  * 
  * Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
+ * 
+ * Testes:
+ * Quando banco estiver implementado:
+ *  testar o resgate dos dados do usuário;
+ *  testar a lista de serviços não pagos;
+ *  testar a modificação de senha,
+ *  testar a modificação de nome de usuário.
  */
 const TelaPerfil = () => {
     const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
