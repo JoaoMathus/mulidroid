@@ -4,6 +4,10 @@ import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 
+/**
+ * 
+ * Sugestão: quando tocar em cadastrar, aparecer uma modal de confirmação.
+ */
 const VeiculoForm = () => {
   return (
     <View className="mt-10 w-full gap-5 p-8">

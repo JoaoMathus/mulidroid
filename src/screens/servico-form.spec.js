@@ -2,6 +2,9 @@ import React from 'react';
 import { fireEvent, render, screen, getByTestId } from '@testing-library/react-native';
 import ServicoForm from './servico-form';
 
+/**
+ * Basicamente o que falta é testar a conexão com o banco.
+ */
 describe('ServicoForm', () => {
     describe('clicar em cadastrar', () => {
         it('mostra modal de confirmação', () => {
@@ -19,6 +22,6 @@ describe('ServicoForm', () => {
             fireEvent.press(screen.getByText('Configurar data'));
             const modal = screen.getByTestId('modal-date-time-picker');
             expect(modal).toHaveProp("visible", true);
-        })
-    })
+        });
+    });
 });

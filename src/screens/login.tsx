@@ -8,7 +8,11 @@ const Login = () => {
   return (
     <View className="w-full h-full justify-center gap-6">
       <View className="items-center">
-        <Image className="w-52 h-52" source={require("../../assets/mulidroid_logo.png")}/>
+        <Image
+          className="w-52 h-52"
+          source={require("../../assets/mulidroid_logo.png")}
+          accessibilityLabel="A logo do aplicativo"
+          />
       </View>
       <View className="gap-6">
         <View>
