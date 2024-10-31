@@ -32,6 +32,7 @@ const Item = ({endereco, valor}) => (
 /**
  * 
  * Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
+ * É preciso reestilizar a página para comportar um botão de logoff.
  * 
  * Testes:
  * Quando banco estiver implementado:
