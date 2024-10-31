@@ -4,7 +4,12 @@ import Input from "../components/ui/input"
 import Button from "../components/ui/button"
 import Text from "../components/ui/text"
 
-const Login = () => {
+const admin = {
+  user: 'Alomomola',
+  password: 'Muitobom'
+}
+
+const Login = ({autenticar}) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   return (
@@ -25,7 +30,13 @@ const Login = () => {
           <Text className="text-sm text-black/50 underline self-end mt-1">Esqueceu a senha ?</Text>
         </View>
       </View>
-      <Button className="bg-blue-500 p-5 rounded-md">
+      <Button className="bg-blue-500 p-5 rounded-md" onPress={() => {
+        if (usuario == admin.user && senha == admin.password) {
+          autenticar(true);
+        } else {
+          Alert.alert('Usuário ou senha errada!');
+        }
+      }}>
         <Text className="text-center text-lg text-white" weight="semiBold">Login</Text>
       </Button>
     </View>
