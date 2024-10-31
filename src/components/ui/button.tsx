@@ -5,12 +5,13 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   onPress?: () => void;
+  testId?: string;
 }
 
-const Button = ({children, className, onPress}: ButtonProps) => {
+const Button = ({children, className, onPress, testId}: ButtonProps) => {
 
   return (
-    <TouchableOpacity onPress={onPress} className={className} activeOpacity={0.5}>
+    <TouchableOpacity onPress={onPress} className={className} testID={testId} activeOpacity={0.5}>
       {children}
     </TouchableOpacity>
   )
