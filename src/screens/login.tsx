@@ -32,7 +32,7 @@ const Login = ({autenticar}) => {
       </View>
       <Button className="bg-blue-500 p-5 rounded-md" onPress={() => {
         if (usuario == admin.user && senha == admin.password) {
-          autenticar(true);
+          autenticar();
         } else {
           Alert.alert('Usuário ou senha errada!');
         }

@@ -40,11 +40,14 @@ const Item = ({endereco, valor}) => (
  *  testar a modificação de senha,
  *  testar a modificação de nome de usuário.
  */
-const TelaPerfil = () => {
+const TelaPerfil = ({logoff}) => {
     const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
     const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
     return (
         <View className="w-full mt-3 gap-2">
+            <Button className="bg-red-500 rounded-md" onPress={() => logoff()}>
+                <Text className="text-lg text-center text-white" weight="bold">Logoff</Text>
+            </Button>
             <Text className="text-xl" weight="extraBold">Perfil</Text>
             <Text className="text-5xl" weight="black">Zé Carambola</Text>
             <Text className="text-xl" weight="bold">Alomomola da Silva Silveira</Text>

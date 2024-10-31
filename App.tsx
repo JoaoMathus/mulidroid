@@ -55,7 +55,7 @@ export default function App() {
 
   return (
     <View className="flex items-center h-screen p-10">
-      {!logado ? (<Login autenticar={setLogado} />) : <TelaHome />}
+      {logado ? (<TelaPerfil logoff={() => setLogado(!logado)} />) : (<Login autenticar={() => setLogado(true)} />)}
     </View>
   );
 }
