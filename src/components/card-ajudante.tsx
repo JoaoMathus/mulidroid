@@ -4,7 +4,7 @@ import Text from "./ui/text";
 import IAjudante from "../interfaces/IAjudante";
 
 interface CardAjudanteProps {
-  ajudante: ListRenderItemInfo<IAjudante>;
+  ajudante: IAjudante;
 }
 
 const CardAjudante = ({ajudante}: CardAjudanteProps) => {
