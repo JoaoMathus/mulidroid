@@ -33,6 +33,7 @@ const ServicoForm = () => {
                 <View>
                     <Text className="mb-2" weight="medium">Data do serviço</Text>
                     <Button className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
+                        testId="botao-data"
                         onPress={() => setMostrarDatePicker(true)}>
                         <Text className="text-xl text-black" weight="light">
                             {data.format("DD/MM/YYYY")}
@@ -40,7 +41,7 @@ const ServicoForm = () => {
                     </Button>
                 </View>
                 <Modal
-                    testID="modal-date-time-picker"
+                    testID="modal-data"
                     animationType="fade"
                     transparent={false}
                     visible={mostrarDatePicker}

@@ -15,7 +15,7 @@ import {
   SofiaSans_800ExtraBold,
   SofiaSans_900Black,
 } from "@expo-google-fonts/sofia-sans";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "./src/components/ui/button";
 import AjudanteForm from "./src/screens/ajudante-form";
 import ServicoForm from './src/screens/servico-form';
@@ -30,6 +30,7 @@ import Home from "./src/screens/home";
  * TODO: implementar a navegação
  */
 export default function App() {
+    const [logado, setLogado] = useState(false);
 
     const [loaded, error] = useFonts({
       SofiaSans_100Thin,
@@ -54,8 +55,8 @@ export default function App() {
     }
 
   return (
-    <ScrollView contentContainerClassName="items-center">
-      <Home />
-    </ScrollView>
+    <View className="flex items-center h-screen p-10">
+      {logado ? (<TelaPerfil logoff={() => setLogado(!logado)} />) : (<Login autenticar={() => setLogado(true)} />)}
+    </View>
   );
 }
