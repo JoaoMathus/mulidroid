@@ -70,7 +70,7 @@ const Servico = () => {
   const [expandAddress, setExpandAdress] = useState(1);
 
   return (
-    <View className="p-8 my-auto mt-8">
+    <View className="p-8 my-auto mt-8 w-full">
       <View>
         <Button onPress={() => expandAddress === 1 ? setExpandAdress(2) : setExpandAdress(1)}>
           <Text className="text-3xl overflow-ellipsis max-w-[320px]" lines={expandAddress} weight="black">São José do Vale do Rio Preto</Text>
@@ -84,11 +84,11 @@ const Servico = () => {
       <Divider margin={6} />
       <Text className="text-xl mb-3" weight="bold">Ajudantes</Text>
       <View className="h-full max-h-[540px]">
-        <FlatList 
-          data={ajudantes} 
-          renderItem={(item) => <CardAjudante ajudante={item} />} 
-          keyExtractor={(item) => item.phoneNumber} 
-        />
+        <ScrollView>
+          {
+            ajudantes.map(ajudante => <CardAjudante key={ajudante.phoneNumber} ajudante={ajudante}/>)
+          }
+        </ScrollView>
         <Button className="bg-blue-500 p-5 mt-2 rounded-md">
           <Text className="text-center text-white text-lg" weight="semiBold">Editar</Text>
         </Button>

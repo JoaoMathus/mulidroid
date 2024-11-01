@@ -73,11 +73,9 @@ const Home = () => {
                 </Button>
             </View>
             <View>
-                <FlatList
-                    data={dados}
-                    renderItem={({ item }) => <CardServico servico={item} />}
-                    keyExtractor={item => item.id}
-                />
+                {
+                    dados.map(dado => <CardServico key={dado.id} servico={dado}/>)
+                }
             </View>
         </View>
     )

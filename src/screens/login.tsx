@@ -13,7 +13,7 @@ const Login = ({autenticar}) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   return (
-    <View className="w-full h-full justify-center gap-6">
+    <View className="w-full h-full justify-center gap-6 p-8">
       <View className="items-center">
         <Image
           className="w-52 h-52"

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import "./global.css";
 import Text from "./src/components/ui/text";
 import * as SplashScreen from "expo-splash-screen";
@@ -24,6 +24,7 @@ import TelaHome from './src/screens/home';
 import Login from "./src/screens/login";
 import VeiculoForm from "./src/screens/veiculo-form";
 import Servico from "./src/screens/servico";
+import Home from "./src/screens/home";
 
 /**
  * TODO: implementar a navegação
