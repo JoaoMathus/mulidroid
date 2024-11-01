@@ -39,8 +39,9 @@ const Login = ({autenticar}) => {
         </View>
       </View>
       <Button className="bg-blue-500 p-5 rounded-md" onPress={async () => {
+        // Metendo o hash no garoto.
         const estaSenha = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, senha);
-        Alert.alert(await estaSenha);
+        Alert.alert(await estaSenha); // só pra depurar com os olhos mesmo.
         if (usuario == admin.user && estaSenha == await admin.password) {
           autenticar();
         } else {
