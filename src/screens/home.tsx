@@ -33,7 +33,7 @@ const dados: IServico[] = [
  * 
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const Home = () => {
+const Home = ({navigation}) => {
     return (
         <View className="p-5 mt-10 mb-10">
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
@@ -65,11 +65,14 @@ const Home = () => {
 
 
             <View className="w-full gap-5 flex flex-row mb-4">
-                <Button className="bg-blue-500 p-3 grow rounded-md mt-4">
+                <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Servico')}>
                     <Text className=" text-center text-white" weight="semiBold">Serviços</Text>
                 </Button>
-                <Button className="bg-blue-500 p-3 grow rounded-md mt-4">
+                <Button className="bg-blue-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Ajudante')}>
                     <Text className=" text-center text-white" weight="semiBold">Ajudantes</Text>
+                </Button>
+                <Button className="bg-green-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
+                    <Text className=" text-center text-white" weight="semiBold">Perfil</Text>
                 </Button>
             </View>
             <View>
