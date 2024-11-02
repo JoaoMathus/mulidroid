@@ -41,15 +41,9 @@ const Item = ({ endereco, valor }) => (
 
 /**
  * 
-
  * Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
- 
- * É preciso reestilizar a página para comportar um botão de logoff.
- 
- * FEITO: Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
- 
- * FAZER ALTERAÇÕES PARA QUE A LISTA DE SERVIÇOS NESTA TELA NÃO APAREÇA VALOR NEM
- 
+ * 
+ * FAZER ALTERAÇÕES PARA QUE A LISTA DE SERVIÇOS NESTA TELA NÃO APAREÇA VALOR NEM 
  * O NÚMERO DE AJUDANTES
  * 
  * Testes:
@@ -59,15 +53,12 @@ const Item = ({ endereco, valor }) => (
  *  testar a modificação de senha,
  *  testar a modificação de nome de usuário.
  */
-const TelaPerfil = ({logoff}) => {
+const TelaPerfil = ({navigation}) => {
     const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
     const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
 
     return (
         <View className="w-full mt-3 gap-2">
-            <Button className="bg-red-500 rounded-md" onPress={() => logoff()}>
-                <Text className="text-lg text-center text-white" weight="bold">Logoff</Text>
-            </Button>
         <View className="w-full mt-5 p-8">
             <Text className="text-xl text-blue-500 text-right" weight="bold">Perfil</Text>
             <Text className="text-3xl" weight="black">Zé Carambola</Text>

@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import Text from "../components/ui/text";
 import Button from "../components/ui/button"
 import { DollarSign, Truck, User } from "lucide-react-native";
@@ -33,9 +33,14 @@ const dados: IServico[] = [
  * 
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const Home = () => {
+const Home = ({deslogar, navigation}) => {
     return (
-        <View className="p-5 mt-10 mb-10">
+        <ScrollView className="mt-10 mb-10">
+            <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => {
+                deslogar();
+            }}>
+                <Text className=" text-center text-white" weight="semiBold">sair</Text>
+            </Button>
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
                 <View className="gap-10">    
                     <Text className="text-xl" weight="medium">Faturamento</Text>
@@ -77,7 +82,10 @@ const Home = () => {
                     dados.map(dado => <CardServico key={dado.id} servico={dado}/>)
                 }
             </View>
-        </View>
+            <Button className="bg-green-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
+                <Text className=" text-center text-white" weight="semiBold">Perfil</Text>
+            </Button>
+        </ScrollView>
     )
 }
 

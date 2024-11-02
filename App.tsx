@@ -16,6 +16,7 @@ import {
   SofiaSans_900Black,
 } from "@expo-google-fonts/sofia-sans";
 import { useEffect, useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 import Button from "./src/components/ui/button";
 import AjudanteForm from "./src/screens/ajudante-form";
 import ServicoForm from './src/screens/servico-form';
@@ -25,9 +26,12 @@ import Login from "./src/screens/login";
 import VeiculoForm from "./src/screens/veiculo-form";
 import Servico from "./src/screens/servico";
 import Home from "./src/screens/home";
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createStackNavigator();
 
 /**
- * TODO: implementar a navegação
+ * TODO: melhorar a navegação
  */
 export default function App() {
     const [logado, setLogado] = useState(false);
@@ -53,10 +57,22 @@ export default function App() {
     if (!loaded && !error) {
       return null;
     }
-
   return (
-    <View className="flex items-center h-screen p-10">
-      {logado ? (<TelaPerfil logoff={() => setLogado(!logado)} />) : (<Login autenticar={() => setLogado(true)} />)}
-    </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {!logado ? (
+            <Stack.Screen name='Login'>
+              {(props) => <Login {...props} logar={() => setLogado(true)} />}
+            </Stack.Screen>
+          ) : (
+            <>
+              <Stack.Screen name='Home'>
+                {(props) => <TelaHome {...props} deslogar={() => setLogado(false)} />}
+              </Stack.Screen>
+              <Stack.Screen name='Perfil' component={TelaPerfil} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
