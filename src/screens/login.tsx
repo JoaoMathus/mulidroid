@@ -17,7 +17,7 @@ const admin = {
   password: senhaTeste
 }
 
-const Login = ({autenticar}) => {
+const Login = ({logar}) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   return (
@@ -41,9 +41,8 @@ const Login = ({autenticar}) => {
       <Button className="bg-blue-500 p-5 rounded-md" onPress={async () => {
         // Metendo o hash no garoto.
         const estaSenha = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, senha);
-        Alert.alert(await estaSenha); // só pra depurar com os olhos mesmo.
         if (usuario == admin.user && estaSenha == await admin.password) {
-          autenticar();
+          logar();
         } else {
           Alert.alert('Usuário ou senha errada!');
         }
