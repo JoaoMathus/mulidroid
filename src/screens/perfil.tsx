@@ -142,6 +142,7 @@ const TelaPerfil = ({logoff}) => {
                 </View>
             </Modal>
         </View>
+        </View>
     )
 }
 

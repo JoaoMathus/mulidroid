@@ -1,12 +1,20 @@
 import React, { useState } from "react"
 import { Image, View, Alert } from "react-native"
+import * as Crypto from 'expo-crypto';
 import Input from "../components/ui/input"
 import Button from "../components/ui/button"
 import Text from "../components/ui/text"
 
+// Senha digerida para testes, apenas.
+const senhaTeste = Crypto.digestStringAsync(
+  Crypto.CryptoDigestAlgorithm.SHA256,
+  'Muitobom'
+);
+
+// Nosso administrador Alomomola.
 const admin = {
   user: 'Alomomola',
-  password: 'Muitobom'
+  password: senhaTeste
 }
 
 const Login = ({autenticar}) => {
@@ -30,8 +38,11 @@ const Login = ({autenticar}) => {
           <Text className="text-sm text-black/50 underline self-end mt-1">Esqueceu a senha ?</Text>
         </View>
       </View>
-      <Button className="bg-blue-500 p-5 rounded-md" onPress={() => {
-        if (usuario == admin.user && senha == admin.password) {
+      <Button className="bg-blue-500 p-5 rounded-md" onPress={async () => {
+        // Metendo o hash no garoto.
+        const estaSenha = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, senha);
+        Alert.alert(await estaSenha); // só pra depurar com os olhos mesmo.
+        if (usuario == admin.user && estaSenha == await admin.password) {
           autenticar();
         } else {
           Alert.alert('Usuário ou senha errada!');

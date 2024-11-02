@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen, getByTestId } from '@testing-library/react-native';
-import TelaPerfil from './perfil';
+import TelaPerfil from '../screens/perfil';
 
 describe('TelaPerfil', () => {
     describe('clicar em alterar senha', () => {

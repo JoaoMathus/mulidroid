@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import ServicoForm from './servico-form';
+import ServicoForm from '../screens/servico-form';
 
 /**
  * Basicamente o que falta é testar a conexão com o banco.

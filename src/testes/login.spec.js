@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import Login from './login';
+import Login from '../screens/login';
 
 /**
  * Quando 'esqueceu a senha?' estiver implementado, testá-lo.
