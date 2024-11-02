@@ -70,11 +70,14 @@ const Home = ({deslogar, navigation}) => {
 
 
             <View className="w-full gap-5 flex flex-row mb-4">
-                <Button className="bg-blue-500 p-3 grow rounded-md mt-4">
+                <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Servico')}>
                     <Text className=" text-center text-white" weight="semiBold">Serviços</Text>
                 </Button>
-                <Button className="bg-blue-500 p-3 grow rounded-md mt-4">
+                <Button className="bg-blue-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Ajudante')}>
                     <Text className=" text-center text-white" weight="semiBold">Ajudantes</Text>
+                </Button>
+                <Button className="bg-green-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
+                    <Text className=" text-center text-white" weight="semiBold">Perfil</Text>
                 </Button>
             </View>
             <View>
