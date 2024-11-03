@@ -69,25 +69,31 @@ const Home = ({deslogar, navigation}) => {
             </View>
 
 
-            <View className="w-full gap-5 flex flex-row mb-4">
-                <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Servico')}>
+            <ScrollView className="w-full" horizontal contentContainerClassName='gap-5 my-5 p-2'>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Servico')}>
                     <Text className=" text-center text-white" weight="semiBold">Serviços</Text>
                 </Button>
-                <Button className="bg-blue-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Ajudante')}>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Ajudante')}>
                     <Text className=" text-center text-white" weight="semiBold">Ajudantes</Text>
                 </Button>
-                <Button className="bg-green-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
                     <Text className=" text-center text-white" weight="semiBold">Perfil</Text>
                 </Button>
-            </View>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Cadastro de Ajudante')}>
+                    <Text className=" text-center text-white" weight="semiBold">Cadastrar ajudante</Text>
+                </Button>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Cadastro de Serviço')}>
+                    <Text className=" text-center text-white" weight="semiBold">Cadastrar serviço</Text>
+                </Button>
+                <Button className="bg-slate-900 p-3 rounded-md mt-4" onPress={() => navigation.navigate('Cadastro de Veículo')}>
+                    <Text className=" text-center text-white" weight="semiBold">Cadastrar veículo</Text>
+                </Button>
+            </ScrollView>
             <View>
                 {
                     dados.map(dado => <CardServico key={dado.id} servico={dado}/>)
                 }
             </View>
-            <Button className="bg-green-500 p-3 grow rounded-md mt-4" onPress={() => navigation.navigate('Perfil')}>
-                <Text className=" text-center text-white" weight="semiBold">Perfil</Text>
-            </Button>
         </ScrollView>
     )
 }

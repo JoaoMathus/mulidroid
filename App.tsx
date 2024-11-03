@@ -27,6 +27,7 @@ import VeiculoForm from "./src/screens/veiculo-form";
 import Servico from "./src/screens/servico";
 import Home from "./src/screens/home";
 import { NavigationContainer } from '@react-navigation/native';
+import Ajudante from "./src/screens/ajudante";
 
 const Stack = createStackNavigator();
 
@@ -70,6 +71,11 @@ export default function App() {
                 {(props) => <TelaHome {...props} deslogar={() => setLogado(false)} />}
               </Stack.Screen>
               <Stack.Screen name='Perfil' component={TelaPerfil} />
+              <Stack.Screen name='Ajudante' component={Ajudante} />
+              <Stack.Screen name='Servico' component={Servico} />
+              <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
+              <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
+              <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} />
             </>
           )}
         </Stack.Navigator>
