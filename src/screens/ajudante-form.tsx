@@ -1,5 +1,5 @@
 import React from "react"
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
@@ -11,7 +11,7 @@ import CheckBox from "../components/ui/checkbox";
  */
 const AjudanteForm = () => {
   return (
-    <View className="w-full gap-5 mt-10 p-8 my-auto">
+    <ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
       <Text className="text-left text-3xl" weight="black">Cadastro de Ajudante</Text>
       <Input label="Apelido"/>
       <Input label="Nome"/>
@@ -22,7 +22,7 @@ const AjudanteForm = () => {
       <Button className="bg-blue-500 p-4 rounded-md mt-4">
         <Text className="text-lg text-center text-white" weight="semiBold">Cadastrar</Text>
       </Button>
-    </View>
+    </ScrollView>
   )
 }
 
