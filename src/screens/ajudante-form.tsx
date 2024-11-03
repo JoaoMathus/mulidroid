@@ -7,6 +7,7 @@ import CheckBox from "../components/ui/checkbox";
 
 /**
  * Falta colocar um modal para entrada de data de nascimento.
+ * Falta implementar os testes.
  */
 const AjudanteForm = () => {
   const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -24,7 +25,7 @@ const AjudanteForm = () => {
       </Button>
       <Modal
         testID="modal-confirmacao"
-        animationType="fade"
+        animationType="slide"
         visible={mostrarConfirmacao}
         onRequestClose={() => {
             Alert.alert("Cancelado!");

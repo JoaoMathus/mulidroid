@@ -6,7 +6,7 @@ import Button from "../components/ui/button";
 
 /**
  * 
- * Sugestão: quando tocar em cadastrar, aparecer uma modal de confirmação.
+ * Falta implementar os testes.
  */
 const VeiculoForm = () => {
   const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -20,7 +20,7 @@ const VeiculoForm = () => {
       </Button>
       <Modal
         testID="modal-confirmacao"
-        animationType="fade"
+        animationType="slide"
         visible={mostrarConfirmacao}
         onRequestClose={() => {
             Alert.alert("Cancelado!");

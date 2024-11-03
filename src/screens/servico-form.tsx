@@ -38,9 +38,31 @@ const ServicoForm = () => {
                         </Text>
                     </Button>
                 </View>
+                <View>
+                    <Text className="mb-2" weight="medium">Selecionar ajudantes</Text>
+                    <MultiSelect
+                        dropdownPosition="top"
+                        style={styles.dropdown}
+                        fontFamily={fontVariants['light']}
+                        containerStyle={styles.container}
+                        search
+                        data={dados}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Selecione"
+                        searchPlaceholder="Procurar..."
+                        value={ajudantesSelecionados}
+                        onChange={item => {
+                            setAjudantesSelecionados(item);
+                        }}
+                    />
+                </View>
+                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(true)}>
+                    <Text className="text-xl text-center text-white" weight="semiBold">Cadastrar</Text>
+                </Button>
                 <Modal
                     testID="modal-data"
-                    animationType="fade"
+                    animationType="slide"
                     transparent={false}
                     visible={mostrarDatePicker}
                     onRequestClose={() => {
@@ -66,25 +88,6 @@ const ServicoForm = () => {
                         </Button>
                     </View>
                 </Modal>
-                <View>
-                    <Text className="mb-2" weight="medium">Selecionar ajudantes</Text>
-                    <MultiSelect
-                        dropdownPosition="top"
-                        style={styles.dropdown}
-                        fontFamily={fontVariants['light']}
-                        containerStyle={styles.container}
-                        search
-                        data={dados}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Selecione"
-                        searchPlaceholder="Procurar..."
-                        value={ajudantesSelecionados}
-                        onChange={item => {
-                            setAjudantesSelecionados(item);
-                        }}
-                    />
-                </View>
                 <Modal
                     testID="modal-confirmacao"
                     animationType="slide"
@@ -121,9 +124,6 @@ const ServicoForm = () => {
                         </View>
                     </View>
                 </Modal>
-                <Button className="bg-blue-500 p-4 rounded-md mt-4" onPress={() => setMostrarConfirmacao(true)}>
-                    <Text className="text-xl text-center text-white" weight="semiBold">Cadastrar</Text>
-                </Button>
             </View>
         </ScrollView>
     )
