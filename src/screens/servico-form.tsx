@@ -91,6 +91,7 @@ const ServicoForm = () => {
                     visible={mostrarConfirmacao}
                     onRequestClose={() => {
                         Alert.alert("Cancelado!");
+                        setMostrarConfirmacao(false);
                     }}
                 >
                     <View className="mt-10 p-6 gap-5">
