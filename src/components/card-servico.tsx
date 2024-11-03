@@ -2,14 +2,20 @@ import { View } from "react-native"
 import Text from "./ui/text"
 import { Calendar, DollarSign, User } from "lucide-react-native"
 import IServico from "../interfaces/IServico"
+import Button from "./ui/button";
 
 interface CardServicoProps {
   servico: IServico;
+  onPress: () => void;
+  onLongPress: () => void;
 }
 
-const CardServico = ({servico}: CardServicoProps) => {
+const CardServico = ({servico, onPress, onLongPress}: CardServicoProps) => {
   return (
-    <View className="flex-row items-center justify-between rounded-md mb-4 p-3 border border-zinc-200/70">
+    <Button
+      className="flex-row items-center justify-between rounded-md mb-4 p-3 border border-zinc-200/70"
+      onPress={onPress}
+      onLongPress={onLongPress}>
       <View>
         <Text className="" weight="bold">{servico.address}</Text>
         <Text className="text-zinc-600">{servico.neighborhood}</Text>
@@ -28,7 +34,7 @@ const CardServico = ({servico}: CardServicoProps) => {
           <Text className="text-lg mt-px">{servico.value.toFixed(2).replace(".", ",")}</Text>
         </View>
       </View>
-    </View>
+    </Button>
   )
 }
 

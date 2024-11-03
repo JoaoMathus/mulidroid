@@ -1,11 +1,12 @@
-import { View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, Alert } from 'react-native';
 import Text from "../components/ui/text";
 import Button from "../components/ui/button"
 import { DollarSign, Truck, User } from "lucide-react-native";
 import CardServico from "../components/card-servico";
 import IServico from '../interfaces/IServico';
 
-const dados: IServico[] = [
+let dados: IServico[] = [
     {
         id: "1",
         address: "Ilha de Cinnabar",
@@ -27,6 +28,13 @@ const dados: IServico[] = [
         value: 550,
         date: "27/10/2024"
     },
+    {
+        id: "4",
+        address: "Resort de Batalha",
+        neighborhood: "Sinnoh",
+        value: 1_000,
+        date: "09/01/1993"
+    },
 ];
 
 /**
@@ -34,12 +42,13 @@ const dados: IServico[] = [
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
 const TelaHome = ({deslogar, navigation}) => {
+    const [listaServicos, setListaServicos] = useState(dados);
     return (
-        <ScrollView className="w-full" contentContainerClassName='gap-5 p-8 mb-10'>
+        <ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
             <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => {
                 deslogar();
             }}>
-                <Text className=" text-center text-white" weight="semiBold">Sair</Text>
+                <Text className="text-center text-white" weight="semiBold">Sair</Text>
             </Button>
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
                 <View className="gap-10">    
@@ -91,7 +100,27 @@ const TelaHome = ({deslogar, navigation}) => {
             </ScrollView>
             <View>
                 {
-                    dados.map(dado => <CardServico key={dado.id} servico={dado}/>)
+                    listaServicos.map(dado => <CardServico
+                        key={dado.id}
+                        servico={dado}
+                        onPress={() => {
+                            navigation.navigate('Ajudante');
+                        }}
+                        onLongPress={() => Alert.alert(null,
+                            "Pagamento efetuado?",
+                        [
+                            {
+                                text: "sim",
+                                onPress: () => {
+                                    setListaServicos(listaServicos.filter(item => item.id != dado.id));
+                                },
+                            },
+                            {
+                                text: "não",
+                                onPress: () => {
+                                },
+                            },
+                        ])}/>)
                 }
             </View>
         </ScrollView>
