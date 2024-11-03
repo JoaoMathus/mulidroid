@@ -61,7 +61,7 @@ const dados: IServico[] = [
 
 const Ajudante = () => {
   return (
-    <View className="p-8 my-auto mt-8 w-full">
+    <View className="p-8 w-full">
       <View>
         <Button>
           <Text className="text-3xl overflow-ellipsis max-w-[320px]" weight="black">Zé Carambola</Text>
