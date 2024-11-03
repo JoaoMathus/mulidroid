@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, FlatList, Modal, Alert, ScrollView } from 'react-native';
+import { View, Modal, Alert, ScrollView } from 'react-native';
 import Text from "../components/ui/text";
 import Button from "../components/ui/button"
 import Input from "../components/ui/input";
@@ -58,9 +58,8 @@ const TelaPerfil = ({navigation}) => {
     const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
 
     return (
-        <View className="w-full mt-3 gap-2">
+        <ScrollView className="w-full mt-3 gap-2">
         <View className="w-full mt-5 p-8">
-            <Text className="text-xl text-blue-500 text-right" weight="bold">Perfil</Text>
             <Text className="text-3xl" weight="black">Zé Carambola</Text>
             <Text className="text-lg">Alomomola da Silva Silveira</Text>
             <View className="flex-row items-center gap-1">
@@ -133,7 +132,7 @@ const TelaPerfil = ({navigation}) => {
                 </View>
             </Modal>
         </View>
-        </View>
+        </ScrollView>
     )
 }
 
