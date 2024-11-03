@@ -21,9 +21,7 @@ const ServicoForm = () => {
     const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
     return (
-        <View
-            className=" mt-10 w-full gap-2"
-            >
+        <ScrollView className="w-full" contentContainerClassName="gap-2 p-8 mb-10">
             <View className="gap-5">
                 <Text className="text-left text-2xl" weight="black">Cadastro de Serviço</Text>
                 <Input label="Endereço" />
@@ -126,7 +124,7 @@ const ServicoForm = () => {
                     <Text className="text-xl text-center text-white" weight="semiBold">Cadastrar</Text>
                 </Button>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
