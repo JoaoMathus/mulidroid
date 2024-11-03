@@ -33,7 +33,7 @@ const dados: IServico[] = [
  * 
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const Home = ({deslogar, navigation}) => {
+const TelaHome = ({deslogar, navigation}) => {
     return (
         <ScrollView className="w-full" contentContainerClassName='gap-5 p-8 mb-10'>
             <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => {
@@ -98,4 +98,4 @@ const Home = ({deslogar, navigation}) => {
     )
 }
 
-export default Home;
+export default TelaHome;
