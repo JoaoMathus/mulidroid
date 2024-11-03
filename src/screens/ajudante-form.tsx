@@ -16,6 +16,7 @@ const AjudanteForm = () => {
       <Text className="text-left text-3xl" weight="black">Cadastro de Ajudante</Text>
       <Input label="Apelido"/>
       <Input label="Nome"/>
+      <Input label="Email" />
       <Input label="Telefone"/>
       <Input label="Data de Nascimento"/>
       <Input label="Usuário"/>
