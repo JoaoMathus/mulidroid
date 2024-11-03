@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar, DollarSign } from "lucide-react-native";
@@ -70,7 +70,7 @@ const Servico = () => {
   const [expandAddress, setExpandAdress] = useState(1);
 
   return (
-    <View className="p-8 my-auto mt-8 w-full">
+    <View className="p-8 w-full">
       <View>
         <Button onPress={() => expandAddress === 1 ? setExpandAdress(2) : setExpandAdress(1)}>
           <Text className="text-3xl overflow-ellipsis max-w-[320px]" lines={expandAddress} weight="black">São José do Vale do Rio Preto</Text>
