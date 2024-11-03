@@ -35,11 +35,11 @@ const dados: IServico[] = [
  */
 const Home = ({deslogar, navigation}) => {
     return (
-        <ScrollView className="mt-10 mb-10">
+        <ScrollView className="w-full" contentContainerClassName='gap-5 p-8 mb-10'>
             <Button className="bg-red-500 p-3 grow rounded-md mt-4" onPress={() => {
                 deslogar();
             }}>
-                <Text className=" text-center text-white" weight="semiBold">sair</Text>
+                <Text className=" text-center text-white" weight="semiBold">Sair</Text>
             </Button>
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
                 <View className="gap-10">    
