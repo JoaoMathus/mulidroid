@@ -54,20 +54,36 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           {!logado ? (
-            <Stack.Screen name='Login'>
+            <Stack.Screen name='Login' options={{
+              headerShown: false
+            }}>
               {(props) => <Login {...props} logar={() => setLogado(true)} />}
             </Stack.Screen>
           ) : (
             <>
-              <Stack.Screen name='Home'>
+              <Stack.Screen name='Home' options={{
+                headerShown: false
+              }}>
                 {(props) => <TelaHome {...props} deslogar={() => setLogado(false)} />}
               </Stack.Screen>
-              <Stack.Screen name='Perfil' component={TelaPerfil} />
-              <Stack.Screen name='Ajudante' component={Ajudante} />
-              <Stack.Screen name='Servico' component={Servico} />
-              <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
-              <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
-              <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} />
+              <Stack.Screen name='Perfil' component={TelaPerfil} options={{
+                headerTitle: ''
+              }} />
+              <Stack.Screen name='Ajudante' component={Ajudante} options={{
+                headerTitle: ''
+              }} />
+              <Stack.Screen name='Servico' component={Servico} options={{
+                headerTitle: ''
+              }} />
+              <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} options={{
+                headerTitle: ''
+              }} />
+              <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} options={{
+                headerTitle: ''
+              }} />
+              <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} options={{
+                headerTitle: ''
+              }} />
             </>
           )}
         </Stack.Navigator>
