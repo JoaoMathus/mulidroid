@@ -6,8 +6,8 @@ import Button from "./ui/button";
 
 interface CardServicoProps {
   servico: IServico;
-  onPress: () => void;
-  onLongPress: () => void;
+  onPress?: () => void;
+  onLongPress?: () => void;
 }
 
 const CardServico = ({servico, onPress, onLongPress}: CardServicoProps) => {

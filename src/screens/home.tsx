@@ -32,7 +32,7 @@ let dados: IServico[] = [
         id: "4",
         address: "Resort de Batalha",
         neighborhood: "Sinnoh",
-        value: 1_000,
+        value: 1000,
         date: "09/01/1993"
     },
 ];
@@ -41,7 +41,7 @@ let dados: IServico[] = [
  * 
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const TelaHome = ({deslogar, navigation}) => {
+const TelaHome = ({ deslogar, navigation }) => {
     const [listaServicos, setListaServicos] = useState(dados);
     return (
         <ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
@@ -51,28 +51,28 @@ const TelaHome = ({deslogar, navigation}) => {
                 <Text className="text-center text-white" weight="semiBold">Sair</Text>
             </Button>
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
-                <View className="gap-10">    
+                <View className="gap-10">
                     <Text className="text-xl" weight="medium">Faturamento</Text>
                     <View className="flex-row items-center">
-                        <DollarSign size={22} color={"#0E9F6E"}/>
+                        <DollarSign size={22} color={"#0E9F6E"} />
                         <Text className="text-xl mt-px">380,00</Text>
                     </View>
                 </View>
                 <View className="flex-row items-center gap-2">
-                    <Truck size={22} color={"#9c9c9c"}/>
+                    <Truck size={22} color={"#9c9c9c"} />
                     <Text className="text-xl">4</Text>
                 </View>
             </View>
             <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3">
-                <View className="gap-10">    
+                <View className="gap-10">
                     <Text className="text-xl" weight="medium">Diárias</Text>
                     <View className="flex-row items-center">
-                        <DollarSign size={22} color={"#dc2626"}/>
+                        <DollarSign size={22} color={"#dc2626"} />
                         <Text className="text-xl mt-px">380,00</Text>
                     </View>
                 </View>
                 <View className="flex-row items-center gap-2">
-                    <User size={22} color={"#9c9c9c"}/>
+                    <User size={22} color={"#9c9c9c"} />
                     <Text className="text-xl">5</Text>
                 </View>
             </View>
@@ -108,19 +108,19 @@ const TelaHome = ({deslogar, navigation}) => {
                         }}
                         onLongPress={() => Alert.alert(null,
                             "Pagamento efetuado?",
-                        [
-                            {
-                                text: "sim",
-                                onPress: () => {
-                                    setListaServicos(listaServicos.filter(item => item.id != dado.id));
+                            [
+                                {
+                                    text: "sim",
+                                    onPress: () => {
+                                        setListaServicos(listaServicos.filter(item => item.id != dado.id));
+                                    },
                                 },
-                            },
-                            {
-                                text: "não",
-                                onPress: () => {
+                                {
+                                    text: "não",
+                                    onPress: () => {
+                                    },
                                 },
-                            },
-                        ])}/>)
+                            ])} />)
                 }
             </View>
         </ScrollView>
