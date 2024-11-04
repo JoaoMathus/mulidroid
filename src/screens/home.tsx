@@ -5,8 +5,10 @@ import Button from "../components/ui/button";
 import { DollarSign, Truck, User } from "lucide-react-native";
 import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
+import type IAjudante from "../interfaces/IAjudante";
+import CardAjudante from "../components/card-ajudante";
 
-const dados: IServico[] = [
+const servicos: IServico[] = [
 	{
 		id: "1",
 		address: "Ilha de Cinnabar",
@@ -37,12 +39,49 @@ const dados: IServico[] = [
 	},
 ];
 
+const ajudantes: IAjudante[] = [
+	{
+		id: '1',
+		alias: 'Alomomola',
+		name: 'Alomomola da Silva',
+		phoneNumber: '(55) 21 99999-9999',
+		birthDate: '01/01/1988',
+		driver: true
+	},
+	{
+		id: '2',
+		alias: 'Garbodor',
+		name: 'Garbodor Sludge Bomb',
+		phoneNumber: '(55) 21 91111-1111',
+		birthDate: '21/03/1998',
+		driver: true
+	},
+	{
+		id: '3',
+		alias: 'Girafarig',
+		name: 'Girafarig Girafales',
+		phoneNumber: '(55) 21 92222-2222',
+		birthDate: '01/01/1988',
+		driver: false
+	},
+	{
+		id: '4',
+		alias: 'Mewtwo',
+		name: 'Mewtwo Meritocrático',
+		phoneNumber: '(55) 21 93333-3333',
+		birthDate: '17/08/1990',
+		driver: false
+	}
+]
+
 /**
  *
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
 const TelaHome = ({ deslogar, navigation }) => {
-	const [listaServicos, setListaServicos] = useState(dados);
+	const [listaServicos, setListaServicos] = useState(servicos);
+	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
+	const [mostrarServicos, setMostrarServicos] = useState(true);
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
 			<Button
@@ -93,7 +132,7 @@ const TelaHome = ({ deslogar, navigation }) => {
 			>
 				<Button
 					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Servico")}
+					onPress={() => setMostrarServicos(true)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
 						Serviços
@@ -101,7 +140,7 @@ const TelaHome = ({ deslogar, navigation }) => {
 				</Button>
 				<Button
 					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Ajudante")}
+					onPress={() => setMostrarServicos(false)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
 						Ajudantes
@@ -140,33 +179,30 @@ const TelaHome = ({ deslogar, navigation }) => {
 					</Text>
 				</Button>
 			</ScrollView>
-			<View>
+			{mostrarServicos ? (<View>
 				{listaServicos.map((dado) => (
 					<CardServico
 						key={dado.id}
 						servico={dado}
 						onPress={() => {
-							navigation.navigate("Ajudante");
+							navigation.navigate("Servico");
 						}}
-						onLongPress={() =>
-							Alert.alert(null, "Pagamento efetuado?", [
-								{
-									text: "sim",
-									onPress: () => {
-										setListaServicos(
-											listaServicos.filter((item) => item.id != dado.id),
-										);
-									},
-								},
-								{
-									text: "não",
-									onPress: () => {},
-								},
-							])
-						}
 					/>
 				))}
 			</View>
+			) : (
+			<View>
+				{listaAjudantes.map((ajudante) => (
+					<CardAjudante
+						key={ajudante.id}
+						ajudante={ajudante}
+						onPress={() => {
+							navigation.navigate("Ajudante");
+						}}
+					/>
+				))}
+			</View>)
+			}
 		</ScrollView>
 	);
 };

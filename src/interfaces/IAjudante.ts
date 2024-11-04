@@ -1,4 +1,5 @@
 interface IAjudante {
+	id: string
 	alias: string;
 	name: string;
 	phoneNumber: string;
