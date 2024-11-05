@@ -63,7 +63,6 @@ const TelaPerfil = ({ adminAqui, deslogar, navigation }) => {
 
 	return (
 		<ScrollView className="w-full mt-3 gap-2">
-			{/* Mandando o admin para a Home direto */ adminAqui ? navigation.navigate("Home") : null}
 			<View className="w-full mt-5 p-8">
 				<Text className="text-3xl" weight="black">
 					Zé Carambola
