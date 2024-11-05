@@ -1,4 +1,5 @@
-import { ScrollView, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, View, Alert } from "react-native";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import { Calendar, Phone } from "lucide-react-native";
@@ -6,7 +7,7 @@ import Divider from "../components/ui/divider";
 import type IServico from "../interfaces/IServico";
 import CardServico from "../components/card-servico";
 
-const dados: IServico[] = [
+const servicos: IServico[] = [
 	{
 		id: "1",
 		address: "Ilha de Cinnabar",
@@ -59,7 +60,8 @@ const dados: IServico[] = [
 	},
 ];
 
-const Ajudante = () => {
+const Ajudante = ({ navigation }) => {
+	const [listaServicos, setListaServicos] = useState(servicos);
 	return (
 		<View className="p-8 w-full">
 			<View>
@@ -89,8 +91,26 @@ const Ajudante = () => {
 			</Text>
 			<View className="h-full max-h-[548px]">
 				<ScrollView>
-					{dados.map((servico) => (
-						<CardServico key={servico.id} servico={servico} />
+					{listaServicos.map((servico) => (
+						<CardServico
+							key={servico.id}
+							servico={servico}
+							onPress={() => navigation.navigate("Servico")}
+							onLongPress={() => {
+								Alert.alert(null, "Pagar diária?", [
+									{
+										text: "sim",
+										onPress: () => {
+											setListaServicos(listaServicos.filter(item => item.id != servico.id));
+										}
+									},
+									{
+										text: "não",
+										onPress: () => {}
+									}
+								])
+							}}
+						/>
 					))}
 				</ScrollView>
 				<View className="flex-row gap-2 justify-center mt-3">

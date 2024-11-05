@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Alert } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar, DollarSign } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
+import IAjudante from "../interfaces/IAjudante";
 
-const ajudantes = [
+const ajudantes: IAjudante[] = [
 	{
+		id: '1',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999999999",
@@ -15,6 +17,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '2',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "2177377773",
@@ -22,6 +25,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '3',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999999991",
@@ -29,6 +33,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '4',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21777117777",
@@ -36,6 +41,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '5',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21996999999",
@@ -43,6 +49,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '6',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21775777777",
@@ -50,6 +57,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '7',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999299999",
@@ -57,6 +65,7 @@ const ajudantes = [
 		driver: false,
 	},
 	{
+		id: '8',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21737777777",
@@ -65,8 +74,9 @@ const ajudantes = [
 	},
 ];
 
-const Servico = () => {
+const Servico = ({ navigation }) => {
 	const [expandAddress, setExpandAdress] = useState(1);
+	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 
 	return (
 		<View className="p-8 w-full">
@@ -96,8 +106,24 @@ const Servico = () => {
 			</Text>
 			<View className="h-full max-h-[540px]">
 				<ScrollView>
-					{ajudantes.map((ajudante) => (
-						<CardAjudante key={ajudante.phoneNumber} ajudante={ajudante} />
+					{listaAjudantes.map((ajudante) => (
+						<CardAjudante
+							key={ajudante.phoneNumber}
+							ajudante={ajudante}
+							onPress={() => navigation.navigate("Ajudante")}
+							onLongPress={() => Alert.alert(null, "Efetuar o pagamento?", [
+								{
+									text: "sim",
+									onPress: () => {
+										setListaAjudantes(listaAjudantes.filter(item => item.id != ajudante.id));
+									}
+								},
+								{
+									text: "não",
+									onPress: () => {}
+								}
+							])}
+						/>
 					))}
 				</ScrollView>
 				<Button className="bg-blue-500 p-5 mt-2 rounded-md">
