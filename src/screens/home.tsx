@@ -44,6 +44,8 @@ const ajudantes: IAjudante[] = [
 		id: '1',
 		alias: 'Alomomola',
 		name: 'Alomomola da Silva',
+		username: "-",
+		password: "-",
 		phoneNumber: '(55) 21 99999-9999',
 		birthDate: '01/01/1988',
 		driver: true
@@ -52,6 +54,8 @@ const ajudantes: IAjudante[] = [
 		id: '2',
 		alias: 'Garbodor',
 		name: 'Garbodor Sludge Bomb',
+		username: "-",
+		password: "-",
 		phoneNumber: '(55) 21 91111-1111',
 		birthDate: '21/03/1998',
 		driver: true
@@ -60,6 +64,8 @@ const ajudantes: IAjudante[] = [
 		id: '3',
 		alias: 'Girafarig',
 		name: 'Girafarig Girafales',
+		username: "-",
+		password: "-",
 		phoneNumber: '(55) 21 92222-2222',
 		birthDate: '01/01/1988',
 		driver: false
@@ -68,6 +74,8 @@ const ajudantes: IAjudante[] = [
 		id: '4',
 		alias: 'Mewtwo',
 		name: 'Mewtwo Meritocrático',
+		username: "-",
+		password: "-",
 		phoneNumber: '(55) 21 93333-3333',
 		birthDate: '17/08/1990',
 		driver: false
