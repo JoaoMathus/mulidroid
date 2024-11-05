@@ -7,13 +7,15 @@ import Button from "./ui/button";
 interface CardAjudanteProps {
 	ajudante: IAjudante;
 	onPress?: () => void;
+	onLongPress?: () => void;
 }
 
-const CardAjudante = ({ ajudante, onPress }: CardAjudanteProps) => {
+const CardAjudante = ({ ajudante, onPress, onLongPress }: CardAjudanteProps) => {
 	return (
 		<Button
 			className="mb-2 border border-zinc-200/70 rounded-md flex-row justify-between items-center px-3 py-6"
 			onPress={onPress}
+			onLongPress={onLongPress}
 		>
 			<Text className="text-xl" weight="semiBold">
 				{ajudante.name}
