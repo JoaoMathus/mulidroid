@@ -5,19 +5,28 @@ import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 
-// Senha digerida para testes, apenas.
-const senhaTeste = Crypto.digestStringAsync(
+// Senhas digeridas para testes, apenas.
+const senhaTesteAdmin = Crypto.digestStringAsync(
 	Crypto.CryptoDigestAlgorithm.SHA256,
 	"Muitobom",
 );
+const senhaTesteUsuario = Crypto.digestStringAsync(
+	Crypto.CryptoDigestAlgorithm.SHA256,
+	"Naoseiasenha"
+)
 
 // Nosso administrador Alomomola.
 const admin = {
 	user: "Alomomola",
-	password: senhaTeste,
+	password: senhaTesteAdmin,
+};
+// Nosso usuário
+const usuarioNormal = {
+	user: "Garbodor",
+	password: senhaTesteUsuario
 };
 
-const Login = ({ logar }) => {
+const Login = ({ logar, adminLogou }) => {
 	const [usuario, setUsuario] = useState("");
 	const [senha, setSenha] = useState("");
 	return (
@@ -53,8 +62,10 @@ const Login = ({ logar }) => {
 						Crypto.CryptoDigestAlgorithm.SHA256,
 						senha,
 					);
-					if (usuario == admin.user && estaSenha == (await admin.password)) {
+					if (usuario == usuarioNormal.user && estaSenha == (await usuarioNormal.password)) {
 						logar();
+					} else if (usuario == admin.user && estaSenha == (await admin.password)) {
+						adminLogou();
 					} else {
 						Alert.alert("Usuário ou senha errada!");
 					}
