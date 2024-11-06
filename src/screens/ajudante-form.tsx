@@ -49,7 +49,14 @@ const AjudanteForm = () => {
 			<CheckBox onChecked={setMotorista} />
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
-				onPress={() => setMostrarConfirmacao(true)}
+				onPress={() => {
+						if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
+							Alert.alert("Você deve preencher todos os campos!");
+						} else { 
+							setMostrarConfirmacao(true);
+						}
+					}
+				}
 			>
 				<Text className="text-lg text-center text-white" weight="semiBold">
 					Cadastrar

@@ -10,16 +10,25 @@ import Button from "../components/ui/button";
  */
 const VeiculoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+	const [placa, setPlaca] = useState("");
+	const [modelo, setModelo] = useState("");
 	return (
 		<View className="w-full gap-5 p-8">
 			<Text className="text-left text-2xl" weight="black">
 				Cadastro de Veículos
 			</Text>
-			<Input label="Placa" />
-			<Input label="Modelo" />
+			<Input label="Placa" onChangeText={setPlaca} value={placa} />
+			<Input label="Modelo" onChangeText={setModelo} value={modelo} />
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
-				onPress={() => setMostrarConfirmacao(true)}
+				onPress={() => {
+						if (placa == "" || modelo == "") {
+							Alert.alert("Você deve preencher todos os campos!");
+						} else {
+							setMostrarConfirmacao(true);
+						}
+					}
+				}
 			>
 				<Text className="text-lg text-center text-white" weight="semiBold">
 					Cadastrar

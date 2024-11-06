@@ -16,6 +16,10 @@ const dados = [
 
 const ServicoForm = () => {
 	const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
+	const [endereco, setEndereco] = useState("");
+	const [bairro, setBairro] = useState("");
+	const [valor, setValor] = useState("");
+	const [veiculo, setVeiculo] = useState("");
 	const [data, setData] = useState(dayjs());
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -26,10 +30,10 @@ const ServicoForm = () => {
 				<Text className="text-left text-2xl" weight="black">
 					Cadastro de Serviço
 				</Text>
-				<Input label="Endereço" />
-				<Input label="Bairro" />
-				<Input label="Valor" />
-				<Input label="Veículo" />
+				<Input label="Endereço" onChangeText={setEndereco} value={endereco} />
+				<Input label="Bairro" onChangeText={setBairro} value={bairro} />
+				<Input label="Valor" onChangeText={setValor} value={valor} />
+				<Input label="Veículo" onChangeText={setVeiculo} value={veiculo} />
 				<View>
 					<Text className="mb-2" weight="medium">
 						Data do serviço
@@ -67,7 +71,14 @@ const ServicoForm = () => {
 				</View>
 				<Button
 					className="bg-blue-500 p-4 rounded-md mt-4"
-					onPress={() => setMostrarConfirmacao(true)}
+					onPress={() => {
+							if (endereco == "" || bairro == "" || valor == "" || veiculo == "" || data == null || ajudantesSelecionados == null) {
+								Alert.alert("Você deve preencher todos os campos!");
+							} else {
+								setMostrarConfirmacao(true);
+							}
+						}
+					}
 				>
 					<Text className="text-xl text-center text-white" weight="semiBold">
 						Cadastrar
