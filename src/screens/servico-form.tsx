@@ -16,6 +16,10 @@ const dados = [
 	{nome: "Armaldo"},
 ];
 
+/**
+ * BUG: quando seleciona os ajudantes e depois sai da tela e volta novamente,
+ * todos ficam selecionados automaticamente.
+ */
 const ServicoForm = () => {
 	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
 	const [endereco, setEndereco] = useState("");
@@ -164,7 +168,7 @@ const ServicoForm = () => {
 								Ajudantes:
 							</Text>
 							<Text>
-								{ajudantesSelecionados.join(", ")}
+								{ajudantesSelecionados? ajudantesSelecionados.join(", ") : null}
 							</Text>
 						</View>
 						<View className="gap-2">
