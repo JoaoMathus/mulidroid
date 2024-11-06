@@ -13,8 +13,8 @@ const VeiculoForm = () => {
 	const [placa, setPlaca] = useState("");
 	const [modelo, setModelo] = useState("");
 	return (
-		<View className="w-full gap-5 p-8">
-			<Text className="text-left text-2xl" weight="black">
+		<View className="w-full gap-5 px-8">
+			<Text className="text-left text-3xl" weight="black">
 				Cadastro de Veículos
 			</Text>
 			<Input label="Placa" onChangeText={setPlaca} value={placa} />

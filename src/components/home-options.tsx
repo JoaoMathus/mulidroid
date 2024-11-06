@@ -10,7 +10,7 @@ const HomeOptions = ({ deslogar }) => {
 	const { navigate } = useNavigation().navigator;
 
 	return (
-		<View className="h-fit mt-3">
+		<View>
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
 				fadingEdgeLength={150}

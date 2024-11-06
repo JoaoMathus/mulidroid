@@ -108,35 +108,27 @@ const TelaHome = ({ deslogar }) => {
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (
-		<View className="w-full px-8 gap-4 h-screen mt-12">
-			<Faturameto/>
-			<Diarias/>
-			<View className="flex-row justify-center gap-4 w-full">
-				<Button
-					className="bg-blue-500 w-[161px] p-3 rounded-md"
-					onPress={() => setMostrarServicos(true)}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Serviços
-					</Text>
-				</Button>
-				<Button
-					className="bg-blue-500 w-[161px] p-3 rounded-md"
-					onPress={() => setMostrarServicos(false)}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Ajudantes
-					</Text>
-				</Button>
+		<View className="h-screen my-auto pt-8 px-8 justify-between">
+			<View className="gap-4 flex-1">
+				<View className="gap-4">
+					<Faturameto/>
+					<Diarias/>
+				</View>
+				<View className="flex-row w-full gap-4">
+					<Button className="bg-blue-500 flex-1 p-3 rounded-md">
+						<Text className="text-center text-white" weight="semiBold">
+							Serviços
+						</Text>
+					</Button>
+					<Button className="bg-blue-500 flex-1 p-3 rounded-md">
+						<Text className="text-center text-white" weight="semiBold">
+							Ajudantes
+						</Text>
+					</Button>
+				</View>
+				<ListaServicos listaServicos={servicos}/>
 			</View>
-			<View className="max-h-[400px]">
-				{mostrarServicos ? (
-					<ListaServicos listaServicos={listaServicos}/>
-				) : (
-					<ListaAjudantes listaAjudantes={ajudantes}/>)
-				}
-				<HomeOptions deslogar={deslogar} />
-			</View>
+			<HomeOptions deslogar={deslogar} />
 		</View>
 	);
 };

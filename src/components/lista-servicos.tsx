@@ -11,7 +11,6 @@ const ListaServicos = ({listaServicos}: ListaServicoProps) => {
   const { navigate } = useNavigation().navigator;
 
   return (
-    <View className="h-[97%]">
       <ScrollView
         fadingEdgeLength={100}>
         {listaServicos.map((servico) => (
@@ -24,7 +23,6 @@ const ListaServicos = ({listaServicos}: ListaServicoProps) => {
           />
         ))}
       </ScrollView>
-    </View>
   )
 }
 
