@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { View, ScrollView, Alert } from "react-native";
+import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
-import { DollarSign, Truck, User } from "lucide-react-native";
-import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
 import type IAjudante from "../interfaces/IAjudante";
-import CardAjudante from "../components/card-ajudante";
-import NavigationOptions from "../components/navigation-options";
+import HomeOptions from "../components/home-options";
 import Faturameto from "../components/faturamento";
 import Diarias from "../components/diarias";
 import ListaServicos from "../components/lista-servicos";
@@ -138,7 +135,7 @@ const TelaHome = ({ deslogar }) => {
 			) : (
 				<ListaAjudantes listaAjudantes={ajudantes}/>)
 			}
-			<NavigationOptions deslogar={deslogar} />
+			<HomeOptions deslogar={deslogar} />
 		</View>
 	);
 };

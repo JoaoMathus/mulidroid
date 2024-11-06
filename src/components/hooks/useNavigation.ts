@@ -1,12 +1,12 @@
-import { NavigationContext } from '@react-navigation/native';
-import { useContext } from 'react';
+import { NavigationContext } from "@react-navigation/native";
+import { useContext } from "react";
 
 const useNavigation = () => {
   const navigator = useContext(NavigationContext);
 
   return {
-    navigator
-  }
-}
+    navigator,
+  };
+};
 
 export default useNavigation;

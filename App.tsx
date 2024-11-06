@@ -23,10 +23,13 @@ import VeiculoForm from "./src/screens/veiculo-form";
 import Servico from "./src/screens/servico";
 import { NavigationContainer } from '@react-navigation/native';
 import Ajudante from "./src/screens/ajudante";
+import { StyleSheet } from "react-native";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  //FAZER ESSES STATES SEREM GLOBAIS IMPORTANTE!!!!!!
   const [logado, setLogado] = useState(false);
   const [admin, setAdmin] = useState(false);
 
@@ -53,7 +56,12 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTitle: "",
+          headerStyle: headerStyle.header
+        }}
+      >
         {!logado ? (
           <Stack.Screen name='Login' options={{
             headerShown: false
@@ -77,28 +85,25 @@ export default function App() {
               {(props) => <TelaHome {...props} deslogar={() => { setLogado(false); setAdmin(false); }} />}
             </Stack.Screen>
             <Stack.Screen name='Perfil' options={{
-              headerShown: false
+              headerShown: admin
             }}>
               {(props) => <TelaPerfil {...props} adminAqui={admin} deslogar={() => setLogado(false)} />}
             </Stack.Screen>
-            <Stack.Screen name='Ajudante' component={Ajudante} options={{
-              headerTitle: ''
-            }} />
-            <Stack.Screen name='Servico' component={Servico} options={{
-              headerTitle: ''
-            }} />
-            <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} options={{
-              headerTitle: ''
-            }} />
-            <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} options={{
-              headerTitle: ''
-            }} />
-            <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} options={{
-              headerTitle: ''
-            }} />
+            <Stack.Screen name='Ajudante' component={Ajudante} />
+            <Stack.Screen name='Servico' component={Servico} />
+            <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
+            <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
+            <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} />
           </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const headerStyle = StyleSheet.create({
+  header: {
+    backgroundColor: "transparent",
+    shadowColor: "transparent"
+  }
+})

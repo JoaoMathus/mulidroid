@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { ScrollView, View, Alert } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
-import { Calendar, DollarSign } from "lucide-react-native";
+import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
-import IAjudante from "../interfaces/IAjudante";
+import type IAjudante from "../interfaces/IAjudante";
 
 const ajudantes: IAjudante[] = [
 	{
@@ -79,7 +79,7 @@ const Servico = ({ navigation }) => {
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 
 	return (
-		<View className="p-8 w-full">
+		<View className="px-8 w-full">
 			<View>
 				<Button
 					onPress={() =>
@@ -115,7 +115,7 @@ const Servico = ({ navigation }) => {
 								{
 									text: "sim",
 									onPress: () => {
-										setListaAjudantes(listaAjudantes.filter(item => item.id != ajudante.id));
+										setListaAjudantes(listaAjudantes.filter(item => item.id !== ajudante.id));
 									}
 								},
 								{

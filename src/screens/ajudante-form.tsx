@@ -67,8 +67,8 @@ const AjudanteForm = () => {
 			>
 				<View className="mt-10 p-6">
 					<DateTimePicker
-						calendarTextStyle={{ fontFamily: fontVariants["regular"] }}
-						selectedTextStyle={{ fontFamily: fontVariants["bold"] }}
+						calendarTextStyle={{ fontFamily: fontVariants.regular }}
+						selectedTextStyle={{ fontFamily: fontVariants.bold }}
 						headerTextStyle={{ textTransform: "capitalize" }}
 						headerButtonStyle={{
 							backgroundColor: "#3b82f6",

@@ -5,7 +5,7 @@ import Text from "./ui/text";
 import { FileUser, LogOut, Truck, User, Wrench } from "lucide-react-native";
 import useNavigation from "./hooks/useNavigation";
 
-const NavigationOptions = ({ deslogar }) => {
+const HomeOptions = ({ deslogar }) => {
 
 	const { navigate } = useNavigation().navigator;
 
@@ -77,4 +77,4 @@ const NavigationOptions = ({ deslogar }) => {
 	);
 };
 
-export default NavigationOptions;
+export default HomeOptions;
