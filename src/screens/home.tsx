@@ -7,6 +7,7 @@ import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
 import type IAjudante from "../interfaces/IAjudante";
 import CardAjudante from "../components/card-ajudante";
+import NavigationOptions from "../components/navigation-options";
 
 const servicos: IServico[] = [
 	{
@@ -36,6 +37,20 @@ const servicos: IServico[] = [
 		neighborhood: "Sinnoh",
 		value: 1000,
 		date: "09/01/1993",
+	},
+	{
+		id: "5",
+		address: "Ilha de Cinnabar",
+		neighborhood: "Kalos",
+		value: 350,
+		date: "23/10/2024",
+	},
+	{
+		id: "6",
+		address: "Ilha de Cinnabar",
+		neighborhood: "Kalos",
+		value: 350,
+		date: "23/10/2024",
 	},
 ];
 
@@ -90,20 +105,11 @@ const TelaHome = ({ deslogar, navigation }) => {
 	const [listaServicos, setListaServicos] = useState(servicos);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
+
 	return (
-		<ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
-			<Button
-				className="bg-red-500 p-3 grow rounded-md mt-4"
-				onPress={() => {
-					deslogar();
-				}}
-			>
-				<Text className="text-center text-white" weight="semiBold">
-					Sair
-				</Text>
-			</Button>
+		<View className="w-full p-8 mt-5">
 			<View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
-				<View className="gap-10">
+				<View className="gap-8">
 					<Text className="text-xl" weight="medium">
 						Faturamento
 					</Text>
@@ -118,7 +124,7 @@ const TelaHome = ({ deslogar, navigation }) => {
 				</View>
 			</View>
 			<View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3">
-				<View className="gap-10">
+				<View className="gap-8">
 					<Text className="text-xl" weight="medium">
 						Diárias
 					</Text>
@@ -132,14 +138,9 @@ const TelaHome = ({ deslogar, navigation }) => {
 					<Text className="text-xl">5</Text>
 				</View>
 			</View>
-
-			<ScrollView
-				className="w-full"
-				horizontal
-				contentContainerClassName="gap-5 my-5 p-2"
-			>
+			<View className="flex-row justify-center gap-4 w-full mb-4">
 				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
+					className="bg-blue-500 w-[161px] p-3 rounded-md mt-4"
 					onPress={() => setMostrarServicos(true)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
@@ -147,71 +148,46 @@ const TelaHome = ({ deslogar, navigation }) => {
 					</Text>
 				</Button>
 				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
+					className="bg-blue-500 w-[161px] p-3 rounded-md mt-4"
 					onPress={() => setMostrarServicos(false)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
 						Ajudantes
 					</Text>
 				</Button>
-				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Perfil")}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Perfil
-					</Text>
-				</Button>
-				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Cadastro de Ajudante")}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Cadastrar ajudante
-					</Text>
-				</Button>
-				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Cadastro de Serviço")}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Cadastrar serviço
-					</Text>
-				</Button>
-				<Button
-					className="bg-slate-900 p-3 rounded-md mt-4"
-					onPress={() => navigation.navigate("Cadastro de Veículo")}
-				>
-					<Text className=" text-center text-white" weight="semiBold">
-						Cadastrar veículo
-					</Text>
-				</Button>
-			</ScrollView>
-			{mostrarServicos ? (<View>
-				{listaServicos.map((dado) => (
-					<CardServico
-						key={dado.id}
-						servico={dado}
-						onPress={() => {
-							navigation.navigate("Servico");
-						}}
-					/>
-				))}
 			</View>
+
+			{mostrarServicos ? (
+				<ScrollView
+					fadingEdgeLength={50}
+					className="h-[380px] max-h-[380px]">
+					{listaServicos.map((servico) => (
+						<CardServico
+							key={servico.id}
+							servico={servico}
+							onPress={() => {
+								navigation.navigate("Servico");
+							}}
+						/>
+					))}
+				</ScrollView>
 			) : (
-			<View>
-				{listaAjudantes.map((ajudante) => (
-					<CardAjudante
-						key={ajudante.id}
-						ajudante={ajudante}
-						onPress={() => {
-							navigation.navigate("Ajudante");
-						}}
-					/>
-				))}
-			</View>)
+				<ScrollView
+					fadingEdgeLength={50}
+					className="h-[380px] max-h-[380px]">
+					{listaAjudantes.map((ajudante) => (
+						<CardAjudante
+							key={ajudante.id}
+							ajudante={ajudante}
+							onPress={() => {
+								navigation.navigate("Ajudante");
+							}}
+						/>
+					))}
+				</ScrollView>)
 			}
-		</ScrollView>
+			<NavigationOptions navigation={navigation} deslogar={deslogar} />
+		</View>
 	);
 };
 

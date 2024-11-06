@@ -4,7 +4,7 @@ import * as Crypto from "expo-crypto";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
-import OfflineNotice from "../components/OfflineNotice";
+import OfflineNotice from "../components/offline-notice";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -66,9 +66,9 @@ const Login = ({ logar, adminLogou }) => {
 							Crypto.CryptoDigestAlgorithm.SHA256,
 							senha,
 						);
-						if (usuario == usuarioNormal.user && estaSenha == (await usuarioNormal.password)) {
+						if (usuario === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
 							logar();
-						} else if (usuario == admin.user && estaSenha == (await admin.password)) {
+						} else if (usuario === admin.user && estaSenha === (await admin.password)) {
 							adminLogou();
 						} else {
 							Alert.alert("Usuário ou senha errada!");

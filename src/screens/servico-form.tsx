@@ -51,7 +51,7 @@ const ServicoForm = () => {
 					<MultiSelect
 						dropdownPosition="top"
 						style={styles.dropdown}
-						fontFamily={fontVariants["light"]}
+						fontFamily={fontVariants.light}
 						containerStyle={styles.container}
 						search
 						data={dados}
@@ -85,8 +85,8 @@ const ServicoForm = () => {
 				>
 					<View className="mt-10 p-6">
 						<DateTimePicker
-							calendarTextStyle={{ fontFamily: fontVariants["regular"] }}
-							selectedTextStyle={{ fontFamily: fontVariants["bold"] }}
+							calendarTextStyle={{ fontFamily: fontVariants.regular }}
+							selectedTextStyle={{ fontFamily: fontVariants.bold }}
 							headerTextStyle={{ textTransform: "capitalize" }}
 							headerButtonStyle={{
 								backgroundColor: "#3b82f6",
