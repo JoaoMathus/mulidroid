@@ -108,12 +108,12 @@ const TelaHome = ({ deslogar }) => {
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (
-		<View className="w-full p-8 mt-5">
+		<View className="w-full px-8 gap-4 h-screen mt-12">
 			<Faturameto/>
 			<Diarias/>
-			<View className="flex-row justify-center gap-4 w-full mb-4">
+			<View className="flex-row justify-center gap-4 w-full">
 				<Button
-					className="bg-blue-500 w-[161px] p-3 rounded-md mt-4"
+					className="bg-blue-500 w-[161px] p-3 rounded-md"
 					onPress={() => setMostrarServicos(true)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
@@ -121,7 +121,7 @@ const TelaHome = ({ deslogar }) => {
 					</Text>
 				</Button>
 				<Button
-					className="bg-blue-500 w-[161px] p-3 rounded-md mt-4"
+					className="bg-blue-500 w-[161px] p-3 rounded-md"
 					onPress={() => setMostrarServicos(false)}
 				>
 					<Text className=" text-center text-white" weight="semiBold">
@@ -129,13 +129,14 @@ const TelaHome = ({ deslogar }) => {
 					</Text>
 				</Button>
 			</View>
-
-			{mostrarServicos ? (
-				<ListaServicos listaServicos={listaServicos}/>
-			) : (
-				<ListaAjudantes listaAjudantes={ajudantes}/>)
-			}
-			<HomeOptions deslogar={deslogar} />
+			<View className="max-h-[400px]">
+				{mostrarServicos ? (
+					<ListaServicos listaServicos={listaServicos}/>
+				) : (
+					<ListaAjudantes listaAjudantes={ajudantes}/>)
+				}
+				<HomeOptions deslogar={deslogar} />
+			</View>
 		</View>
 	);
 };

@@ -4,7 +4,7 @@ import Text from './ui/text'
 
 const Faturameto = () => {
   return (
-    <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
+    <View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3">
       <View className="gap-8">
         <Text className="text-xl" weight="medium">
           Faturamento
