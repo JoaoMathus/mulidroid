@@ -35,7 +35,7 @@ const servicos: IServico[] = [
 		id: "4",
 		address: "Resort de Batalha",
 		neighborhood: "Sinnoh",
-		value: 1000,
+		value: 10000,
 		date: "09/01/1993",
 	},
 	{
@@ -159,7 +159,7 @@ const TelaHome = ({ deslogar, navigation }) => {
 
 			{mostrarServicos ? (
 				<ScrollView
-					fadingEdgeLength={50}
+					fadingEdgeLength={100}
 					className="h-[380px] max-h-[380px]">
 					{listaServicos.map((servico) => (
 						<CardServico
@@ -173,7 +173,7 @@ const TelaHome = ({ deslogar, navigation }) => {
 				</ScrollView>
 			) : (
 				<ScrollView
-					fadingEdgeLength={50}
+					fadingEdgeLength={100}
 					className="h-[380px] max-h-[380px]">
 					{listaAjudantes.map((ajudante) => (
 						<CardAjudante

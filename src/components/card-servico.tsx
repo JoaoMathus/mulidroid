@@ -27,7 +27,7 @@ const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 					<Text className="mt-px text-zinc-400">{servico.date}</Text>
 				</View>
 			</View>
-			<View className="flex-row gap-6 items-center">
+			<View className="flex-row items-center justify-between w-[165px]">
 				<View className="flex-row items-center gap-px">
 					<User size={22} color={"#9c9c9c"} />
 					<Text className="text-lg mt-px">2</Text>
@@ -35,7 +35,10 @@ const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 				<View className="flex-row items-center gap-px">
 					<DollarSign size={20} color={"#0E9F6E"} />
 					<Text className="text-lg mt-px">
-						{servico.value.toFixed(2).replace(".", ",")}
+						{Intl.NumberFormat("pt-BR", {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2
+						}).format(servico.value)}
 					</Text>
 				</View>
 			</View>
