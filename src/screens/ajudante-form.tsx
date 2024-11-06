@@ -174,7 +174,7 @@ const AjudanteForm = () => {
 				}}
 			>
 				<View className="gap-5 h-full p-8 justify-center">
-					<Text className="text-xl" weight="bold">Última chance, é isso mesmo que deseja fazer?</Text>
+					<Text className="text-xl" weight="bold">Deseja mesmo registrar esse ajudante?</Text>
 					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
 					</Button>

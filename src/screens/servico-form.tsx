@@ -22,6 +22,7 @@ const dados = [
  */
 const ServicoForm = () => {
 	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
+	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
 	const [endereco, setEndereco] = useState("");
 	const [bairro, setBairro] = useState("");
 	const [valor, setValor] = useState("");
@@ -180,11 +181,7 @@ const ServicoForm = () => {
 							</Button>
 							<Button
 								className="bg-blue-500 p-4 rounded-md mt-4"
-								onPress={() =>
-									Alert.alert(
-										"Chama função que confirma a mudança no banco local",
-									)
-								}
+								onPress={() =>setModalConfirmacaoFinal(true)}
 							>
 								<Text className="text-xl text-center text-white">
 									Tenho absoluta certeza!
@@ -193,6 +190,25 @@ const ServicoForm = () => {
 						</View>
 					</View>
 				</Modal>
+				<Modal
+					testID="modal-confirmacao-final"
+					animationType="slide"
+					visible={modalConfirmacaoFinal}
+					onRequestClose={() => {
+						Alert.alert("Cancelado!");
+						setModalConfirmacaoFinal(false);
+					}}
+				>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo registar o serviço?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
+				</View>
+			</Modal>
 			</View>
 		</ScrollView>
 	);
