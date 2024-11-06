@@ -21,9 +21,9 @@ const ServicoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
 	return (
-		<ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
+		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8 mb-10">
 			<View className="gap-5">
-				<Text className="text-left text-2xl" weight="black">
+				<Text className="text-left text-3xl" weight="black">
 					Cadastro de Serviço
 				</Text>
 				<Input label="Endereço" />
