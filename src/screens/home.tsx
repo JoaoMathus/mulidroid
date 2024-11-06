@@ -8,6 +8,10 @@ import type IServico from "../interfaces/IServico";
 import type IAjudante from "../interfaces/IAjudante";
 import CardAjudante from "../components/card-ajudante";
 import NavigationOptions from "../components/navigation-options";
+import Faturameto from "../components/faturamento";
+import Diarias from "../components/diarias";
+import ListaServicos from "../components/lista-servicos";
+import ListaAjudantes from "../components/lista-ajudantes";
 
 const servicos: IServico[] = [
 	{
@@ -101,43 +105,15 @@ const ajudantes: IAjudante[] = [
  *
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const TelaHome = ({ deslogar, navigation }) => {
-	const [listaServicos, setListaServicos] = useState(servicos);
+const TelaHome = ({ deslogar }) => {
+	const [listaServicos, setListaServicos] = useState<IServico[]>(servicos);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (
 		<View className="w-full p-8 mt-5">
-			<View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3 mb-4">
-				<View className="gap-8">
-					<Text className="text-xl" weight="medium">
-						Faturamento
-					</Text>
-					<View className="flex-row items-center">
-						<DollarSign size={22} color={"#0E9F6E"} />
-						<Text className="text-xl mt-px">380,00</Text>
-					</View>
-				</View>
-				<View className="flex-row items-center gap-2">
-					<Truck size={22} color={"#9c9c9c"} />
-					<Text className="text-xl">4</Text>
-				</View>
-			</View>
-			<View className="flex-row items-end justify-between border border-zinc-200/70 rounded-md p-3">
-				<View className="gap-8">
-					<Text className="text-xl" weight="medium">
-						Diárias
-					</Text>
-					<View className="flex-row items-center">
-						<DollarSign size={22} color={"#dc2626"} />
-						<Text className="text-xl mt-px">380,00</Text>
-					</View>
-				</View>
-				<View className="flex-row items-center gap-2">
-					<User size={22} color={"#9c9c9c"} />
-					<Text className="text-xl">5</Text>
-				</View>
-			</View>
+			<Faturameto/>
+			<Diarias/>
 			<View className="flex-row justify-center gap-4 w-full mb-4">
 				<Button
 					className="bg-blue-500 w-[161px] p-3 rounded-md mt-4"
@@ -158,35 +134,11 @@ const TelaHome = ({ deslogar, navigation }) => {
 			</View>
 
 			{mostrarServicos ? (
-				<ScrollView
-					fadingEdgeLength={100}
-					className="h-[380px] max-h-[380px]">
-					{listaServicos.map((servico) => (
-						<CardServico
-							key={servico.id}
-							servico={servico}
-							onPress={() => {
-								navigation.navigate("Servico");
-							}}
-						/>
-					))}
-				</ScrollView>
+				<ListaServicos listaServicos={listaServicos}/>
 			) : (
-				<ScrollView
-					fadingEdgeLength={100}
-					className="h-[380px] max-h-[380px]">
-					{listaAjudantes.map((ajudante) => (
-						<CardAjudante
-							key={ajudante.id}
-							ajudante={ajudante}
-							onPress={() => {
-								navigation.navigate("Ajudante");
-							}}
-						/>
-					))}
-				</ScrollView>)
+				<ListaAjudantes listaAjudantes={ajudantes}/>)
 			}
-			<NavigationOptions navigation={navigation} deslogar={deslogar} />
+			<NavigationOptions deslogar={deslogar} />
 		</View>
 	);
 };

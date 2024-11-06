@@ -71,15 +71,15 @@ export default function App() {
           </Stack.Screen>
         ) : (
           <>
-            <Stack.Screen name='Perfil' options={{
-              headerShown: false
-            }}>
-              {(props) => <TelaPerfil {...props} adminAqui={admin} deslogar={() => setLogado(false)} />}
-            </Stack.Screen>
             <Stack.Screen name='Home' options={{
               headerShown: false
             }}>
               {(props) => <TelaHome {...props} deslogar={() => { setLogado(false); setAdmin(false); }} />}
+            </Stack.Screen>
+            <Stack.Screen name='Perfil' options={{
+              headerShown: false
+            }}>
+              {(props) => <TelaPerfil {...props} adminAqui={admin} deslogar={() => setLogado(false)} />}
             </Stack.Screen>
             <Stack.Screen name='Ajudante' component={Ajudante} options={{
               headerTitle: ''

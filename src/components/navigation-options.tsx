@@ -3,8 +3,12 @@ import React from "react";
 import Button from "./ui/button";
 import Text from "./ui/text";
 import { FileUser, LogOut, Truck, User, Wrench } from "lucide-react-native";
+import useNavigation from "./hooks/useNavigation";
 
-const NavigationOptions = ({ navigation, deslogar }) => {
+const NavigationOptions = ({ deslogar }) => {
+
+	const { navigate } = useNavigation().navigator;
+
 	return (
 		<ScrollView
 			showsHorizontalScrollIndicator={false}
@@ -16,7 +20,7 @@ const NavigationOptions = ({ navigation, deslogar }) => {
 
 			<Button
 				className="rounded-full mt-4 items-center"
-				onPress={() => navigation.navigate("Perfil")}
+				onPress={() => navigate("Perfil")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
 					<FileUser color="#fff" />
@@ -27,7 +31,7 @@ const NavigationOptions = ({ navigation, deslogar }) => {
 			</Button>
 			<Button
 				className="items-center rounded-md mt-4"
-				onPress={() => navigation.navigate("Cadastro de Ajudante")}
+				onPress={() => navigate("Cadastro de Ajudante")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
 					<User color="#fff" />
@@ -38,7 +42,7 @@ const NavigationOptions = ({ navigation, deslogar }) => {
 			</Button>
 			<Button
 				className="rounded-md mt-4 items-center"
-				onPress={() => navigation.navigate("Cadastro de Serviço")}
+				onPress={() => navigate("Cadastro de Serviço")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
 					<Wrench color="#fff" />
@@ -49,7 +53,7 @@ const NavigationOptions = ({ navigation, deslogar }) => {
 			</Button>
 			<Button
 				className="rounded-md items-center mt-4"
-				onPress={() => navigation.navigate("Cadastro de Veículo")}
+				onPress={() => navigate("Cadastro de Veículo")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
 					<Truck color="#fff" />
