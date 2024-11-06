@@ -57,7 +57,7 @@ const Item = ({ endereco, valor }) => (
  *  testar a modificação de senha,
  *  testar a modificação de nome de usuário.
  */
-const TelaPerfil = ({ navigation }) => {
+const TelaPerfil = ({ adminAqui, deslogar, navigation }) => {
 	const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
 	const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
 
@@ -101,6 +101,17 @@ const TelaPerfil = ({ navigation }) => {
 						<Text className="text-lg text-center text-white" weight="semiBold">
 							Alterar nome de usuário
 						</Text>
+					</Button>
+					{adminAqui ? (
+						<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => navigation.navigate("Home")}>
+							<Text className="text-lg text-center text-white" weight="semiBold">Home</Text>
+						</Button>
+					) : null}
+					<Button
+						className="bg-red-500 p-4 rounded-md mt-4"
+						onPress={() => deslogar()}
+					>
+						<Text className="text-lg text-center text-white" weight="semiBold">Sair</Text>
 					</Button>
 				</View>
 				<Modal

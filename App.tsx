@@ -28,6 +28,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
     const [logado, setLogado] = useState(false);
+    const [admin, setAdmin] = useState(false);
 
     const [loaded, error] = useFonts({
       SofiaSans_100Thin,
@@ -57,18 +58,29 @@ export default function App() {
             <Stack.Screen name='Login' options={{
               headerShown: false
             }}>
-              {(props) => <Login {...props} logar={() => setLogado(true)} />}
+              {/* Codigozinho para condicionar a renderização de admin e usuário */(props) => <Login {...props}
+              logar={() =>{
+                setLogado(true);
+                setAdmin(false);
+              }} 
+              adminLogou={() => {
+                setLogado(true);
+                setAdmin(true);
+              }} 
+            />}
             </Stack.Screen>
           ) : (
             <>
+              <Stack.Screen name='Perfil' options={{
+                headerShown: false
+              }}>
+                {(props) => <TelaPerfil {...props} adminAqui={admin} deslogar={() => setLogado(false)} />}
+              </Stack.Screen>
               <Stack.Screen name='Home' options={{
                 headerShown: false
               }}>
-                {(props) => <TelaHome {...props} deslogar={() => setLogado(false)} />}
+                {(props) => <TelaHome {...props} deslogar={() =>{ setLogado(false); setAdmin(false); }} />}
               </Stack.Screen>
-              <Stack.Screen name='Perfil' component={TelaPerfil} options={{
-                headerTitle: ''
-              }} />
               <Stack.Screen name='Ajudante' component={Ajudante} options={{
                 headerTitle: ''
               }} />

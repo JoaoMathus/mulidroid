@@ -4,25 +4,49 @@ import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import CheckBox from "../components/ui/checkbox";
+import dayjs from "dayjs";
+import DateTimePicker from "react-native-ui-datepicker";
+import { fontVariants } from "../utils/fontVariants";
 
 /**
- * Falta colocar um modal para entrada de data de nascimento.
+ * Falta implementar o banco remoto.
  * Falta implementar os testes.
  */
 const AjudanteForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
+	const [data, setData] = useState(dayjs());
+	const [apelido, setApelido] = useState("");
+	const [nome, setNome] = useState("");
+	const [email, setEmail] = useState("");
+	const [telefone, setTelefone] = useState("");
+	const [usuario, setUsuario] = useState("");
+	const [motorista, setMotorista] = useState(false);
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
 			<Text className="text-left text-3xl" weight="black">
 				Cadastro de Ajudante
 			</Text>
-			<Input label="Apelido" />
-			<Input label="Nome" />
-			<Input label="Email" />
-			<Input label="Telefone" />
-			<Input label="Data de Nascimento" />
-			<Input label="Usuário" />
-			<CheckBox />
+			<Input label="Apelido" onChangeText={setApelido} value={apelido} />
+			<Input label="Nome" onChangeText={setNome} value={nome} />
+			<Input label="Email" onChangeText={setEmail} value={email} />
+			<Input label="Telefone" onChangeText={setTelefone} value={telefone} />
+			<View>
+					<Text className="mb-2" weight="medium">
+						Data do serviço
+					</Text>
+					<Button
+						className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
+						testId="botao-data"
+						onPress={() => setMostrarDatePicker(true)}
+					>
+						<Text className="text-xl text-black" weight="light">
+							{data.format("DD/MM/YYYY")}
+						</Text>
+					</Button>
+				</View>
+			<Input label="Usuário" onChangeText={setUsuario} value={usuario} />
+			<CheckBox onChecked={setMotorista} />
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
 				onPress={() => setMostrarConfirmacao(true)}
@@ -31,6 +55,43 @@ const AjudanteForm = () => {
 					Cadastrar
 				</Text>
 			</Button>
+			<Modal
+				testID="modal-data"
+				animationType="slide"
+				transparent={false}
+				visible={mostrarDatePicker}
+				onRequestClose={() => {
+					Alert.alert("Data salva!");
+					setMostrarDatePicker(!mostrarDatePicker);
+				}}
+			>
+				<View className="mt-10 p-6">
+					<DateTimePicker
+						calendarTextStyle={{ fontFamily: fontVariants["regular"] }}
+						selectedTextStyle={{ fontFamily: fontVariants["bold"] }}
+						headerTextStyle={{ textTransform: "capitalize" }}
+						headerButtonStyle={{
+							backgroundColor: "#3b82f6",
+							borderRadius: 100,
+							padding: 6,
+						}}
+						headerButtonColor="#fff"
+						selectedItemColor="#3b82f6"
+						locale={dayjs.locale("pt-br")}
+						mode="single"
+						date={data}
+						onChange={(params) => setData(dayjs(params.date))}
+					/>
+					<Button
+						className="bg-blue-500 p-4 rounded-md mt-4"
+						onPress={() => {
+							setMostrarDatePicker(!mostrarDatePicker);
+						}}
+					>
+						<Text className="text-lg text-center text-white">Selecionar</Text>
+					</Button>
+				</View>
+			</Modal>
 			<Modal
 				testID="modal-confirmacao"
 				animationType="slide"
@@ -51,27 +112,31 @@ const AjudanteForm = () => {
 						<Text className="text-xl" weight="bold">
 							Apelido:
 						</Text>
-						<Text>Garbodor Vaidoso</Text>
+						<Text>{apelido}</Text>
 						<Text className="text-xl" weight="bold">
 							Nome:
 						</Text>
-						<Text>Garbodor da Silva Galalau</Text>
+						<Text>{nome}</Text>
+						<Text className="text-xl" weight="bold">
+							Email:
+						</Text>
+						<Text>{email}</Text>
 						<Text className="text-xl" weight="bold">
 							Telefone:
 						</Text>
-						<Text>(+55) 21 90000-0000</Text>
+						<Text>{telefone}</Text>
 						<Text className="text-xl" weight="bold">
 							Data de nascimento:
 						</Text>
-						<Text>09/06/1977</Text>
+						<Text>{data.format("DD/MM/YYYY")}</Text>
 						<Text className="text-xl" weight="bold">
 							Usuário:
 						</Text>
-						<Text>Garbo-dor</Text>
+						<Text>{usuario}</Text>
 						<Text className="text-xl" weight="bold">
 							É motorista?
 						</Text>
-						<Text>Sim</Text>
+						<Text>{motorista ? "Sim" : "Não"}</Text>
 					</View>
 					<View className="gap-2">
 						<Button
@@ -83,8 +148,19 @@ const AjudanteForm = () => {
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
 							onPress={() =>
-								Alert.alert(
-									"Chama função que confirma a mudança no banco local",
+								Alert.alert(null,
+									"Última chance, é isso mesmo que deseja?", [
+										{
+											text: "sim",
+											onPress: () => {
+												Alert.alert("Aqui vem uma mensagem de email falando a senha (e vem o id também)");
+											}
+										},
+										{
+											text: "não",
+											onPress: () => {}
+										}
+									]
 								)
 							}
 						>
