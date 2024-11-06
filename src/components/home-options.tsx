@@ -77,6 +77,7 @@ const HomeOptions = () => {
 				</Text>
 			</Button>
 		</ScrollView>
+		</View>
 	);
 };
 

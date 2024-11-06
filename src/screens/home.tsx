@@ -158,6 +158,7 @@ const TelaHome = () => {
 			</View>
 			<HomeOptions />
 		</View>
+		</View>
 	);
 };
 

@@ -29,8 +29,6 @@ import UserContext  from "./src/components/hooks/userContext";
 const Stack = createStackNavigator();
 
 export default function App() {
-
-  //FAZER ESSES STATES SEREM GLOBAIS IMPORTANTE!!!!!!
   const [logado, setLogado] = useState(false);
   const [adminAqui, setAdminAqui] = useState(false);
 
