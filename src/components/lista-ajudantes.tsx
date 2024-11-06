@@ -13,7 +13,7 @@ const ListaAjudantes = ({ listaAjudantes }: ListaAjudantesProps) => {
   return (
     <ScrollView
       fadingEdgeLength={100}
-      className="h-[380px] max-h-[380px]">
+      className="h-full">
       {listaAjudantes.map((ajudante) => (
         <CardAjudante
           key={ajudante.id}

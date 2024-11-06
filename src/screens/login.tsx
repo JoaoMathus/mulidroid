@@ -61,7 +61,7 @@ const Login = () => {
 					</View>
 				</View>
 				<Button
-					className="bg-blue-500 p-5 rounded-md"
+					className="bg-blue-500 p-4 rounded-md"
 					onPress={async () => {
 						// Metendo o hash no garoto.
 						const estaSenha = await Crypto.digestStringAsync(

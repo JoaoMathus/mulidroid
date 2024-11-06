@@ -12,16 +12,17 @@ const HomeOptions = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 
 	return (
-		<ScrollView
-			showsHorizontalScrollIndicator={false}
-			fadingEdgeLength={150}
-			className="w-full mb-5"
-			horizontal
-			contentContainerClassName="gap-2"
-		>
+		<View>
+			<ScrollView
+				showsHorizontalScrollIndicator={false}
+				fadingEdgeLength={150}
+				className="w-full"
+				horizontal
+				contentContainerClassName="gap-2"
+			>
 
 			<Button
-				className="rounded-full mt-4 items-center"
+				className="rounded-full items-center"
 				onPress={() => navigate("Perfil")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
@@ -32,7 +33,7 @@ const HomeOptions = () => {
 				</Text>
 			</Button>
 			<Button
-				className="items-center rounded-md mt-4"
+				className="items-center rounded-md"
 				onPress={() => navigate("Cadastro de Ajudante")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
@@ -43,7 +44,7 @@ const HomeOptions = () => {
 				</Text>
 			</Button>
 			<Button
-				className="rounded-md mt-4 items-center"
+				className="rounded-md items-center"
 				onPress={() => navigate("Cadastro de Serviço")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
@@ -54,7 +55,7 @@ const HomeOptions = () => {
 				</Text>
 			</Button>
 			<Button
-				className="rounded-md items-center mt-4"
+				className="rounded-md items-center"
 				onPress={() => navigate("Cadastro de Veículo")}
 			>
 				<View className="bg-blue-500 shadow-sm items-center justify-center p-4 rounded-full">
