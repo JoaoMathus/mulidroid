@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Alert } from "react-native";
+import { ScrollView, View, Alert, Modal } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar } from "lucide-react-native";
@@ -77,6 +77,7 @@ const ajudantes: IAjudante[] = [
 const Servico = ({ navigation }) => {
 	const [expandAddress, setExpandAdress] = useState(1);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
+	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 
 	return (
 		<View className="px-8 w-full">
@@ -111,18 +112,7 @@ const Servico = ({ navigation }) => {
 							key={ajudante.phoneNumber}
 							ajudante={ajudante}
 							onPress={() => navigation.navigate("Ajudante")}
-							onLongPress={() => Alert.alert(null, "Efetuar o pagamento?", [
-								{
-									text: "sim",
-									onPress: () => {
-										setListaAjudantes(listaAjudantes.filter(item => item.id !== ajudante.id));
-									}
-								},
-								{
-									text: "não",
-									onPress: () => {}
-								}
-							])}
+							onLongPress={() => setModalConfirmacaoPagamento(true)}
 						/>
 					))}
 				</ScrollView>
@@ -132,6 +122,25 @@ const Servico = ({ navigation }) => {
 					</Text>
 				</Button>
 			</View>
+			<Modal
+				testID="modal-confirmacao-final"
+				animationType="slide"
+				visible={modalConfirmacaoPagamento}
+				onRequestClose={() => {
+					Alert.alert("Cancelado!");
+					setModalConfirmacaoPagamento(false);
+				}}
+			>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo efetuar o pagamento?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoPagamento(!modalConfirmacaoPagamento)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
+				</View>
+			</Modal>
 		</View>
 	);
 };
