@@ -54,11 +54,11 @@ const VeiculoForm = () => {
 						<Text className="text-xl" weight="bold">
 							Placa:
 						</Text>
-						<Text>99999999999999</Text>
+						<Text>{placa}</Text>
 						<Text className="text-xl" weight="bold">
 							Modelo:
 						</Text>
-						<Text>Batmóvel</Text>
+						<Text>{modelo}</Text>
 					</View>
 					<View className="gap-2">
 						<Button
