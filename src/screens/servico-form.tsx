@@ -9,13 +9,15 @@ import { fontVariants } from "../utils/fontVariants";
 import { MultiSelect } from "react-native-element-dropdown";
 
 const dados = [
-	{ label: "Alomomola", value: "1" },
-	{ label: "Garbodor", value: "2" },
-	{ label: "Girafarig", value: "3" },
+	{nome: "Alomomola"},
+	{nome: "Garbodor"},
+	{nome: "Girafarig"},
+	{nome: "Snorlax"},
+	{nome: "Armaldo"},
 ];
 
 const ServicoForm = () => {
-	const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
+	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
 	const [endereco, setEndereco] = useState("");
 	const [bairro, setBairro] = useState("");
 	const [valor, setValor] = useState("");
@@ -59,8 +61,8 @@ const ServicoForm = () => {
 						containerStyle={styles.container}
 						search
 						data={dados}
-						labelField="label"
-						valueField="value"
+						labelField="nome"
+						valueField="nome"
 						placeholder="Selecione"
 						searchPlaceholder="Procurar..."
 						value={ajudantesSelecionados}
@@ -141,28 +143,28 @@ const ServicoForm = () => {
 							<Text className="text-xl" weight="bold">
 								Endereço:
 							</Text>
-							<Text>Ruínas Sinjoh</Text>
+							<Text>{endereco}</Text>
 							<Text className="text-xl" weight="bold">
 								Bairro:
 							</Text>
-							<Text>Indeterminado</Text>
+							<Text>{bairro}</Text>
 							<Text className="text-xl" weight="bold">
 								Valor:
 							</Text>
-							<Text>R$ 100.000,00</Text>
+							<Text>{valor}</Text>
 							<Text className="text-xl" weight="bold">
 								Veículo:
 							</Text>
-							<Text>Arceus</Text>
+							<Text>{veiculo}</Text>
 							<Text className="text-xl" weight="bold">
 								Data:
 							</Text>
-							<Text>17/08/2007</Text>
+							<Text>{data.format("DD/MM/YYYY")}</Text>
 							<Text className="text-xl" weight="bold">
 								Ajudantes:
 							</Text>
 							<Text>
-								Typhlosion, Ariados, Dunsparce, Quagsire, Muk, Electabuzz
+								{ajudantesSelecionados.join(", ")}
 							</Text>
 						</View>
 						<View className="gap-2">
