@@ -22,8 +22,8 @@ const Input = ({ label, secureTextEntry, onChangeText, value }: InputProps) => {
 				value={value}
 				textContentType="password"
 				cursorColor={"#0077ff"}
-				className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
-				style={{ fontFamily: fontVariants["light"] }}
+				className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-3 px-4 text-xl"
+				style={{ fontFamily: fontVariants.light }}
 			/>
 		</View>
 	);

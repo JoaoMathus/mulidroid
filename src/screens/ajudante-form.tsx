@@ -23,7 +23,7 @@ const AjudanteForm = () => {
 	const [usuario, setUsuario] = useState("");
 	const [motorista, setMotorista] = useState(false);
 	return (
-		<ScrollView className="w-full" contentContainerClassName="gap-5 p-8 mb-10">
+		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8">
 			<Text className="text-left text-3xl" weight="black">
 				Cadastro de Ajudante
 			</Text>
