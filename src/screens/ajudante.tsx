@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View, Alert } from "react-native";
+import { ScrollView, View, Modal, Alert } from "react-native";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import { Calendar, Phone } from "lucide-react-native";
@@ -62,6 +62,7 @@ const servicos: IServico[] = [
 
 const Ajudante = ({ navigation }) => {
 	const [listaServicos, setListaServicos] = useState(servicos);
+	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 	return (
 		<View className="p-8 w-full">
 			<View>
@@ -96,20 +97,7 @@ const Ajudante = ({ navigation }) => {
 							key={servico.id}
 							servico={servico}
 							onPress={() => navigation.navigate("Servico")}
-							onLongPress={() => {
-								Alert.alert(null, "Pagar diária?", [
-									{
-										text: "sim",
-										onPress: () => {
-											setListaServicos(listaServicos.filter(item => item.id != servico.id));
-										}
-									},
-									{
-										text: "não",
-										onPress: () => {}
-									}
-								])
-							}}
+							onLongPress={() => setModalConfirmacaoPagamento(true)}
 						/>
 					))}
 				</ScrollView>
@@ -126,6 +114,25 @@ const Ajudante = ({ navigation }) => {
 					</Button>
 				</View>
 			</View>
+			<Modal
+				testID="modal-confirmacao-final"
+				animationType="slide"
+				visible={modalConfirmacaoPagamento}
+				onRequestClose={() => {
+					Alert.alert("Cancelado!");
+					setModalConfirmacaoPagamento(false);
+				}}
+			>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo efetuar o pagamento?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoPagamento(!modalConfirmacaoPagamento)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
+				</View>
+			</Modal>
 		</View>
 	);
 };
