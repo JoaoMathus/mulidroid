@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Image, View, Alert } from "react-native";
 import * as Crypto from "expo-crypto";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import OfflineNotice from "../components/offline-notice";
+import UserContext from "../components/hooks/userContext";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -27,9 +28,10 @@ const usuarioNormal = {
 	password: senhaTesteUsuario
 };
 
-const Login = ({ logar, adminLogou }) => {
+const Login = () => {
 	const [usuario, setUsuario] = useState("");
 	const [senha, setSenha] = useState("");
+	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	return (
 		<>
 			{/* Verificando conexão com a internet, sem ela, lamento... */}
@@ -67,9 +69,10 @@ const Login = ({ logar, adminLogou }) => {
 							senha,
 						);
 						if (usuario === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
-							logar();
+							setLogado(true);
 						} else if (usuario === admin.user && estaSenha === (await admin.password)) {
-							adminLogou();
+							setLogado(true);
+							setAdminAqui(true);
 						} else {
 							Alert.alert("Usuário ou senha errada!");
 						}

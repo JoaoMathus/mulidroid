@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
@@ -102,7 +102,7 @@ const ajudantes: IAjudante[] = [
  *
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const TelaHome = ({ deslogar }) => {
+const TelaHome = () => {
 	const [listaServicos, setListaServicos] = useState<IServico[]>(servicos);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
@@ -135,7 +135,7 @@ const TelaHome = ({ deslogar }) => {
 			) : (
 				<ListaAjudantes listaAjudantes={ajudantes}/>)
 			}
-			<HomeOptions deslogar={deslogar} />
+			<HomeOptions />
 		</View>
 	);
 };

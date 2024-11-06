@@ -6,6 +6,7 @@ import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
 import type IAjudante from "../interfaces/IAjudante";
+import useNavigation from "../components/hooks/useNavigation";
 
 const ajudantes: IAjudante[] = [
 	{
@@ -74,10 +75,11 @@ const ajudantes: IAjudante[] = [
 	},
 ];
 
-const Servico = ({ navigation }) => {
+const Servico = () => {
 	const [expandAddress, setExpandAdress] = useState(1);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
+	const { navigate } = useNavigation().navigator;
 
 	return (
 		<View className="px-8 w-full">
@@ -111,7 +113,7 @@ const Servico = ({ navigation }) => {
 						<CardAjudante
 							key={ajudante.phoneNumber}
 							ajudante={ajudante}
-							onPress={() => navigation.navigate("Ajudante")}
+							onPress={() => navigate("Ajudante")}
 							onLongPress={() => setModalConfirmacaoPagamento(true)}
 						/>
 					))}

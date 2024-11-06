@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { View, Modal, Alert, ScrollView } from "react-native";
 import Text from "../components/ui/text";
-import Button from "../components/ui/button";
-import Input from "../components/ui/input";
 import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
-import useNavigation from "../components/hooks/useNavigation";
 import PerfilOptions from "../components/perfil-options";
+import UserContext from "../components/hooks/userContext";
 
 const dados: IServico[] = [
 	{
@@ -76,8 +74,8 @@ const dados: IServico[] = [
  *  testar a modificação de senha,
  *  testar a modificação de nome de usuário.
  */
-const TelaPerfil = ({ adminAqui, deslogar }) => {
-
+const TelaPerfil = () => {
+	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	return (
 		<View 
 			className={`${adminAqui ? "" : "mt-10 pt-8"} w-full gap-2`}
@@ -105,7 +103,7 @@ const TelaPerfil = ({ adminAqui, deslogar }) => {
 					</View>
 				</View>
 			</View>
-			<PerfilOptions deslogar={deslogar} />
+			<PerfilOptions />
 		</View>
 	);
 };

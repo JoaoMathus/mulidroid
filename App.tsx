@@ -24,6 +24,7 @@ import Servico from "./src/screens/servico";
 import { NavigationContainer } from '@react-navigation/native';
 import Ajudante from "./src/screens/ajudante";
 import { StyleSheet } from "react-native";
+import UserContext  from "./src/components/hooks/userContext";
 
 const Stack = createStackNavigator();
 
@@ -31,7 +32,7 @@ export default function App() {
 
   //FAZER ESSES STATES SEREM GLOBAIS IMPORTANTE!!!!!!
   const [logado, setLogado] = useState(false);
-  const [admin, setAdmin] = useState(false);
+  const [adminAqui, setAdminAqui] = useState(false);
 
   const [loaded, error] = useFonts({
     SofiaSans_100Thin,
@@ -55,49 +56,25 @@ export default function App() {
     return null;
   }
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerTitle: "",
-          headerStyle: headerStyle.header
-        }}
-      >
-        {!logado ? (
-          <Stack.Screen name='Login' options={{
-            headerShown: false
-          }}>
-            {/* Codigozinho para condicionar a renderização de admin e usuário */(props) => <Login {...props}
-              logar={() => {
-                setLogado(true);
-                setAdmin(false);
-              }}
-              adminLogou={() => {
-                setLogado(true);
-                setAdmin(true);
-              }}
-            />}
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name='Home' options={{
-              headerShown: false
-            }}>
-              {(props) => <TelaHome {...props} deslogar={() => { setLogado(false); setAdmin(false); }} />}
-            </Stack.Screen>
-            <Stack.Screen name='Perfil' options={{
-              headerShown: admin
-            }}>
-              {(props) => <TelaPerfil {...props} adminAqui={admin} deslogar={() => setLogado(false)} />}
-            </Stack.Screen>
-            <Stack.Screen name='Ajudante' component={Ajudante} />
-            <Stack.Screen name='Servico' component={Servico} />
-            <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
-            <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
-            <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserContext.Provider value={{logado, setLogado, adminAqui, setAdminAqui }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerTitle: "",
+            headerStyle: headerStyle.header
+          }}
+        >
+          { !logado ? (<Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />) :
+          (<><Stack.Screen name='Home' component={TelaHome} options={{ headerShown: false }} />
+          <Stack.Screen name='Perfil' component={TelaPerfil} />
+          <Stack.Screen name='Ajudante' component={Ajudante} />
+          <Stack.Screen name='Servico' component={Servico} />
+          <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
+          <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
+          <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} /></>)}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 

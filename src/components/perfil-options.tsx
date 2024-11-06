@@ -2,13 +2,18 @@ import { Alert, Modal, View } from "react-native";
 import Button from "./ui/button";
 import { Lock, LogOut, User } from "lucide-react-native";
 import Text from "./ui/text";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Input from "./ui/input";
+import UserContext from "./hooks/userContext";
+import useNavigation from "./hooks/useNavigation";
 
-const PerfilOptions = ({deslogar}) => {
+const PerfilOptions = () => {
 
   const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
   const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
+  const { navigate } = useNavigation().navigator;
+
+  const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 
   return (
     <View className="flex-row justify-center gap-2 mb-10">
@@ -36,7 +41,7 @@ const PerfilOptions = ({deslogar}) => {
       </Button>
       <Button
         className="rounded-md mt-4 items-center"
-        onPress={() => deslogar(false)}
+        onPress={() => { setLogado(false); setAdminAqui(false); } }
       >
         <View className="bg-red-500 shadow-sm items-center justify-center p-4 rounded-full">
           <LogOut color="#fff" />
