@@ -61,20 +61,6 @@ const dados: IServico[] = [
 	},
 ];
 
-/**
- *
- * Ainda falta pôr rolagem na lista de serviços com pagamento pendente.
- *
- * FAZER ALTERAÇÕES PARA QUE A LISTA DE SERVIÇOS NESTA TELA NÃO APAREÇA VALOR NEM
- * O NÚMERO DE AJUDANTES
- *
- * Testes:
- * Quando banco estiver implementado:
- *  testar o resgate dos dados do usuário;
- *  testar a lista de serviços não pagos;
- *  testar a modificação de senha,
- *  testar a modificação de nome de usuário.
- */
 const TelaPerfil = () => {
 	const { adminAqui } = useContext(UserContext);
 

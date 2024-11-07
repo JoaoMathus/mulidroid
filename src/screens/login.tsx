@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, View, Alert } from "react-native";
-import * as Crypto from "expo-crypto";
+import { View, Alert, Modal } from "react-native";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
@@ -9,40 +8,18 @@ import UserContext from "../hooks/userContext";
 import useNavigation from "../hooks/useNavigation";
 import http from "../http/http";
 import type IUser from "../interfaces/IUser";
-import * as LocalAuthentication from "expo-local-authentication"; // para biometria
+import * as LocalAuthentication from "expo-local-authentication";
 import LogoMulidroid from "../components/LogoMulidroid";
 
-// Senhas digeridas para testes, apenas.
-const senhaTesteAdmin = Crypto.digestStringAsync(
-	Crypto.CryptoDigestAlgorithm.SHA256,
-	"Muitobom",
-);
-const senhaTesteUsuario = Crypto.digestStringAsync(
-	Crypto.CryptoDigestAlgorithm.SHA256,
-	"Naoseiasenha"
-)
-
-// Nosso administrador Alomomola, para testes.
-const admin = {
-	user: "Alomomola",
-	password: senhaTesteAdmin,
-};
-// Nosso usuário de teste.
-const usuarioNormal = {
-	user: "Garbodor",
-	password: senhaTesteUsuario
-};
-
-/**
- * 
- * FALTA FAZER A FUNÇÃO "ESQUECI A SENHA"
- */
 const Login = () => {
 	const [suportaBiometria, setSuportaBiometria] = useState(false);
 	const [temBiometria, setTemBiometria] = useState(false);
+	const [modalEsqueciASenha, setModalEsqueciASenha] = useState(false);
 	const [usuario, setUsuario] = useState("");
 	const [senha, setSenha] = useState("");
-	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
+	const [modalUsername, setModalUsername] = useState("");
+	const [modalEmail, setModalEmail] = useState("");
+	const { logado, setLogado, adminAqui, setAdminAqui, employeeId, setEmployeeId } = useContext(UserContext);
 	const { navigate } = useNavigation().navigator;
 
 	useEffect(() => {
@@ -52,16 +29,18 @@ const Login = () => {
 		})();
 	});
 
-	//meio pronto irei dar uma olhada em estatistica
-	// Sim, essa aqui não precisa de cache (?), tem que conectar direto.
-
 	const logarUsuario =  async () => {
 		const res = await http.post<IUser>("user", {
-			username: "Praga1910",
-			password: "1393"
+			username: usuario,
+			password: senha
+		}).then((user) => {
+			setEmployeeId(user.data.employeeId);
+			setLogado(true);
+			setAdminAqui(user.data.admin);
+			if (!adminAqui) navigate("Perfil");
+		}).catch(() => {
+			Alert.alert("Usuário ou senha errada.");
 		})
-
-		console.log(res.data);
 	}
 
 	LocalAuthentication.isEnrolledAsync().then((data) => {
@@ -81,17 +60,7 @@ const Login = () => {
 
 	return (
 		<>
-			{/* Verificando conexão com a internet, sem ela, lamento... 
-
-			kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-			*/}
 			<OfflineNotice />
-			{/* Verificando se tem biometria no aparelho... 
-				Foi para depurar, agora esses Texts virou história.
-			*/}
-			{/*<Text>{suportaBiometria ? "Seu aparelho suporta biometria"
-				: "Não tem biometria"}</Text> */}
-			{/*<Text>{temBiometria? "Aqui tem biometria salva" : "Não tem biometria salva"}</Text>*/}
 			<View className="w-full h-full justify-center gap-6 p-8">
 				<LogoMulidroid />
 				<View className="gap-6">
@@ -105,28 +74,17 @@ const Login = () => {
 							onChangeText={setSenha}
 							value={senha}
 						/>
-						<Text className="text-sm text-black/50 underline self-end mt-1">
-							Esqueceu a senha ?
-						</Text>
+						<Button onPress={() => setModalEsqueciASenha(true)}>
+							<Text className="text-sm text-black/50 underline self-end mt-1">
+								Esqueceu a senha ?
+							</Text>
+						</Button>
 					</View>
 				</View>
 				<Button
 					className="bg-blue-500 p-4 rounded-md"
 					onPress={async () => {
-						// Metendo o hash no garoto.  JKKKKKKKKKKKKKK
-						const estaSenha = await Crypto.digestStringAsync(
-							Crypto.CryptoDigestAlgorithm.SHA256,
-							senha,
-						);
-						if (usuario.trim() === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
-							setLogado(true);
-							navigate("Perfil"); // se não for admin, vai direto pro Perfil.
-						} else if (usuario.trim() === admin.user && estaSenha === (await admin.password)) {
-							setLogado(true);
-							setAdminAqui(true);
-						} else {
-							Alert.alert("Usuário ou senha errada!");
-						}
+						await logarUsuario();
 					}}
 				>
 					<Text className="text-center text-lg text-white" weight="semiBold">
@@ -140,6 +98,23 @@ const Login = () => {
 					) : (<></>)
 				}
 			</View>
+			<Modal
+				visible={modalEsqueciASenha}
+				onRequestClose={() => {
+					setModalEsqueciASenha(false);
+				}}
+			>
+				<View className="mt-10 p-6 gap-5 h-full justify-center">
+					<Input label="Usuário" onChangeText={setModalUsername} value={modalUsername} />
+					<Input label="Email" onChangeText={setModalEmail} value={modalEmail} />
+					<Button className="bg-blue-500 p-4 mt-10" onPress={() => Alert.alert("Envia email")}>
+						<Text className="text-center text-lg text-white" weight="semiBold">Enviar email</Text>
+					</Button>
+					<Button className="bg-red-500 p-4" onPress={() => setModalEsqueciASenha(false)}>
+						<Text className="text-center text-lg text-white">Cancelar</Text>
+					</Button>
+				</View>
+			</Modal>
 		</>
 	);
 };

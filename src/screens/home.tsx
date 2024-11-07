@@ -10,6 +10,7 @@ import ListaServicos from "../components/lista-servicos";
 import ListaAjudantes from "../components/lista-ajudantes";
 import http from "../http/http";
 import type { IAjudanteForList } from "../interfaces/IAjudante";
+import { nosso_get } from "../http/http";
 
 const TelaHome = () => {
 	const [listaServicos, setListaServicos] = useState<IServico[]>([]);
@@ -17,7 +18,7 @@ const TelaHome = () => {
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	const buscarServicos = async () => {
-		const res = await http.get<IServico[]>("service");
+		const res = await nosso_get("service"); // com cache
 		setListaServicos(res.data);
 	}
 

@@ -6,8 +6,9 @@ const http = axios.create({
 });
 
 const get = http.get;
+const post = http.post;
 
-const salsicha = async (url, params) => {
+export const nosso_get = async (url, params?) => {
   const response = await get(url, params);
 
   if (response.status === 200) {
