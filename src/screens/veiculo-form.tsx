@@ -7,6 +7,7 @@ import Button from "../components/ui/button";
 /**
  *
  * Falta implementar os testes.
+ * Falta implementar o banco de dados.
  */
 const VeiculoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);

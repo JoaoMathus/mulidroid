@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, View, Alert } from "react-native";
 import * as Crypto from "expo-crypto";
 import Input from "../components/ui/input";
@@ -9,6 +9,7 @@ import UserContext from "../hooks/userContext";
 import useNavigation from "../hooks/useNavigation";
 import http from "../http/http";
 import type IUser from "../interfaces/IUser";
+import * as LocalAuthentication from "expo-local-authentication"; // para biometria
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -32,10 +33,19 @@ const usuarioNormal = {
 };
 
 const Login = () => {
+	const [suportaBiometria, setSuportaBiometria] = useState(false);
+	const [temBiometria, setTemBiometria] = useState(false);
 	const [usuario, setUsuario] = useState("");
 	const [senha, setSenha] = useState("");
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	const { navigate } = useNavigation().navigator;
+
+	useEffect(() => {
+		(async () => {
+			const compativel = await LocalAuthentication.hasHardwareAsync();
+			setSuportaBiometria(compativel);
+		})();
+	});
 
 	//meio pronto irei dar uma olhada em estatistica
 	// Sim, essa aqui não precisa de cache (?), tem que conectar direto.
@@ -49,6 +59,21 @@ const Login = () => {
 		console.log(res.data);
 	}
 
+	LocalAuthentication.isEnrolledAsync().then((data) => {
+		setTemBiometria(data);
+	});
+
+	const autenticarComBiometria = async () => {
+		const resultado = LocalAuthentication.authenticateAsync({
+			promptMessage: "Use a biometria"
+		});
+
+		if ((await resultado).success) {
+			setLogado(true);
+			setAdminAqui(true);
+		}
+	}
+
 	return (
 		<>
 			{/* Verificando conexão com a internet, sem ela, lamento... 
@@ -56,6 +81,12 @@ const Login = () => {
 			kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 			*/}
 			<OfflineNotice />
+			{/* Verificando se tem biometria no aparelho... 
+				Foi para depurar, agora esses Texts virou história.
+			*/}
+			{/*<Text>{suportaBiometria ? "Seu aparelho suporta biometria"
+				: "Não tem biometria"}</Text> */}
+			{/*<Text>{temBiometria? "Aqui tem biometria salva" : "Não tem biometria salva"}</Text>*/}
 			<View className="w-full h-full justify-center gap-6 p-8">
 				<View className="items-center">
 					<Image
@@ -103,6 +134,12 @@ const Login = () => {
 						Login
 					</Text>
 				</Button>
+				{(suportaBiometria && temBiometria) ? (
+					<Button className="bg-white p-4" onPress={() => autenticarComBiometria()}>
+						<Text className="text-center text-lg" weight="bold">Toque aqui para biometria!</Text>
+					</Button>
+					) : (<></>)
+				}
 			</View>
 		</>
 	);
