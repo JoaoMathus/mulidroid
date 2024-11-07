@@ -14,6 +14,7 @@ import { fontVariants } from "../utils/fontVariants";
  */
 const AjudanteForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 	const [data, setData] = useState(dayjs());
 	const [apelido, setApelido] = useState("");
@@ -33,7 +34,7 @@ const AjudanteForm = () => {
 			<Input label="Telefone" onChangeText={setTelefone} value={telefone} />
 			<View>
 					<Text className="mb-2" weight="medium">
-						Data do serviço
+						Data de nascimento
 					</Text>
 					<Button
 						className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
@@ -49,7 +50,14 @@ const AjudanteForm = () => {
 			<CheckBox onChecked={setMotorista} />
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
-				onPress={() => setMostrarConfirmacao(true)}
+				onPress={() => {
+						if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
+							Alert.alert("Você deve preencher todos os campos!");
+						} else { 
+							setMostrarConfirmacao(true);
+						}
+					}
+				}
 			>
 				<Text className="text-lg text-center text-white" weight="semiBold">
 					Cadastrar
@@ -147,28 +155,32 @@ const AjudanteForm = () => {
 						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() =>
-								Alert.alert(null,
-									"Última chance, é isso mesmo que deseja?", [
-										{
-											text: "sim",
-											onPress: () => {
-												Alert.alert("Aqui vem uma mensagem de email falando a senha (e vem o id também)");
-											}
-										},
-										{
-											text: "não",
-											onPress: () => {}
-										}
-									]
-								)
-							}
+							onPress={() => setModalConfirmacaoFinal(true) }
 						>
 							<Text className="text-xl text-center text-white">
 								Tenho absoluta certeza!
 							</Text>
 						</Button>
 					</View>
+				</View>
+			</Modal>
+			<Modal
+				testID="modal-confirmacao-final"
+				animationType="slide"
+				visible={modalConfirmacaoFinal}
+				onRequestClose={() => {
+					Alert.alert("Cancelado!");
+					setModalConfirmacaoFinal(false);
+				}}
+			>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo registrar esse ajudante?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
 				</View>
 			</Modal>
 		</ScrollView>

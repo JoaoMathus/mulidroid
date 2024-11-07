@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
@@ -102,33 +102,35 @@ const ajudantes: IAjudante[] = [
  *
  * TODO: falta ainda colocar rolagem na lista de serviços
  */
-const TelaHome = ({ deslogar }) => {
+const TelaHome = () => {
 	const [listaServicos, setListaServicos] = useState<IServico[]>(servicos);
 	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (
-		<View className="h-screen my-auto pt-8 px-8 justify-between">
-			<View className="gap-4 flex-1">
+			<View className="gap-4 pt-8 px-5 flex-1">
 				<View className="gap-4">
 					<Faturameto/>
 					<Diarias/>
 				</View>
 				<View className="flex-row w-full gap-4">
-					<Button className="bg-blue-500 flex-1 p-3 rounded-md">
+					<Button className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(true)}>
 						<Text className="text-center text-white" weight="semiBold">
 							Serviços
 						</Text>
 					</Button>
-					<Button className="bg-blue-500 flex-1 p-3 rounded-md">
+					<Button className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(false)}>
 						<Text className="text-center text-white" weight="semiBold">
 							Ajudantes
 						</Text>
 					</Button>
 				</View>
-				<ListaServicos listaServicos={servicos}/>
-			</View>
-			<HomeOptions deslogar={deslogar} />
+			{mostrarServicos ? (
+				<ListaServicos listaServicos={listaServicos}/>
+			) : (
+				<ListaAjudantes listaAjudantes={ajudantes}/>)
+			}
+			<HomeOptions />
 		</View>
 	);
 };

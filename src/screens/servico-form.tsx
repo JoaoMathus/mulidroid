@@ -7,15 +7,27 @@ import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 import { MultiSelect } from "react-native-element-dropdown";
+import styles from "../components/ui/styles";
 
 const dados = [
-	{ label: "Alomomola", value: "1" },
-	{ label: "Garbodor", value: "2" },
-	{ label: "Girafarig", value: "3" },
+	{nome: "Alomomola"},
+	{nome: "Garbodor"},
+	{nome: "Girafarig"},
+	{nome: "Snorlax"},
+	{nome: "Armaldo"},
 ];
 
+/**
+ * BUG: quando seleciona os ajudantes e depois sai da tela e volta novamente,
+ * todos ficam selecionados automaticamente.
+ */
 const ServicoForm = () => {
-	const [ajudantesSelecionados, setAjudantesSelecionados] = useState([]);
+	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
+	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
+	const [endereco, setEndereco] = useState("");
+	const [bairro, setBairro] = useState("");
+	const [valor, setValor] = useState("");
+	const [veiculo, setVeiculo] = useState("");
 	const [data, setData] = useState(dayjs());
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -26,10 +38,10 @@ const ServicoForm = () => {
 				<Text className="text-left text-3xl" weight="black">
 					Cadastro de Serviço
 				</Text>
-				<Input label="Endereço" />
-				<Input label="Bairro" />
-				<Input label="Valor" />
-				<Input label="Veículo" />
+				<Input label="Endereço" onChangeText={setEndereco} value={endereco} />
+				<Input label="Bairro" onChangeText={setBairro} value={bairro} />
+				<Input label="Valor" onChangeText={setValor} value={valor} />
+				<Input label="Veículo" onChangeText={setVeiculo} value={veiculo} />
 				<View>
 					<Text className="mb-2" weight="medium">
 						Data do serviço
@@ -55,8 +67,8 @@ const ServicoForm = () => {
 						containerStyle={styles.container}
 						search
 						data={dados}
-						labelField="label"
-						valueField="value"
+						labelField="nome"
+						valueField="nome"
 						placeholder="Selecione"
 						searchPlaceholder="Procurar..."
 						value={ajudantesSelecionados}
@@ -67,7 +79,14 @@ const ServicoForm = () => {
 				</View>
 				<Button
 					className="bg-blue-500 p-4 rounded-md mt-4"
-					onPress={() => setMostrarConfirmacao(true)}
+					onPress={() => {
+							if (endereco == "" || bairro == "" || valor == "" || veiculo == "" || data == null || ajudantesSelecionados == null) {
+								Alert.alert("Você deve preencher todos os campos!");
+							} else {
+								setMostrarConfirmacao(true);
+							}
+						}
+					}
 				>
 					<Text className="text-xl text-center text-white" weight="semiBold">
 						Cadastrar
@@ -88,6 +107,7 @@ const ServicoForm = () => {
 							calendarTextStyle={{ fontFamily: fontVariants.regular }}
 							selectedTextStyle={{ fontFamily: fontVariants.bold }}
 							headerTextStyle={{ textTransform: "capitalize" }}
+							minDate={dayjs()}
 							headerButtonStyle={{
 								backgroundColor: "#3b82f6",
 								borderRadius: 100,
@@ -130,28 +150,28 @@ const ServicoForm = () => {
 							<Text className="text-xl" weight="bold">
 								Endereço:
 							</Text>
-							<Text>Ruínas Sinjoh</Text>
+							<Text>{endereco}</Text>
 							<Text className="text-xl" weight="bold">
 								Bairro:
 							</Text>
-							<Text>Indeterminado</Text>
+							<Text>{bairro}</Text>
 							<Text className="text-xl" weight="bold">
 								Valor:
 							</Text>
-							<Text>R$ 100.000,00</Text>
+							<Text>{valor}</Text>
 							<Text className="text-xl" weight="bold">
 								Veículo:
 							</Text>
-							<Text>Arceus</Text>
+							<Text>{veiculo}</Text>
 							<Text className="text-xl" weight="bold">
 								Data:
 							</Text>
-							<Text>17/08/2007</Text>
+							<Text>{data.format("DD/MM/YYYY")}</Text>
 							<Text className="text-xl" weight="bold">
 								Ajudantes:
 							</Text>
 							<Text>
-								Typhlosion, Ariados, Dunsparce, Quagsire, Muk, Electabuzz
+								{ajudantesSelecionados? ajudantesSelecionados.join(", ") : null}
 							</Text>
 						</View>
 						<View className="gap-2">
@@ -163,11 +183,7 @@ const ServicoForm = () => {
 							</Button>
 							<Button
 								className="bg-blue-500 p-4 rounded-md mt-4"
-								onPress={() =>
-									Alert.alert(
-										"Chama função que confirma a mudança no banco local",
-									)
-								}
+								onPress={() =>setModalConfirmacaoFinal(true)}
 							>
 								<Text className="text-xl text-center text-white">
 									Tenho absoluta certeza!
@@ -176,11 +192,31 @@ const ServicoForm = () => {
 						</View>
 					</View>
 				</Modal>
+				<Modal
+					testID="modal-confirmacao-final"
+					animationType="slide"
+					visible={modalConfirmacaoFinal}
+					onRequestClose={() => {
+						Alert.alert("Cancelado!");
+						setModalConfirmacaoFinal(false);
+					}}
+				>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo registar o serviço?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
+				</View>
+			</Modal>
 			</View>
 		</ScrollView>
 	);
 };
 
+/*
 const styles = StyleSheet.create({
 	dropdown: {
 		paddingVertical: 16,
@@ -195,6 +231,6 @@ const styles = StyleSheet.create({
 		borderRadius: 6,
 		borderColor: "rgba(0, 0, 0, 0.1)",
 	},
-});
+});*/
 
 export default ServicoForm;

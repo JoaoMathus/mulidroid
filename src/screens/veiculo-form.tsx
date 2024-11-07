@@ -10,16 +10,26 @@ import Button from "../components/ui/button";
  */
 const VeiculoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
+	const [placa, setPlaca] = useState("");
+	const [modelo, setModelo] = useState("");
 	return (
 		<View className="w-full gap-5 px-8">
 			<Text className="text-left text-3xl" weight="black">
 				Cadastro de Veículos
 			</Text>
-			<Input label="Placa" />
-			<Input label="Modelo" />
+			<Input label="Placa" onChangeText={setPlaca} value={placa} />
+			<Input label="Modelo" onChangeText={setModelo} value={modelo} />
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
-				onPress={() => setMostrarConfirmacao(true)}
+				onPress={() => {
+						if (placa == "" || modelo == "") {
+							Alert.alert("Você deve preencher todos os campos!");
+						} else {
+							setMostrarConfirmacao(true);
+						}
+					}
+				}
 			>
 				<Text className="text-lg text-center text-white" weight="semiBold">
 					Cadastrar
@@ -45,11 +55,11 @@ const VeiculoForm = () => {
 						<Text className="text-xl" weight="bold">
 							Placa:
 						</Text>
-						<Text>99999999999999</Text>
+						<Text>{placa}</Text>
 						<Text className="text-xl" weight="bold">
 							Modelo:
 						</Text>
-						<Text>Batmóvel</Text>
+						<Text>{modelo}</Text>
 					</View>
 					<View className="gap-2">
 						<Button
@@ -60,17 +70,32 @@ const VeiculoForm = () => {
 						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() =>
-								Alert.alert(
-									"Chama função que confirma a mudança no banco local",
-								)
-							}
+							onPress={() => setModalConfirmacaoFinal(true)}
 						>
 							<Text className="text-xl text-center text-white">
 								Tenho absoluta certeza!
 							</Text>
 						</Button>
 					</View>
+				</View>
+			</Modal>
+			<Modal
+				testID="modal-confirmacao-final"
+				animationType="slide"
+				visible={modalConfirmacaoFinal}
+				onRequestClose={() => {
+					Alert.alert("Cancelado!");
+					setModalConfirmacaoFinal(false);
+				}}
+			>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo registrar esse veículo?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
 				</View>
 			</Modal>
 		</View>
