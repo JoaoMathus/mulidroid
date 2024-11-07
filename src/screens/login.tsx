@@ -38,6 +38,7 @@ const Login = () => {
 	const { navigate } = useNavigation().navigator;
 
 	//meio pronto irei dar uma olhada em estatistica
+	// Sim, essa aqui não precisa de cache (?), tem que conectar direto.
 
 	const logarUsuario =  async () => {
 		const res = await http.post<IUser>("user", {
@@ -87,10 +88,10 @@ const Login = () => {
 							Crypto.CryptoDigestAlgorithm.SHA256,
 							senha,
 						);
-						if (usuario === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
+						if (usuario.trim() === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
 							setLogado(true);
 							navigate("Perfil"); // se não for admin, vai direto pro Perfil.
-						} else if (usuario === admin.user && estaSenha === (await admin.password)) {
+						} else if (usuario.trim() === admin.user && estaSenha === (await admin.password)) {
 							setLogado(true);
 							setAdminAqui(true);
 						} else {
