@@ -31,6 +31,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const [logado, setLogado] = useState(false);
   const [adminAqui, setAdminAqui] = useState(false);
+  const [employeeId, setEmployeeId] = useState("");
 
   const [loaded, error] = useFonts({
     SofiaSans_100Thin,
@@ -55,7 +56,7 @@ export default function App() {
   }
 
   return (
-    <UserContext.Provider value={{ logado, setLogado, adminAqui, setAdminAqui }}>
+    <UserContext.Provider value={{ logado, setLogado, adminAqui, setAdminAqui, employeeId, setEmployeeId }}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
