@@ -6,7 +6,7 @@ import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
 import type IAjudante from "../interfaces/IAjudante";
-import useNavigation from "../components/hooks/useNavigation";
+import useNavigation from "../hooks/useNavigation";
 import { MultiSelect } from "react-native-element-dropdown";
 import Input from "../components/ui/input";
 import styles from "../components/ui/styles";
@@ -83,11 +83,11 @@ const ajudantes: IAjudante[] = [
 
 // Dados para o dropdown
 const dados = [
-	{nome: "Alomomola"},
-	{nome: "Garbodor"},
-	{nome: "Girafarig"},
-	{nome: "Snorlax"},
-	{nome: "Armaldo"},
+	{ nome: "Alomomola" },
+	{ nome: "Garbodor" },
+	{ nome: "Girafarig" },
+	{ nome: "Snorlax" },
+	{ nome: "Armaldo" },
 ];
 
 /**
@@ -224,12 +224,12 @@ const Servico = () => {
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-								if (endereco == "" || bairro == "" || valor == "" || veiculo == "" || data == null || ajudantesSelecionados == null) {
-									Alert.alert("Você deve preencher todos os campos!");
-								} else {
-									setMostrarConfirmacao(true);
-								}
+							if (endereco == "" || bairro == "" || valor == "" || veiculo == "" || data == null || ajudantesSelecionados == null) {
+								Alert.alert("Você deve preencher todos os campos!");
+							} else {
+								setMostrarConfirmacao(true);
 							}
+						}
 						}
 					>
 						<Text className="text-xl text-center text-white" weight="semiBold">
@@ -239,105 +239,105 @@ const Servico = () => {
 				</ScrollView>
 			</Modal>
 			<Modal
-					testID="modal-data"
-					animationType="slide"
-					transparent={false}
-					visible={mostrarDatePicker}
-					onRequestClose={() => {
-						Alert.alert("Data salva!");
-						setMostrarDatePicker(!mostrarDatePicker);
-					}}
-				>
-					<View className="mt-10 p-6">
-						<DateTimePicker
-							calendarTextStyle={{ fontFamily: fontVariants.regular }}
-							selectedTextStyle={{ fontFamily: fontVariants.bold }}
-							minDate={dayjs()}
-							headerTextStyle={{ textTransform: "capitalize" }}
-							headerButtonStyle={{
-								backgroundColor: "#3b82f6",
-								borderRadius: 100,
-								padding: 6,
-							}}
-							headerButtonColor="#fff"
-							selectedItemColor="#3b82f6"
-							locale={dayjs.locale("pt-br")}
-							mode="single"
-							date={data}
-							onChange={(params) => setData(dayjs(params.date))}
-						/>
+				testID="modal-data"
+				animationType="slide"
+				transparent={false}
+				visible={mostrarDatePicker}
+				onRequestClose={() => {
+					Alert.alert("Data salva!");
+					setMostrarDatePicker(!mostrarDatePicker);
+				}}
+			>
+				<View className="mt-10 p-6">
+					<DateTimePicker
+						calendarTextStyle={{ fontFamily: fontVariants.regular }}
+						selectedTextStyle={{ fontFamily: fontVariants.bold }}
+						minDate={dayjs()}
+						headerTextStyle={{ textTransform: "capitalize" }}
+						headerButtonStyle={{
+							backgroundColor: "#3b82f6",
+							borderRadius: 100,
+							padding: 6,
+						}}
+						headerButtonColor="#fff"
+						selectedItemColor="#3b82f6"
+						locale={dayjs.locale("pt-br")}
+						mode="single"
+						date={data}
+						onChange={(params) => setData(dayjs(params.date))}
+					/>
+					<Button
+						className="bg-blue-500 p-4 rounded-md mt-4"
+						onPress={() => {
+							setMostrarDatePicker(!mostrarDatePicker);
+						}}
+					>
+						<Text className="text-lg text-center text-white">Selecionar</Text>
+					</Button>
+				</View>
+			</Modal>
+			<Modal
+				testID="modal-confirmacao"
+				animationType="slide"
+				visible={mostrarConfirmacao}
+				onRequestClose={() => {
+					Alert.alert("Cancelado!");
+					setMostrarConfirmacao(false);
+				}}
+			>
+				<View className="mt-10 p-6 gap-5">
+					<Text className="text-xl text-center" weight="extraBold">
+						Tem certeza do que está fazendo?
+					</Text>
+					<Text className="text-xl" weight="extraBold">
+						-- Dados entrados
+					</Text>
+					<View className="bg-slate-200 p-5 rounded-md">
+						<Text className="text-xl" weight="bold">
+							Endereço:
+						</Text>
+						<Text>{endereco}</Text>
+						<Text className="text-xl" weight="bold">
+							Bairro:
+						</Text>
+						<Text>{bairro}</Text>
+						<Text className="text-xl" weight="bold">
+							Valor:
+						</Text>
+						<Text>{valor}</Text>
+						<Text className="text-xl" weight="bold">
+							Veículo:
+						</Text>
+						<Text>{veiculo}</Text>
+						<Text className="text-xl" weight="bold">
+							Data:
+						</Text>
+						<Text>{data.format("DD/MM/YYYY")}</Text>
+						<Text className="text-xl" weight="bold">
+							Ajudantes:
+						</Text>
+						<Text>
+							{ajudantesSelecionados ? ajudantesSelecionados.join(", ") : null}
+						</Text>
+					</View>
+					<View className="gap-2">
+						<Button
+							className="bg-red-500 p-4 rounded-md mt-4"
+							onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}
+						>
+							<Text className="text-xl text-center text-white">Cancelar</Text>
+						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() => {
-								setMostrarDatePicker(!mostrarDatePicker);
-							}}
+							onPress={() => Alert.alert("Salvo!")}
 						>
-							<Text className="text-lg text-center text-white">Selecionar</Text>
+							<Text className="text-xl text-center text-white">
+								Tenho absoluta certeza!
+							</Text>
 						</Button>
 					</View>
-				</Modal>
-				<Modal
-					testID="modal-confirmacao"
-					animationType="slide"
-					visible={mostrarConfirmacao}
-					onRequestClose={() => {
-						Alert.alert("Cancelado!");
-						setMostrarConfirmacao(false);
-					}}
-				>
-					<View className="mt-10 p-6 gap-5">
-						<Text className="text-xl text-center" weight="extraBold">
-							Tem certeza do que está fazendo?
-						</Text>
-						<Text className="text-xl" weight="extraBold">
-							-- Dados entrados
-						</Text>
-						<View className="bg-slate-200 p-5 rounded-md">
-							<Text className="text-xl" weight="bold">
-								Endereço:
-							</Text>
-							<Text>{endereco}</Text>
-							<Text className="text-xl" weight="bold">
-								Bairro:
-							</Text>
-							<Text>{bairro}</Text>
-							<Text className="text-xl" weight="bold">
-								Valor:
-							</Text>
-							<Text>{valor}</Text>
-							<Text className="text-xl" weight="bold">
-								Veículo:
-							</Text>
-							<Text>{veiculo}</Text>
-							<Text className="text-xl" weight="bold">
-								Data:
-							</Text>
-							<Text>{data.format("DD/MM/YYYY")}</Text>
-							<Text className="text-xl" weight="bold">
-								Ajudantes:
-							</Text>
-							<Text>
-								{ajudantesSelecionados? ajudantesSelecionados.join(", ") : null}
-							</Text>
-						</View>
-						<View className="gap-2">
-							<Button
-								className="bg-red-500 p-4 rounded-md mt-4"
-								onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}
-							>
-								<Text className="text-xl text-center text-white">Cancelar</Text>
-							</Button>
-							<Button
-								className="bg-blue-500 p-4 rounded-md mt-4"
-								onPress={() => Alert.alert("Salvo!")}
-							>
-								<Text className="text-xl text-center text-white">
-									Tenho absoluta certeza!
-								</Text>
-							</Button>
-						</View>
-					</View>
-				</Modal>
+				</View>
+			</Modal>
 		</View>
 	);
 };

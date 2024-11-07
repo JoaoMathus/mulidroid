@@ -1,5 +1,5 @@
 import { ScrollView } from "react-native";
-import useNavigation from "./hooks/useNavigation";
+import useNavigation from "../hooks/useNavigation";
 import CardAjudante from "./card-ajudante";
 import type IAjudante from "../interfaces/IAjudante";
 

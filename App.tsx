@@ -24,7 +24,7 @@ import Servico from "./src/screens/servico";
 import { NavigationContainer } from '@react-navigation/native';
 import Ajudante from "./src/screens/ajudante";
 import { StyleSheet } from "react-native";
-import UserContext  from "./src/components/hooks/userContext";
+import UserContext from "./src/hooks/userContext";
 
 const Stack = createStackNavigator();
 
@@ -55,7 +55,7 @@ export default function App() {
   }
 
   return (
-    <UserContext.Provider value={{logado, setLogado, adminAqui, setAdminAqui }}>
+    <UserContext.Provider value={{ logado, setLogado, adminAqui, setAdminAqui }}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -63,14 +63,14 @@ export default function App() {
             headerStyle: headerStyle.header
           }}
         >
-          { !logado ? (<Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />) :
-          (<><Stack.Screen name='Home' component={TelaHome} options={{ headerShown: false }} />
-          <Stack.Screen name='Perfil' component={TelaPerfil} options={{headerShown: adminAqui }} />
-          <Stack.Screen name='Ajudante' component={Ajudante} />
-          <Stack.Screen name='Servico' component={Servico} />
-          <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
-          <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
-          <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} /></>)}
+          {!logado ? (<Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />) :
+            (<><Stack.Screen name='Home' component={TelaHome} options={{ headerShown: false }} />
+              <Stack.Screen name='Perfil' component={TelaPerfil} options={{ headerShown: adminAqui }} />
+              <Stack.Screen name='Ajudante' component={Ajudante} />
+              <Stack.Screen name='Servico' component={Servico} />
+              <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />
+              <Stack.Screen name='Cadastro de Serviço' component={ServicoForm} />
+              <Stack.Screen name='Cadastro de Veículo' component={VeiculoForm} /></>)}
         </Stack.Navigator>
       </NavigationContainer>
     </UserContext.Provider>

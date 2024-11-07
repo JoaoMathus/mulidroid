@@ -4,7 +4,7 @@ import { Calendar, DollarSign, User } from "lucide-react-native";
 import type IServico from "../interfaces/IServico";
 import Button from "./ui/button";
 import { useContext } from "react";
-import UserContext from "./hooks/userContext";
+import UserContext from "../hooks/userContext";
 
 interface CardServicoProps {
 	servico: IServico;
@@ -14,7 +14,7 @@ interface CardServicoProps {
 
 const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 
-	const {adminAqui} = useContext(UserContext);
+	const { adminAqui } = useContext(UserContext);
 
 	return (
 		<Button

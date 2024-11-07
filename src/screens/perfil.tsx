@@ -6,7 +6,7 @@ import Divider from "../components/ui/divider";
 import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
 import PerfilOptions from "../components/perfil-options";
-import UserContext from "../components/hooks/userContext";
+import UserContext from "../hooks/userContext";
 import ListaServicos from "../components/lista-servicos";
 
 const dados: IServico[] = [
@@ -96,7 +96,7 @@ const TelaPerfil = () => {
 							SERVIÇOS NÃO PAGOS
 						</Text>
 						<View className={"w-full flex-1"}>
-							<ListaServicos listaServicos={dados}/>
+							<ListaServicos listaServicos={dados} />
 						</View>
 					</View>
 				) : (<></>)}

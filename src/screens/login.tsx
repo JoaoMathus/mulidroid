@@ -5,8 +5,8 @@ import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import OfflineNotice from "../components/offline-notice";
-import UserContext from "../components/hooks/userContext";
-import useNavigation from "../components/hooks/useNavigation";
+import UserContext from "../hooks/userContext";
+import useNavigation from "../hooks/useNavigation";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(

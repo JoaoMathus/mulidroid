@@ -4,8 +4,8 @@ import { Lock, LogOut, User } from "lucide-react-native";
 import Text from "./ui/text";
 import { useContext, useState } from "react";
 import Input from "./ui/input";
-import UserContext from "./hooks/userContext";
-import useNavigation from "./hooks/useNavigation";
+import UserContext from "../hooks/userContext";
+import useNavigation from "../hooks/useNavigation";
 
 const PerfilOptions = () => {
 
@@ -40,7 +40,7 @@ const PerfilOptions = () => {
       </Button>
       <Button
         className="rounded-md mt-4 items-center"
-        onPress={() => { setLogado(false); setAdminAqui(false); } }
+        onPress={() => { setLogado(false); setAdminAqui(false); }}
       >
         <View className="bg-red-500 shadow-sm items-center justify-center p-4 rounded-full">
           <LogOut color="#fff" />

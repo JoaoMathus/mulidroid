@@ -6,7 +6,7 @@ import { Calendar, Phone } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import type IServico from "../interfaces/IServico";
 import CardServico from "../components/card-servico";
-import useNavigation from "../components/hooks/useNavigation";
+import useNavigation from "../hooks/useNavigation";
 import Input from "../components/ui/input";
 import dayjs from "dayjs";
 import CheckBox from "../components/ui/checkbox";
@@ -165,30 +165,30 @@ const Ajudante = () => {
 					<Input label="Email" onChangeText={setEmail} value={email} />
 					<Input label="Telefone" onChangeText={setTelefone} value={telefone} />
 					<View>
-							<Text className="mb-2" weight="medium">
-								Data de nascimento
+						<Text className="mb-2" weight="medium">
+							Data de nascimento
+						</Text>
+						<Button
+							className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
+							testId="botao-data"
+							onPress={() => setMostrarDatePicker(true)}
+						>
+							<Text className="text-xl text-black" weight="light">
+								{data.format("DD/MM/YYYY")}
 							</Text>
-							<Button
-								className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
-								testId="botao-data"
-								onPress={() => setMostrarDatePicker(true)}
-							>
-								<Text className="text-xl text-black" weight="light">
-									{data.format("DD/MM/YYYY")}
-								</Text>
-							</Button>
-						</View>
+						</Button>
+					</View>
 					<Input label="Usuário" onChangeText={setUsuario} value={usuario} />
 					<CheckBox onChecked={setMotorista} />
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-								if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
-									Alert.alert("Você deve preencher todos os campos!");
-								} else { 
-									setMostrarConfirmacao(true);
-								}
+							if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
+								Alert.alert("Você deve preencher todos os campos!");
+							} else {
+								setMostrarConfirmacao(true);
 							}
+						}
 						}
 					>
 						<Text className="text-lg text-center text-white" weight="semiBold">
@@ -252,7 +252,7 @@ const Ajudante = () => {
 						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() => Alert.alert("Salvo!") }
+							onPress={() => Alert.alert("Salvo!")}
 						>
 							<Text className="text-xl text-center text-white">
 								Tenho absoluta certeza!
@@ -275,7 +275,7 @@ const Ajudante = () => {
 					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalExcluirAjudante(false)}>
 						<Text className="text-xl text-center text-white">Cancelar</Text>
 					</Button>
-					<Button className="bg-yellow-500 p-4 rounded-md mt-4" onPress={() =>{ Alert.alert("Excluído!"); setModalExcluirAjudante(false); } }>
+					<Button className="bg-yellow-500 p-4 rounded-md mt-4" onPress={() => { Alert.alert("Excluído!"); setModalExcluirAjudante(false); }}>
 						<Text className="text-xl text-center text-white">Excluir</Text>
 					</Button>
 				</View>
