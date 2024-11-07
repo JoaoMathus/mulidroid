@@ -77,9 +77,7 @@ const dados: IServico[] = [
 const TelaPerfil = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	return (
-		<View 
-			className={"w-full gap-2"}
-		>
+		<View className={`w-full gap-2 ${!adminAqui ? "mt-10 pt-10" : ""}`}>
 			<View className="w-full px-8">
 				<Text className="text-3xl" weight="black">
 					{adminAqui ? ("Administrador") : ("Qualquer nome")}

@@ -65,7 +65,7 @@ export default function App() {
         >
           { !logado ? (<Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />) :
           (<><Stack.Screen name='Home' component={TelaHome} options={{ headerShown: false }} />
-          <Stack.Screen name='Perfil' component={TelaPerfil} />
+          <Stack.Screen name='Perfil' component={TelaPerfil} options={{headerShown: adminAqui }} />
           <Stack.Screen name='Ajudante' component={Ajudante} />
           <Stack.Screen name='Servico' component={Servico} />
           <Stack.Screen name='Cadastro de Ajudante' component={AjudanteForm} />

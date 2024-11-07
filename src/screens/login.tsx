@@ -18,12 +18,12 @@ const senhaTesteUsuario = Crypto.digestStringAsync(
 	"Naoseiasenha"
 )
 
-// Nosso administrador Alomomola.
+// Nosso administrador Alomomola, para testes.
 const admin = {
 	user: "Alomomola",
 	password: senhaTesteAdmin,
 };
-// Nosso usuário
+// Nosso usuário de teste.
 const usuarioNormal = {
 	user: "Garbodor",
 	password: senhaTesteUsuario
@@ -72,7 +72,7 @@ const Login = () => {
 						);
 						if (usuario === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
 							setLogado(true);
-							navigate("Perfil");
+							navigate("Perfil"); // se não for admin, vai direto pro Perfil.
 						} else if (usuario === admin.user && estaSenha === (await admin.password)) {
 							setLogado(true);
 							setAdminAqui(true);
