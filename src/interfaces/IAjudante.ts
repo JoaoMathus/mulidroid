@@ -1,4 +1,4 @@
-interface IAjudante {
+export interface IAjudante {
 	id: string
 	alias: string;
 	name: string;
@@ -9,4 +9,6 @@ interface IAjudante {
 	driver: boolean;
 }
 
-export default IAjudante;
+export interface IAjudanteForList extends Partial<IAjudante> {
+	servicesCount: number | null;
+}

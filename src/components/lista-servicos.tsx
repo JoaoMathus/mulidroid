@@ -15,7 +15,7 @@ const ListaServicos = ({ listaServicos }: ListaServicoProps) => {
       fadingEdgeLength={100}>
       {listaServicos.map((servico) => (
         <CardServico
-          key={servico.id}
+          key={servico.serviceId}
           servico={servico}
           onPress={() => {
             navigate("Servico");

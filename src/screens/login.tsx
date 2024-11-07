@@ -34,9 +34,15 @@ const Login = () => {
 	const [senha, setSenha] = useState("");
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	const { navigate } = useNavigation().navigator;
+
+
+
 	return (
 		<>
-			{/* Verificando conexão com a internet, sem ela, lamento... */}
+			{/* Verificando conexão com a internet, sem ela, lamento... 
+
+			kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+			*/}
 			<OfflineNotice />
 			<View className="w-full h-full justify-center gap-6 p-8">
 				<View className="items-center">
@@ -65,7 +71,7 @@ const Login = () => {
 				<Button
 					className="bg-blue-500 p-4 rounded-md"
 					onPress={async () => {
-						// Metendo o hash no garoto.
+						// Metendo o hash no garoto.  JKKKKKKKKKKKKKK
 						const estaSenha = await Crypto.digestStringAsync(
 							Crypto.CryptoDigestAlgorithm.SHA256,
 							senha,

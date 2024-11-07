@@ -1,9 +1,13 @@
+import type IVeiculo from "./IVeiculo";
+
 interface IServico {
-	id: string;
+	serviceId: string; //nome "serviceId" temporario até mudar no backend
 	address: string;
 	neighborhood: string;
 	value: number;
-	date: string;
+	serviceDate: string;
+	vehicle: IVeiculo;
+	employeesCount: number | null;
 }
 
 export default IServico;

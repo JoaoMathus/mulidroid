@@ -29,7 +29,7 @@ const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 				<Text className="text-zinc-600">{servico.neighborhood}</Text>
 				<View className="flex-row items-center gap-1 mt-2">
 					<Calendar size={15} color={"#a1a1aa"} />
-					<Text className="mt-px text-zinc-400">{servico.date}</Text>
+					<Text className="mt-px text-zinc-400">{servico.serviceDate}</Text>
 				</View>
 			</View>
 			<View className={`${adminAqui ? "flex-row" : "flex-row-reverse"} items-center justify-between w-[165px]`}>

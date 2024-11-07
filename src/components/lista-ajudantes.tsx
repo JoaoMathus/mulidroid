@@ -1,10 +1,10 @@
 import { ScrollView } from "react-native";
 import useNavigation from "../hooks/useNavigation";
 import CardAjudante from "./card-ajudante";
-import type IAjudante from "../interfaces/IAjudante";
+import type { IAjudanteForList } from "../interfaces/IAjudante";
 
 interface ListaAjudantesProps {
-  listaAjudantes: IAjudante[]
+  listaAjudantes: IAjudanteForList[];
 }
 
 const ListaAjudantes = ({ listaAjudantes }: ListaAjudantesProps) => {
