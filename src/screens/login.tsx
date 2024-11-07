@@ -10,6 +10,7 @@ import useNavigation from "../hooks/useNavigation";
 import http from "../http/http";
 import type IUser from "../interfaces/IUser";
 import * as LocalAuthentication from "expo-local-authentication"; // para biometria
+import LogoMulidroid from "../components/LogoMulidroid";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -32,6 +33,10 @@ const usuarioNormal = {
 	password: senhaTesteUsuario
 };
 
+/**
+ * 
+ * FALTA FAZER A FUNÇÃO "ESQUECI A SENHA"
+ */
 const Login = () => {
 	const [suportaBiometria, setSuportaBiometria] = useState(false);
 	const [temBiometria, setTemBiometria] = useState(false);
@@ -88,13 +93,7 @@ const Login = () => {
 				: "Não tem biometria"}</Text> */}
 			{/*<Text>{temBiometria? "Aqui tem biometria salva" : "Não tem biometria salva"}</Text>*/}
 			<View className="w-full h-full justify-center gap-6 p-8">
-				<View className="items-center">
-					<Image
-						className="w-52 h-52"
-						source={require("../../assets/mulidroid_logo.png")}
-						accessibilityLabel="A logo do aplicativo"
-					/>
-				</View>
+				<LogoMulidroid />
 				<View className="gap-6">
 					<View>
 						<Input label="Usuário" onChangeText={setUsuario} value={usuario} />
