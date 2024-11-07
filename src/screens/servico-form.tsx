@@ -18,6 +18,7 @@ const dados = [
 ];
 
 /**
+ * FEATURE NOVA ABAIXO:
  * BUG: quando seleciona os ajudantes e depois sai da tela e volta novamente,
  * todos ficam selecionados automaticamente.
  */

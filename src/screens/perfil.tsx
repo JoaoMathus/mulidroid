@@ -76,7 +76,7 @@ const dados: IServico[] = [
  *  testar a modificação de nome de usuário.
  */
 const TelaPerfil = () => {
-	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
+	const { adminAqui } = useContext(UserContext);
 
 	return (
 		<View className={`w-full flex-1 justify-between gap-2 ${!adminAqui ? "mt-10 pt-10" : ""}`}>
