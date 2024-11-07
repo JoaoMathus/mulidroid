@@ -7,6 +7,8 @@ import Text from "../components/ui/text";
 import OfflineNotice from "../components/offline-notice";
 import UserContext from "../hooks/userContext";
 import useNavigation from "../hooks/useNavigation";
+import http from "../http/http";
+import type IUser from "../interfaces/IUser";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -35,7 +37,16 @@ const Login = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	const { navigate } = useNavigation().navigator;
 
+	//meio pronto irei dar uma olhada em estatistica
 
+	const logarUsuario =  async () => {
+		const res = await http.post<IUser>("user", {
+			username: "Praga1910",
+			password: "1393"
+		})
+
+		console.log(res.data);
+	}
 
 	return (
 		<>
