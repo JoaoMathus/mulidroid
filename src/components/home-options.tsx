@@ -12,7 +12,7 @@ const HomeOptions = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 
 	return (
-		<View>
+		<View className="mb-4">
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
 				fadingEdgeLength={150}
@@ -66,7 +66,7 @@ const HomeOptions = () => {
 				</Text>
 			</Button>
 			<Button
-				className="rounded-md items-center mt-4"
+				className="rounded-md items-center"
 				onPress={() => { setLogado(false); setAdminAqui(false); }}
 			>
 				<View className="bg-red-500 shadow-sm items-center justify-center p-4 rounded-full">

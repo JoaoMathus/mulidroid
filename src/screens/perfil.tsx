@@ -7,6 +7,7 @@ import CardServico from "../components/card-servico";
 import type IServico from "../interfaces/IServico";
 import PerfilOptions from "../components/perfil-options";
 import UserContext from "../components/hooks/userContext";
+import ListaServicos from "../components/lista-servicos";
 
 const dados: IServico[] = [
 	{
@@ -76,9 +77,10 @@ const dados: IServico[] = [
  */
 const TelaPerfil = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
+
 	return (
-		<View className={`w-full gap-2 ${!adminAqui ? "mt-10 pt-10" : ""}`}>
-			<View className="w-full px-8">
+		<View className={`w-full flex-1 justify-between gap-2 ${!adminAqui ? "mt-10 pt-10" : ""}`}>
+			<View className="w-full px-8 flex-1">
 				<Text className="text-3xl" weight="black">
 					{adminAqui ? ("Administrador") : ("Qualquer nome")}
 				</Text>
@@ -88,18 +90,16 @@ const TelaPerfil = () => {
 					<Text className="text-lg mt-[2px] text-zinc-400">{adminAqui ? ("Necessária a data de nascimento?") : ("22/04/1987")}</Text>
 				</View>
 				<Divider margin={6} />
-				{!adminAqui ? (<View>
-					<Text className="text-xl mb-2" weight="bold">
-						SERVIÇOS NÃO PAGOS
-					</Text>
-					<View className={"w-full h-[352px]"}>
-						<ScrollView fadingEdgeLength={100}>
-							{dados.map((servico) => (
-								<CardServico key={servico.id} servico={servico} />
-							))}
-						</ScrollView>
+				{!adminAqui ? (
+					<View className="flex-1">
+						<Text className="text-xl mb-2" weight="bold">
+							SERVIÇOS NÃO PAGOS
+						</Text>
+						<View className={"w-full flex-1"}>
+							<ListaServicos listaServicos={dados}/>
+						</View>
 					</View>
-				</View>) : (<View></View>)}
+				) : (<></>)}
 			</View>
 			<PerfilOptions />
 		</View>

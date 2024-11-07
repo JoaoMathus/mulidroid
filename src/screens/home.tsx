@@ -108,7 +108,7 @@ const TelaHome = () => {
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (
-			<View className="gap-4 pt-8 px-5 flex-1">
+			<View className="gap-4 mt-12 px-5 flex-1">
 				<View className="gap-4">
 					<Faturameto/>
 					<Diarias/>

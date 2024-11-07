@@ -11,12 +11,11 @@ const PerfilOptions = () => {
 
   const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
   const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
-  const { navigate } = useNavigation().navigator;
 
-  const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
+  const { setLogado, setAdminAqui } = useContext(UserContext);
 
   return (
-    <View className="flex-row justify-center gap-2 mb-10">
+    <View className="flex-row justify-center gap-2 mb-4">
       <Button
         className="rounded-full mt-4 items-center"
         onPress={() => setMostrarModalNomeUsuario(true)}
