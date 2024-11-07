@@ -78,30 +78,30 @@ const TelaPerfil = () => {
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
 	return (
 		<View 
-			className={`${adminAqui ? "" : "mt-10 pt-8"} w-full gap-2`}
+			className={"w-full gap-2"}
 		>
 			<View className="w-full px-8">
 				<Text className="text-3xl" weight="black">
-					Zé Carambola
+					{adminAqui ? ("Administrador") : ("Qualquer nome")}
 				</Text>
-				<Text className="text-lg">Alomomola da Silva Silveira</Text>
+				<Text className="text-lg">{adminAqui ? ("Nome do administrador") : ("Usuário normal")}</Text>
 				<View className="flex-row items-center gap-1">
 					<Calendar size={18} color={"#a1a1aa"} />
-					<Text className="text-lg mt-[2px] text-zinc-400">22/04/1987</Text>
+					<Text className="text-lg mt-[2px] text-zinc-400">{adminAqui ? ("Necessária a data de nascimento?") : ("22/04/1987")}</Text>
 				</View>
 				<Divider margin={6} />
-				<View>
+				{!adminAqui ? (<View>
 					<Text className="text-xl mb-2" weight="bold">
 						SERVIÇOS NÃO PAGOS
 					</Text>
-					<View className={`w-full ${adminAqui ? "h-[440px]" : "h-[470px]"}`}>
+					<View className={"w-full h-[352px]"}>
 						<ScrollView fadingEdgeLength={100}>
 							{dados.map((servico) => (
 								<CardServico key={servico.id} servico={servico} />
 							))}
 						</ScrollView>
 					</View>
-				</View>
+				</View>) : (<View></View>)}
 			</View>
 			<PerfilOptions />
 		</View>

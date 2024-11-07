@@ -6,6 +6,7 @@ import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import OfflineNotice from "../components/offline-notice";
 import UserContext from "../components/hooks/userContext";
+import useNavigation from "../components/hooks/useNavigation";
 
 // Senhas digeridas para testes, apenas.
 const senhaTesteAdmin = Crypto.digestStringAsync(
@@ -32,6 +33,7 @@ const Login = () => {
 	const [usuario, setUsuario] = useState("");
 	const [senha, setSenha] = useState("");
 	const { logado, setLogado, adminAqui, setAdminAqui } = useContext(UserContext);
+	const { navigate } = useNavigation().navigator;
 	return (
 		<>
 			{/* Verificando conexão com a internet, sem ela, lamento... */}
@@ -70,6 +72,7 @@ const Login = () => {
 						);
 						if (usuario === usuarioNormal.user && estaSenha === (await usuarioNormal.password)) {
 							setLogado(true);
+							navigate("Perfil");
 						} else if (usuario === admin.user && estaSenha === (await admin.password)) {
 							setLogado(true);
 							setAdminAqui(true);
