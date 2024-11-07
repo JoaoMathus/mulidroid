@@ -7,6 +7,7 @@ import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 import { MultiSelect } from "react-native-element-dropdown";
+import styles from "../components/ui/styles";
 
 const dados = [
 	{nome: "Alomomola"},
@@ -106,6 +107,7 @@ const ServicoForm = () => {
 							calendarTextStyle={{ fontFamily: fontVariants.regular }}
 							selectedTextStyle={{ fontFamily: fontVariants.bold }}
 							headerTextStyle={{ textTransform: "capitalize" }}
+							minDate={dayjs()}
 							headerButtonStyle={{
 								backgroundColor: "#3b82f6",
 								borderRadius: 100,
@@ -214,6 +216,7 @@ const ServicoForm = () => {
 	);
 };
 
+/*
 const styles = StyleSheet.create({
 	dropdown: {
 		paddingVertical: 16,
@@ -228,6 +231,6 @@ const styles = StyleSheet.create({
 		borderRadius: 6,
 		borderColor: "rgba(0, 0, 0, 0.1)",
 	},
-});
+});*/
 
 export default ServicoForm;
