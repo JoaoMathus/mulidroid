@@ -5,7 +5,7 @@ import Button from "../components/ui/button";
 import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
-import type IAjudante from "../interfaces/IAjudante";
+import type { IAjudanteForList } from "../interfaces/IAjudante";
 import useNavigation from "../hooks/useNavigation";
 import { MultiSelect } from "react-native-element-dropdown";
 import Input from "../components/ui/input";
@@ -14,70 +14,78 @@ import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 import DateTimePicker from "react-native-ui-datepicker";
 
-const ajudantes: IAjudante[] = [
+const ajudantes: IAjudanteForList[] = [
 	{
 		id: '1',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999999999",
-		birthDate: "04/04/2004",
+		birthdate: "04/04/2004",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '2',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "2177377773",
-		birthDate: "26/06/2006",
+		birthdate: "26/06/2006",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '3',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999999991",
-		birthDate: "04/04/2004",
+		birthdate: "04/04/2004",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '4',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21777117777",
-		birthDate: "26/06/2006",
+		birthdate: "26/06/2006",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '5',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21996999999",
-		birthDate: "04/04/2004",
+		birthdate: "04/04/2004",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '6',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21775777777",
-		birthDate: "26/06/2006",
+		birthdate: "26/06/2006",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '7',
 		alias: "Alomomola",
 		name: "Zé Carambola",
 		phoneNumber: "21999299999",
-		birthDate: "04/04/2004",
+		birthdate: "04/04/2004",
 		driver: false,
+		servicesCount: 2
 	},
 	{
 		id: '8',
 		alias: "Garbodor",
 		name: "Anderson Linhares",
 		phoneNumber: "21737777777",
-		birthDate: "26/06/2006",
+		birthdate: "26/06/2006",
 		driver: false,
+		servicesCount: 2
 	},
 ];
 
@@ -229,7 +237,7 @@ const Servico = () => {
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-							if (endereco == "" || bairro == "" || valor == "" || veiculo == "" || data == null || ajudantesSelecionados == null) {
+							if (endereco === "" || bairro === "" || valor === "" || veiculo === "" || data == null || ajudantesSelecionados == null) {
 								Alert.alert("Você deve preencher todos os campos!");
 							} else {
 								setMostrarConfirmacao(true);

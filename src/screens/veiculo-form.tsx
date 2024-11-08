@@ -20,7 +20,7 @@ const VeiculoForm = () => {
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
 				onPress={() => {
-						if (placa == "" || modelo == "") {
+						if (placa === "" || modelo === "") {
 							Alert.alert("Você deve preencher todos os campos!");
 						} else {
 							setMostrarConfirmacao(true);
