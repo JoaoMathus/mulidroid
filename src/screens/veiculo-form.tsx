@@ -3,12 +3,8 @@ import { View, Modal, Alert } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
+import http from "../http/http";
 
-/**
- *
- * Falta implementar os testes.
- * Falta implementar o banco de dados.
- */
 const VeiculoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
@@ -94,7 +90,21 @@ const VeiculoForm = () => {
 					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
 					</Button>
-					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() =>{
+						try {
+							console.log("VEÍCULO A SER CADASTRADO::" + placa + " " + modelo);
+							http.post("vehicle", {
+								plate: placa,
+								model: modelo
+							})
+							setModalConfirmacaoFinal(false);
+							setMostrarConfirmacao(false);
+							setPlaca("");
+							setModelo("");
+						} catch (error) {
+							Alert.alert("Erro ao cadastrar veículo!");
+						}
+					}}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
 					</Button>
 				</View>
