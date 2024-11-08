@@ -57,6 +57,7 @@ const Login = () => {
 			if (!adminAqui) navigate("Perfil");
 		} catch (error) {
 			console.log("ERRO ao logar usuário" + error);
+			Alert.alert("Usuário ou senha errada!");
 		}
 	}
 

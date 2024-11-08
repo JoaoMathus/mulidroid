@@ -91,6 +91,11 @@ const Servico = () => {
 						Editar
 					</Text>
 				</Button>
+				<Button className="bg-red-500 p-5 mt-2 rounded-md" onPress={() => {}}>
+					<Text className="text-center text-white text-lg" weight="semiBold">
+						Excluir
+					</Text>
+				</Button>
 			</View>
 			<Modal
 				testID="modal-confirmacao-final"
