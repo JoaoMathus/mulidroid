@@ -51,7 +51,7 @@ const AjudanteForm = () => {
 			<Button
 				className="bg-blue-500 p-4 rounded-md mt-4"
 				onPress={() => {
-						if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
+						if (apelido === "" || nome === "" || email === "" || telefone === "" || data == null || usuario === "") {
 							Alert.alert("Você deve preencher todos os campos!");
 						} else { 
 							setMostrarConfirmacao(true);
