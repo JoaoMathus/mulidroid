@@ -1,3 +1,5 @@
+import type { IServico } from "./IServico";
+
 export interface IAjudante {
 	id: string
 	alias: string;
@@ -6,4 +8,8 @@ export interface IAjudante {
 	birthdate: string;
 	driver: boolean;
 	servicesCount: number;
+}
+
+export interface IAjudanteServices extends IAjudante {
+	services: Partial<IServico[]>;
 }

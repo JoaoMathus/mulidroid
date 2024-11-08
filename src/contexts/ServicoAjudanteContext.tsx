@@ -1,6 +1,6 @@
 import { type ReactNode, createContext, useEffect, useState } from "react";
 import type { IAjudante } from "../interfaces/IAjudante";
-import type {IServico} from "../interfaces/IServico";
+import type { IServico } from "../interfaces/IServico";
 import http from "../http/http";
 
 interface ServicoAjudanteContextProps {
@@ -37,7 +37,13 @@ export const ServicoAjudanteProvider = ({
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     buscarDados();
+
+    const interval = setInterval(buscarDados, 5000);
+
+    return () => clearInterval(interval);
   }, []);
+
+
 
   return (
     <ServicoAjudanteContext.Provider

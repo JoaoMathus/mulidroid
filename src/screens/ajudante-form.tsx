@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, ScrollView, Modal, Alert } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import DateTimePicker from "react-native-ui-datepicker";
 import { fontVariants } from "../utils/fontVariants";
 import http from "../http/http";
+import useNavigation from "../hooks/useNavigation";
 
 const AjudanteForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -20,6 +21,8 @@ const AjudanteForm = () => {
 	const [telefone, setTelefone] = useState("");
 	const [usuario, setUsuario] = useState("");
 	const [motorista, setMotorista] = useState(false);
+
+	const {navigate} = useNavigation().navigator;
 	
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8">
@@ -201,6 +204,9 @@ const AjudanteForm = () => {
 						} catch (error) {
 							Alert.alert("Erro ao cadastrar ajudante!");
 							console.log(error);
+						} finally {
+							navigate("Home")
+							console.log(data)
 						}
 					}}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>

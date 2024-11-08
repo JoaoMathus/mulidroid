@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
@@ -10,7 +10,7 @@ import ListaAjudantes from "../components/lista-ajudantes";
 import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 
 const TelaHome = () => {
-	const { ajudantes, servicos } = useContext(ServicoAjudanteContext);
+	const { ajudantes, servicos, buscarDados } = useContext(ServicoAjudanteContext);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
 
 	return (

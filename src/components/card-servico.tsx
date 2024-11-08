@@ -23,7 +23,7 @@ const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 			onLongPress={onLongPress}
 		>
 			<View>
-				<Text className="" weight="bold">
+				<Text className="overflow-ellipsis max-w-[160px]" weight="bold" lines={1}>
 					{servico.address}
 				</Text>
 				<Text className="text-zinc-600">{servico.neighborhood}</Text>

@@ -19,7 +19,9 @@ const ListaAjudantes = ({ listaAjudantes }: ListaAjudantesProps) => {
           key={ajudante.id}
           ajudante={ajudante}
           onPress={() => {
-            navigate("Ajudante");
+            navigate("Ajudante", {
+              employeeId: ajudante.id
+            });
           }}
         />
       ))}

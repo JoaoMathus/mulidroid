@@ -33,8 +33,8 @@ export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   Perfil: undefined;
-  Ajudante: undefined;
-  Servico: { serviceId: string; outroParametro?: string };
+  Ajudante: { employeeId: string; };
+  Servico: { serviceId: string; };
   "Cadastro de Ajudante": undefined;
   "Cadastro de Serviço": undefined;
   "Cadastro de Veículo": undefined;

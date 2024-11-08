@@ -11,6 +11,7 @@ import styles from "../components/ui/styles";
 import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 import http from "../http/http";
 import { VehicleContext } from "../contexts/VehicleContext";
+import useNavigation from "../hooks/useNavigation";
 
 const ServicoForm = () => {
 	const [ajudantesId, setAjudantesId] = useState<string[]>(null);
@@ -24,6 +25,8 @@ const ServicoForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const { ajudantes } = useContext(ServicoAjudanteContext);
 	const { veiculos } = useContext(VehicleContext);
+
+	const { navigate } = useNavigation().navigator;
 
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8 mb-10">
@@ -221,7 +224,6 @@ const ServicoForm = () => {
 					</Button>
 					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => {
 						try {
-							console.log(JSON.stringify(...[ajudantesId]));
 							http.post("service", {
 								address: endereco,
 								neighborhood: bairro,
@@ -239,6 +241,8 @@ const ServicoForm = () => {
 						} catch (error) {
 							console.log(error);
 							Alert.alert("Erro ao cadastrar serviço!");
+						} finally {
+							navigate("Home");
 						}
 					}}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
@@ -249,22 +253,5 @@ const ServicoForm = () => {
 		</ScrollView>
 	);
 };
-
-/*
-const styles = StyleSheet.create({
-	dropdown: {
-		paddingVertical: 16,
-		paddingHorizontal: 16,
-		backgroundColor: "transparent",
-		borderWidth: 1,
-		borderRadius: 6,
-		borderColor: "rgba(0, 0, 0, 0.1)",
-	},
-	container: {
-		borderWidth: 1,
-		borderRadius: 6,
-		borderColor: "rgba(0, 0, 0, 0.1)",
-	},
-});*/
 
 export default ServicoForm;

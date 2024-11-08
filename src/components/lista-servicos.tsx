@@ -9,8 +9,6 @@ interface ListaServicoProps {
   listaServicos: IServico[]
 }
 
-
-
 const ListaServicos = ({ listaServicos }: ListaServicoProps) => {
   const { navigate } = useNavigation().navigator;
   const { adminAqui } = useContext(UserContext);

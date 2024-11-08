@@ -4,9 +4,8 @@ import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
-import CardAjudante from "../components/card-ajudante";
 import useNavigation from "../hooks/useNavigation";
-import { MultiSelect } from "react-native-element-dropdown";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import Input from "../components/ui/input";
 import styles from "../components/ui/styles";
 import dayjs from "dayjs";
@@ -18,6 +17,7 @@ import { type RouteProp, useRoute } from '@react-navigation/native';
 import type { RootStackParamList } from "../../App";
 import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 import ListaAjudantes from "../components/lista-ajudantes";
+import { VehicleContext } from "../contexts/VehicleContext";
 
 type ServicoRouteProp = RouteProp<RootStackParamList, 'Servico'>;
 
@@ -26,17 +26,19 @@ const Servico = () => {
 	const [servico, setServico] = useState<IServico>({} as IServico)
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 	const [modalEditarServico, setModalEditarServico] = useState(false);
+	const [modalExcluir, setModalExcluir] = useState<boolean>(false);
 	const [endereco, setEndereco] = useState("");
 	const [bairro, setBairro] = useState("");
 	const [valor, setValor] = useState("");
-	const [veiculo, setVeiculo] = useState("");
+	const [veiculo, setVeiculo] = useState(null);
 	const [data, setData] = useState(dayjs());
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
-	const [ajudantesSelecionados, setAjudantesSelecionados] = useState(null);
+	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
-	const { navigate } = useNavigation().navigator;
 
 	const { ajudantes } = useContext(ServicoAjudanteContext);
+	const { veiculos } = useContext(VehicleContext);
+	const { navigate } = useNavigation().navigator;
 
 	const route = useRoute<ServicoRouteProp>();
 	const { serviceId } = route.params;
@@ -47,13 +49,37 @@ const Servico = () => {
 		console.log(res.data);
 	}
 
+	const excluirServico = async () => {
+		try {
+			await http.delete<IServico>(`service/${serviceId}`)
+		}
+		catch (erro) {
+			Alert.alert(erro);
+		}
+		finally {
+			navigate("Home")
+		}
+	}
+
+	const atualizarServico = async () => {
+		try {
+			await http.put<IServico>(`service/${serviceId}`, {
+				address: endereco !== "" ? endereco : servico.address,
+			})
+		} catch (erro) {
+			Alert.alert(erro);
+		} finally {
+			navigate("Home");
+		}
+	}
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		buscarServico()
 	}, [])
 
 	return (
-		<View className="px-8 mb-8 w-full flex-1">
+		<View className="px-5 mb-8 w-full flex-1">
 			<View>
 				<Button
 					onPress={() =>
@@ -80,19 +106,38 @@ const Servico = () => {
 			</Text>
 			<View className="flex-1">
 				<ScrollView className="h-[352px]">
-					<ListaAjudantes listaAjudantes={servico.employees}/>
+					<ListaAjudantes listaAjudantes={servico.employees} />
 				</ScrollView>
 				<Button className="bg-blue-500 p-5 mt-2 rounded-md" onPress={() => setModalEditarServico(true)}>
 					<Text className="text-center text-white text-lg" weight="semiBold">
 						Editar
 					</Text>
 				</Button>
-				<Button className="bg-red-500 p-5 mt-2 rounded-md" onPress={() => { }}>
+				<Button className="bg-red-500 p-5 mt-2 rounded-md" onPress={() => setModalExcluir(true)}>
 					<Text className="text-center text-white text-lg" weight="semiBold">
 						Excluir
 					</Text>
 				</Button>
 			</View>
+
+			<Modal
+				testID="modal-confirmacao-excluir"
+				animationType="slide"
+				visible={modalExcluir}
+				onRequestClose={() => setModalExcluir(false)}
+			>
+				<View className="gap-5 h-full p-8 justify-center">
+					<Text className="text-xl" weight="bold">Deseja mesmo excluir o serviço ?</Text>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalExcluir(!modalExcluir)}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
+					</Button>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => excluirServico()}>
+						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
+					</Button>
+				</View>
+			</Modal>
+
+
 			<Modal
 				testID="modal-confirmacao-final"
 				animationType="slide"
@@ -112,6 +157,8 @@ const Servico = () => {
 					</Button>
 				</View>
 			</Modal>
+
+
 			<Modal
 				testID="modal-editar-servico"
 				animationType="slide"
@@ -126,7 +173,22 @@ const Servico = () => {
 					<Input label="Endereço" onChangeText={setEndereco} value={endereco} />
 					<Input label="Bairro" onChangeText={setBairro} value={bairro} />
 					<Input label="Valor" onChangeText={setValor} value={valor} />
-					<Input label="Veículo" onChangeText={setVeiculo} value={veiculo} />
+					<Dropdown
+						dropdownPosition="top"
+						style={styles.dropdown}
+						fontFamily={fontVariants.light}
+						containerStyle={styles.container}
+						search
+						data={veiculos}
+						labelField="plate"
+						valueField="id"
+						placeholder="Selecione"
+						searchPlaceholder="Procurar..."
+						value={veiculo}
+						onChange={(item) => {
+							setVeiculo(item);
+						}}
+					/>
 					<View>
 						<Text className="mb-2" weight="medium">
 							Data do serviço
@@ -153,7 +215,7 @@ const Servico = () => {
 							search
 							data={ajudantes}
 							labelField="name"
-							valueField="name"
+							valueField="id"
 							placeholder="Selecione"
 							searchPlaceholder="Procurar..."
 							value={ajudantesSelecionados}
@@ -165,11 +227,7 @@ const Servico = () => {
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-							if (endereco === "" || bairro === "" || valor === "" || veiculo === "" || data == null || ajudantesSelecionados == null) {
-								Alert.alert("Você deve preencher todos os campos!");
-							} else {
-								setMostrarConfirmacao(true);
-							}
+							setMostrarConfirmacao(true);
 						}
 						}
 					>
@@ -179,6 +237,8 @@ const Servico = () => {
 					</Button>
 				</ScrollView>
 			</Modal>
+
+
 			<Modal
 				testID="modal-data"
 				animationType="slide"
@@ -205,7 +265,7 @@ const Servico = () => {
 						locale={dayjs.locale("pt-br")}
 						mode="single"
 						date={data}
-						onChange={(params) => setData(dayjs(params.date))}
+						onChange={(params) => setData(dayjs())}
 					/>
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
@@ -217,6 +277,8 @@ const Servico = () => {
 					</Button>
 				</View>
 			</Modal>
+
+
 			<Modal
 				testID="modal-confirmacao"
 				animationType="slide"
@@ -258,7 +320,7 @@ const Servico = () => {
 							Ajudantes:
 						</Text>
 						<Text>
-							{ajudantesSelecionados ? ajudantesSelecionados.join(", ") : null}
+							{ajudantesSelecionados ? ajudantes?.filter(item => ajudantesSelecionados.includes(item.id)).map(item => item.name).join(", ") : null}
 						</Text>
 					</View>
 					<View className="gap-2">
@@ -270,7 +332,7 @@ const Servico = () => {
 						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() => Alert.alert("Salvo!")}
+							onPress={() => Alert.alert("Atualizado")}
 						>
 							<Text className="text-xl text-center text-white">
 								Tenho absoluta certeza!

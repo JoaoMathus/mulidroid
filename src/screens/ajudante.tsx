@@ -1,51 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, Modal, Alert } from "react-native";
 import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import { Calendar, Phone } from "lucide-react-native";
 import Divider from "../components/ui/divider";
-import type {IServico} from "../interfaces/IServico";
+import type { IServico } from "../interfaces/IServico";
 import CardServico from "../components/card-servico";
 import useNavigation from "../hooks/useNavigation";
 import Input from "../components/ui/input";
 import dayjs from "dayjs";
 import CheckBox from "../components/ui/checkbox";
+import type { RootStackParamList } from "../../App";
+import { type RouteProp, useRoute } from '@react-navigation/native';
+import http from "../http/http";
+import type { IAjudante, IAjudanteServices } from "../interfaces/IAjudante";
+import ListaServicos from "../components/lista-servicos";
+import axios from "axios";
+
+type ServicoRouteProp = RouteProp<RootStackParamList, 'Ajudante'>;
 
 const Ajudante = () => {
 	//const [listaServicos, setListaServicos] = useState(servicos);
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
-	const [data, setData] = useState(dayjs());
 	const [apelido, setApelido] = useState("");
 	const [nome, setNome] = useState("");
-	const [email, setEmail] = useState("");
 	const [telefone, setTelefone] = useState("");
-	const [usuario, setUsuario] = useState("");
 	const [motorista, setMotorista] = useState(false);
 	const [modalEditarAjudante, setModalEditarAjudante] = useState(false);
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const [modalExcluirAjudante, setModalExcluirAjudante] = useState(false);
 	const { navigate } = useNavigation().navigator;
+
+	const [ajudante, setAjudante] = useState<IAjudanteServices>({} as IAjudanteServices)
+
+	const route = useRoute<ServicoRouteProp>();
+	const { employeeId } = route.params;
+
+	const buscarAjudante = async () => {
+		const res = await http.get<IAjudanteServices>(`employee/${employeeId}`);
+		setAjudante(res.data);
+	}
+
+	const excluirAjudante = async () => {
+		await http.delete<IAjudante>(`employee/${employeeId}`);
+		navigate("Home")
+	}
+
+	const editarAjudante = async () => {
+		try {
+			await http.put<IAjudante>(`employee/${employeeId}`, {
+				name: nome !== "" ? nome : ajudante.name,
+				alias: apelido !== "" ? apelido : ajudante.alias,
+				phoneNumber: telefone !== "" ? telefone : ajudante.phoneNumber,
+				driver: motorista,
+
+			})
+		} catch (erro) {
+			Alert.alert(erro)
+		} finally {
+			navigate("Home");
+		}
+	}
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		buscarAjudante();
+	}, [])
+
 	return (
-		<View className="p-8 w-full">
+		<View className="px-5 mb-5 w-full flex-1">
 			<View>
 				<Button>
 					<Text
 						className="text-3xl overflow-ellipsis max-w-[320px]"
 						weight="black"
 					>
-						Zé Carambola
+						{ajudante.alias}
 					</Text>
 				</Button>
-				<Text className="text-xl">Alomomola da Silva Gomes</Text>
+				<Text className="text-xl">{ajudante.name}</Text>
 				<View className="flex-row items-center justify-between gap-1 mt-4">
 					<View className="flex-row items-center gap-1">
 						<Calendar size={15} color={"#202020"} />
-						<Text className="text-black/50 mt-px">26/10/2024</Text>
+						<Text className="text-black/50 mt-px">{ajudante.birthdate}</Text>
 					</View>
 					<View className="flex-row items-center gap-1">
 						<Phone size={15} color={"#202020"} />
-						<Text className="text-black/50 mt-px">21 976618540</Text>
+						<Text className="text-black/50 mt-px">{ajudante.phoneNumber}</Text>
 					</View>
 				</View>
 			</View>
@@ -53,16 +95,9 @@ const Ajudante = () => {
 			<Text className="text-xl mb-3" weight="bold">
 				Serviços
 			</Text>
-			<View>
+			<View className="flex-1">
 				<ScrollView className="h-[352px]">
-					{/* {listaServicos.map((servico) => (
-						<CardServico
-							key={servico.id}
-							servico={servico}
-							onPress={() => navigate("Servico")}
-							onLongPress={() => setModalConfirmacaoPagamento(true)}
-						/>
-					))} */}
+					<ListaServicos listaServicos={ajudante.services} />
 				</ScrollView>
 				<View className="flex-row gap-2 justify-center mt-3">
 					<Button className="bg-blue-500 p-4 mt-2 rounded-md w-[166px]" onPress={() => setModalEditarAjudante(true)}>
@@ -109,32 +144,12 @@ const Ajudante = () => {
 					<Text className="text-left text-3xl" weight="black">Editar informações</Text>
 					<Input label="Apelido" onChangeText={setApelido} value={apelido} />
 					<Input label="Nome" onChangeText={setNome} value={nome} />
-					<Input label="Email" onChangeText={setEmail} value={email} />
 					<Input label="Telefone" onChangeText={setTelefone} value={telefone} />
-					<View>
-						<Text className="mb-2" weight="medium">
-							Data de nascimento
-						</Text>
-						<Button
-							className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-4 px-4 text-xl"
-							testId="botao-data"
-							onPress={() => setMostrarDatePicker(true)}
-						>
-							<Text className="text-xl text-black" weight="light">
-								{data.format("DD/MM/YYYY")}
-							</Text>
-						</Button>
-					</View>
-					<Input label="Usuário" onChangeText={setUsuario} value={usuario} />
 					<CheckBox onChecked={setMotorista} />
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-							if (apelido === "" || nome === "" || email === "" || telefone === "" || data == null || usuario === "") {
-								Alert.alert("Você deve preencher todos os campos!");
-							} else {
-								setMostrarConfirmacao(true);
-							}
+							setMostrarConfirmacao(true);
 						}
 						}
 					>
@@ -164,27 +179,15 @@ const Ajudante = () => {
 						<Text className="text-xl" weight="bold">
 							Apelido:
 						</Text>
-						<Text>{apelido}</Text>
+						<Text>{apelido !== "" ? apelido : ajudante.alias}</Text>
 						<Text className="text-xl" weight="bold">
 							Nome:
 						</Text>
-						<Text>{nome}</Text>
-						<Text className="text-xl" weight="bold">
-							Email:
-						</Text>
-						<Text>{email}</Text>
+						<Text>{nome !== "" ? nome : ajudante.name}</Text>
 						<Text className="text-xl" weight="bold">
 							Telefone:
 						</Text>
-						<Text>{telefone}</Text>
-						<Text className="text-xl" weight="bold">
-							Data de nascimento:
-						</Text>
-						<Text>{data.format("DD/MM/YYYY")}</Text>
-						<Text className="text-xl" weight="bold">
-							Usuário:
-						</Text>
-						<Text>{usuario}</Text>
+						<Text>{telefone !== "" ? telefone : ajudante.phoneNumber}</Text>
 						<Text className="text-xl" weight="bold">
 							É motorista?
 						</Text>
@@ -199,7 +202,7 @@ const Ajudante = () => {
 						</Button>
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
-							onPress={() => Alert.alert("Salvo!")}
+							onPress={() => editarAjudante()}
 						>
 							<Text className="text-xl text-center text-white">
 								Tenho absoluta certeza!
@@ -222,7 +225,7 @@ const Ajudante = () => {
 					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalExcluirAjudante(false)}>
 						<Text className="text-xl text-center text-white">Cancelar</Text>
 					</Button>
-					<Button className="bg-yellow-500 p-4 rounded-md mt-4" onPress={() => { Alert.alert("Excluído!"); setModalExcluirAjudante(false); }}>
+					<Button className="bg-yellow-500 p-4 rounded-md mt-4" onPress={() => { excluirAjudante(); setModalExcluirAjudante(false); }}>
 						<Text className="text-xl text-center text-white">Excluir</Text>
 					</Button>
 				</View>

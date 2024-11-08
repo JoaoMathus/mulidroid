@@ -21,7 +21,7 @@ const CardAjudante = ({ ajudante, onPress, onLongPress }: CardAjudanteProps) => 
 			onLongPress={onLongPress}
 		>
 			<Text className="text-xl" weight="semiBold">
-				{ajudante.name}
+				{ajudante.alias}
 			</Text>
 			<View className="flex-row items-center">
 				<DollarSign size={20} color={"#f44336"} />
