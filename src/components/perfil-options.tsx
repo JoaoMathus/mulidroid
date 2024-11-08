@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import Input from "./ui/input";
 import UserContext from "../hooks/userContext";
 import useNavigation from "../hooks/useNavigation";
+import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 
 const PerfilOptions = () => {
 

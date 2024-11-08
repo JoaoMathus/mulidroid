@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, ScrollView, Modal, Alert, StyleSheet } from "react-native";
 import Text from "../components/ui/text";
 import Input from "../components/ui/input";
@@ -6,32 +6,24 @@ import Button from "../components/ui/button";
 import DateTimePicker from "react-native-ui-datepicker";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
-import { MultiSelect } from "react-native-element-dropdown";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import styles from "../components/ui/styles";
+import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
+import http from "../http/http";
+import { VehicleContext } from "../contexts/VehicleContext";
 
-const dados = [
-	{nome: "Alomomola"},
-	{nome: "Garbodor"},
-	{nome: "Girafarig"},
-	{nome: "Snorlax"},
-	{nome: "Armaldo"},
-];
-
-/**
- * FEATURE NOVA ABAIXO:
- * BUG: quando seleciona os ajudantes e depois sai da tela e volta novamente,
- * todos ficam selecionados automaticamente.
- */
 const ServicoForm = () => {
-	const [ajudantesSelecionados, setAjudantesSelecionados] = useState<string[]>(null);
+	const [ajudantesId, setAjudantesId] = useState<string[]>(null);
 	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
 	const [endereco, setEndereco] = useState("");
 	const [bairro, setBairro] = useState("");
 	const [valor, setValor] = useState("");
-	const [veiculo, setVeiculo] = useState("");
+	const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
 	const [data, setData] = useState(dayjs());
 	const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
+	const { ajudantes } = useContext(ServicoAjudanteContext);
+	const { veiculos } = useContext(VehicleContext);
 
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8 mb-10">
@@ -42,7 +34,27 @@ const ServicoForm = () => {
 				<Input label="Endereço" onChangeText={setEndereco} value={endereco} />
 				<Input label="Bairro" onChangeText={setBairro} value={bairro} />
 				<Input label="Valor" onChangeText={setValor} value={valor} />
-				<Input label="Veículo" onChangeText={setVeiculo} value={veiculo} />
+				<View>
+					<Text className="mb-2" weight="medium">
+						Selecionar o veículo
+					</Text>
+					<Dropdown
+						dropdownPosition="top"
+						style={styles.dropdown}
+						fontFamily={fontVariants.light}
+						containerStyle={styles.container}
+						search
+						data={veiculos}
+						labelField="plate"
+						valueField="model"
+						placeholder="Selecione"
+						searchPlaceholder="Procurar..."
+						value={veiculoSelecionado}
+						onChange={(item) => {
+							setVeiculoSelecionado(item);
+						}}
+					/>
+				</View>
 				<View>
 					<Text className="mb-2" weight="medium">
 						Data do serviço
@@ -67,21 +79,21 @@ const ServicoForm = () => {
 						fontFamily={fontVariants.light}
 						containerStyle={styles.container}
 						search
-						data={dados}
-						labelField="nome"
-						valueField="nome"
+						data={ajudantes}
+						labelField="name"
+						valueField="id"
 						placeholder="Selecione"
 						searchPlaceholder="Procurar..."
-						value={ajudantesSelecionados}
+						value={ajudantesId}
 						onChange={(item) => {
-							setAjudantesSelecionados(item);
+							setAjudantesId(item);
 						}}
 					/>
 				</View>
 				<Button
 					className="bg-blue-500 p-4 rounded-md mt-4"
 					onPress={() => {
-							if (endereco === "" || bairro === "" || valor === "" || veiculo === "" || data == null || ajudantesSelecionados == null) {
+							if (endereco == "" || bairro == "" || valor == "" || veiculoSelecionado == null || data == null || ajudantesId == null) {
 								Alert.alert("Você deve preencher todos os campos!");
 							} else {
 								setMostrarConfirmacao(true);
@@ -163,7 +175,7 @@ const ServicoForm = () => {
 							<Text className="text-xl" weight="bold">
 								Veículo:
 							</Text>
-							<Text>{veiculo}</Text>
+							<Text>{veiculoSelecionado ? veiculoSelecionado.plate : null}</Text>
 							<Text className="text-xl" weight="bold">
 								Data:
 							</Text>
@@ -172,7 +184,7 @@ const ServicoForm = () => {
 								Ajudantes:
 							</Text>
 							<Text>
-								{ajudantesSelecionados? ajudantesSelecionados.join(", ") : null}
+							{ajudantesId ? ajudantes.filter(item => ajudantesId.includes(item.id)).map(item => item.name).join(", ") : null}
 							</Text>
 						</View>
 						<View className="gap-2">
@@ -204,10 +216,31 @@ const ServicoForm = () => {
 				>
 				<View className="gap-5 h-full p-8 justify-center">
 					<Text className="text-xl" weight="bold">Deseja mesmo registar o serviço?</Text>
-					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
+					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(false)}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
 					</Button>
-					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => {
+						try {
+							console.log(JSON.stringify(...[ajudantesId]));
+							http.post("service", {
+								address: endereco,
+								neighborhood: bairro,
+								serviceDate: data.format("DD/MM/YYYY"),
+								value: parseFloat(valor),
+								vehicle: veiculoSelecionado.id,
+								employees: ajudantesId
+							})
+							setModalConfirmacaoFinal(false);
+							setMostrarConfirmacao(false);
+							setEndereco("");
+							setBairro("");
+							setValor("");
+							setData(dayjs());
+						} catch (error) {
+							console.log(error);
+							Alert.alert("Erro ao cadastrar serviço!");
+						}
+					}}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
 					</Button>
 				</View>
