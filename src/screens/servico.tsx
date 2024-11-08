@@ -106,7 +106,7 @@ const Servico = () => {
 			</Text>
 			<View className="flex-1">
 				<ScrollView className="h-[352px]">
-					<ListaAjudantes listaAjudantes={servico.employees} />
+					<ListaAjudantes listaAjudantes={servico.employees} idDeServico={servico.id} />
 				</ScrollView>
 				<Button className="bg-blue-500 p-5 mt-2 rounded-md" onPress={() => setModalEditarServico(true)}>
 					<Text className="text-center text-white text-lg" weight="semiBold">
@@ -346,3 +346,4 @@ const Servico = () => {
 };
 
 export default Servico;
+

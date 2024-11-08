@@ -7,13 +7,39 @@ import Input from "./ui/input";
 import UserContext from "../hooks/userContext";
 import useNavigation from "../hooks/useNavigation";
 import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
+import http from "../http/http";
 
 const PerfilOptions = () => {
 
   const [mostrarModalSenha, setMostrarModalSenha] = useState(false);
   const [mostrarModalNomeUsuario, setMostrarModalNomeUsuario] = useState(false);
 
-  const { setLogado, setAdminAqui } = useContext(UserContext);
+  const { navigate } = useNavigation().navigator;
+
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const { setLogado, setAdminAqui, employeeId } = useContext(UserContext);
+
+  const mudarUsuario = async () => {
+    if (username !== "")
+      await http.put(`user/${employeeId}`, {
+        username
+      }).then(() => {
+        navigate("Login");
+      })
+  }
+
+  const mudarSenha = async () => {
+    if (password !== "")
+      await http.put(`user/${employeeId}`, {
+        password
+      }).then(() => {
+        setAdminAqui(false)
+        setLogado(false);
+        navigate("Login");
+      })
+  }
 
   return (
     <View className="flex-row justify-center gap-2 mb-4">
@@ -60,7 +86,7 @@ const PerfilOptions = () => {
         }}
       >
         <View className="h-full mx-6 justify-center gap-5">
-          <Input label="Nova senha" />
+          <Input label="Nova senha" onChangeText={setPassword} />
           <View>
             <Button
               className="bg-red-500 p-4 rounded-md mt-4"
@@ -71,7 +97,7 @@ const PerfilOptions = () => {
             <Button
               className="bg-blue-500 p-4 rounded-md mt-4"
               onPress={() => {
-                Alert.alert("Senha salva!");
+                mudarSenha();
                 setMostrarModalSenha(false);
               }}
             >
@@ -90,7 +116,7 @@ const PerfilOptions = () => {
         }}
       >
         <View className="h-full mx-6 justify-center gap-5">
-          <Input label="Mudar nome de usuário" />
+          <Input label="Mudar nome de usuário" onChangeText={setUsername} />
           <View>
             <Button
               className="bg-red-500 p-4 rounded-md mt-4"
@@ -101,7 +127,7 @@ const PerfilOptions = () => {
             <Button
               className="bg-blue-500 p-4 rounded-md mt-4"
               onPress={() => {
-                Alert.alert("Nome salvo!");
+                mudarUsuario();
                 setMostrarModalNomeUsuario(false);
               }}
             >
