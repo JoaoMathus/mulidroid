@@ -7,11 +7,8 @@ import CheckBox from "../components/ui/checkbox";
 import dayjs from "dayjs";
 import DateTimePicker from "react-native-ui-datepicker";
 import { fontVariants } from "../utils/fontVariants";
+import http from "../http/http";
 
-/**
- * Falta implementar o banco remoto.
- * Falta implementar os testes.
- */
 const AjudanteForm = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const [modalConfirmacaoFinal, setModalConfirmacaoFinal] = useState(false);
@@ -53,6 +50,8 @@ const AjudanteForm = () => {
 				onPress={() => {
 						if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
 							Alert.alert("Você deve preencher todos os campos!");
+						} else if (dayjs().diff(data, "years") < 18) {
+							Alert.alert("Só pode maior de idade!");
 						} else { 
 							setMostrarConfirmacao(true);
 						}
@@ -178,7 +177,32 @@ const AjudanteForm = () => {
 					<Button className="bg-red-500 p-4 rounded-md mt-4" onPress={() => setModalConfirmacaoFinal(!modalConfirmacaoFinal)}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Cancelar</Text>
 					</Button>
-					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => Alert.alert("Aqui salva no banco de dados.")}>
+					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => {
+						try {
+							console.log("AJUDANTE A SER CADASTRADO::" + nome + " " + apelido);
+							http.post("employee", {
+								name: nome,
+								alias: apelido,
+								birthdate: data.format("DD/MM/YYYY"),
+								driver: motorista,
+								username: usuario,
+								email: email,
+								phoneNumber: telefone
+							})
+							setModalConfirmacaoFinal(false);
+							setMostrarConfirmacao(false);
+							setApelido("");
+							setNome("");
+							setEmail("");
+							setTelefone("");
+							setData(dayjs());
+							setUsuario("");
+							setMotorista(false);
+						} catch (error) {
+							Alert.alert("Erro ao cadastrar ajudante!");
+							console.log(error);
+						}
+					}}>
 						<Text className="text-xl text-center text-white" weight="semiBold">Sim, tenho certeza!</Text>
 					</Button>
 				</View>
