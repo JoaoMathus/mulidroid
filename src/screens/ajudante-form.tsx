@@ -20,6 +20,7 @@ const AjudanteForm = () => {
 	const [telefone, setTelefone] = useState("");
 	const [usuario, setUsuario] = useState("");
 	const [motorista, setMotorista] = useState(false);
+	
 	return (
 		<ScrollView className="w-full" contentContainerClassName="gap-5 px-8">
 			<Text className="text-left text-3xl" weight="black">
@@ -179,7 +180,6 @@ const AjudanteForm = () => {
 					</Button>
 					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() => {
 						try {
-							console.log("AJUDANTE A SER CADASTRADO::" + nome + " " + apelido);
 							http.post("employee", {
 								name: nome,
 								alias: apelido,

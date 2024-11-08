@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import Text from "./ui/text";
 import { Calendar, DollarSign, User } from "lucide-react-native";
-import type IServico from "../interfaces/IServico";
+import type { IServico } from "../interfaces/IServico";
 import Button from "./ui/button";
 import { useContext } from "react";
 import UserContext from "../hooks/userContext";
@@ -35,7 +35,7 @@ const CardServico = ({ servico, onPress, onLongPress }: CardServicoProps) => {
 			<View className={`${adminAqui ? "flex-row" : "flex-row-reverse"} items-center justify-between w-[165px]`}>
 				<View className="flex-row items-center self-end gap-px">
 					<User size={22} color={"#9c9c9c"} />
-					<Text className="text-lg mt-px">2</Text>
+					<Text className="text-lg mt-px">{servico.employeesCount}</Text>
 				</View>
 				<View className={`flex-row items-center gap-px ${!adminAqui && "hidden"}`}>
 					<DollarSign size={20} color={"#0E9F6E"} />

@@ -2,10 +2,10 @@ import { DollarSign } from "lucide-react-native";
 import { View } from "react-native";
 import Text from "./ui/text";
 import Button from "./ui/button";
-import type { IAjudanteForList } from "../interfaces/IAjudante";
+import type { IAjudante } from "../interfaces/IAjudante";
 
 interface CardAjudanteProps {
-	ajudante: IAjudanteForList;
+	ajudante: IAjudante;
 	onPress?: () => void;
 	onLongPress?: () => void;
 }

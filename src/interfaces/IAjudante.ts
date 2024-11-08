@@ -5,8 +5,5 @@ export interface IAjudante {
 	phoneNumber: string;
 	birthdate: string;
 	driver: boolean;
-}
-
-export interface IAjudanteForList extends Partial<IAjudante> {
-	servicesCount?: number;
+	servicesCount: number;
 }

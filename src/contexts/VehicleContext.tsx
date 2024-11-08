@@ -1,5 +1,5 @@
-import React, { ReactNode, createContext, useEffect, useState } from "react";
-import IVeiculo from "../interfaces/IVeiculo";
+import { type ReactNode, createContext, useEffect, useState } from "react";
+import type IVeiculo from "../interfaces/IVeiculo";
 import http from "../http/http";
 
 interface VehicleContextProps {
@@ -26,6 +26,7 @@ export const VehicleProvider = ({
     });
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     buscarDados();
   }, []);

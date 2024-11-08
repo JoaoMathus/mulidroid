@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
-import type {IServico, IServicoForList} from "../interfaces/IServico";
 import HomeOptions from "../components/home-options";
 import Faturameto from "../components/faturamento";
 import Diarias from "../components/diarias";
 import ListaServicos from "../components/lista-servicos";
 import ListaAjudantes from "../components/lista-ajudantes";
-import http from "../http/http";
-import type { IAjudanteForList } from "../interfaces/IAjudante";
-import { nosso_get } from "../http/http";
 import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 
 const TelaHome = () => {

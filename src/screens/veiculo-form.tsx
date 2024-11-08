@@ -92,7 +92,6 @@ const VeiculoForm = () => {
 					</Button>
 					<Button className="bg-green-500 p-4 rounded-md mt-4" onPress={() =>{
 						try {
-							console.log("VEÍCULO A SER CADASTRADO::" + placa + " " + modelo);
 							http.post("vehicle", {
 								plate: placa,
 								model: modelo

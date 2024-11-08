@@ -93,7 +93,7 @@ const ServicoForm = () => {
 				<Button
 					className="bg-blue-500 p-4 rounded-md mt-4"
 					onPress={() => {
-							if (endereco == "" || bairro == "" || valor == "" || veiculoSelecionado == null || data == null || ajudantesId == null) {
+							if (endereco === "" || bairro === "" || valor === "" || veiculoSelecionado == null || data == null || ajudantesId == null) {
 								Alert.alert("Você deve preencher todos os campos!");
 							} else {
 								setMostrarConfirmacao(true);
@@ -226,7 +226,7 @@ const ServicoForm = () => {
 								address: endereco,
 								neighborhood: bairro,
 								serviceDate: data.format("DD/MM/YYYY"),
-								value: parseFloat(valor),
+								value: Number.parseFloat(valor),
 								vehicle: veiculoSelecionado.id,
 								employees: ajudantesId
 							})

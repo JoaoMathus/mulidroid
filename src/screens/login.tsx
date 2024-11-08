@@ -32,7 +32,6 @@ const Login = () => {
 	});
 
 	const logarLocal = async (username: string, password: string, employeeId: string, admin: boolean) => {
-		console.log("LOGANDO LOCAL::" + username + " " + password);
 
 		setEmployeeId(employeeId);
 		setLogado(true);
@@ -48,15 +47,12 @@ const Login = () => {
 				password: senha
 			});
 
-			console.log("LOGANDO::" + usuario + " " + senha);
-
 			setEmployeeId(res.data.employeeId);
 			setLogado(true);
 			setAdminAqui(res.data.admin);
 			cache.armazenarUser({username: usuario, password: senha, employeeId: res.data.employeeId, admin: res.data.admin});
 			if (!adminAqui) navigate("Perfil");
 		} catch (error) {
-			console.log("ERRO ao logar usuário" + error);
 			Alert.alert("Usuário ou senha errada!");
 		}
 	}
@@ -69,7 +65,6 @@ const Login = () => {
 
 	const temUserNoLocal = async () => {
 		const user = await cache.resgatarUser();
-		console.log("TEM USER NO LOCAL??? " + JSON.stringify(user));
 		return user != null;
 	}
 

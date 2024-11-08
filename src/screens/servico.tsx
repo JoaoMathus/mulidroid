@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View, Alert, Modal } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
 import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
 import CardAjudante from "../components/card-ajudante";
-import type { IAjudanteForList } from "../interfaces/IAjudante";
 import useNavigation from "../hooks/useNavigation";
 import { MultiSelect } from "react-native-element-dropdown";
 import Input from "../components/ui/input";
@@ -14,16 +13,17 @@ import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 import DateTimePicker from "react-native-ui-datepicker";
 import http from "../http/http";
-import type { IServico, IServicoForList } from "../interfaces/IServico";
+import type { IServico } from "../interfaces/IServico";
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import type { RootStackParamList } from "../../App";
+import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
+import ListaAjudantes from "../components/lista-ajudantes";
 
 type ServicoRouteProp = RouteProp<RootStackParamList, 'Servico'>;
 
 const Servico = () => {
 	const [expandAddress, setExpandAdress] = useState(1);
-	const [servico, setServico] = useState<IServicoForList>({} as IServicoForList)
-	const [ajudantes, setAjudantes] = useState<IAjudanteForList[]>([]);
+	const [servico, setServico] = useState<IServico>({} as IServico)
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 	const [modalEditarServico, setModalEditarServico] = useState(false);
 	const [endereco, setEndereco] = useState("");
@@ -36,12 +36,15 @@ const Servico = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const { navigate } = useNavigation().navigator;
 
+	const { ajudantes } = useContext(ServicoAjudanteContext);
+
 	const route = useRoute<ServicoRouteProp>();
-	const { serviceId } = route.params || {}
+	const { serviceId } = route.params;
 
 	const buscarServico = async () => {
-		const res = await http.get<IServicoForList>(`service/${serviceId}`)
+		const res = await http.get<IServico>(`service/${serviceId}`)
 		setServico(res.data);
+		console.log(res.data);
 	}
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -77,21 +80,14 @@ const Servico = () => {
 			</Text>
 			<View className="flex-1">
 				<ScrollView className="h-[352px]">
-					{servico.employees.map((ajudante) => (
-						<CardAjudante
-							key={ajudante.id}
-							ajudante={ajudante}
-							onPress={() => navigate("Ajudante")}
-							onLongPress={() => setModalConfirmacaoPagamento(true)}
-						/>
-					))}
+					<ListaAjudantes listaAjudantes={servico.employees}/>
 				</ScrollView>
 				<Button className="bg-blue-500 p-5 mt-2 rounded-md" onPress={() => setModalEditarServico(true)}>
 					<Text className="text-center text-white text-lg" weight="semiBold">
 						Editar
 					</Text>
 				</Button>
-				<Button className="bg-red-500 p-5 mt-2 rounded-md" onPress={() => {}}>
+				<Button className="bg-red-500 p-5 mt-2 rounded-md" onPress={() => { }}>
 					<Text className="text-center text-white text-lg" weight="semiBold">
 						Excluir
 					</Text>

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import Text from "../components/ui/text";
 import { Calendar } from "lucide-react-native";
 import Divider from "../components/ui/divider";
-import type IServico from "../interfaces/IServico";
+import type {IServico} from "../interfaces/IServico";
 import PerfilOptions from "../components/perfil-options";
 import UserContext from "../hooks/userContext";
 import ListaServicos from "../components/lista-servicos";

@@ -11,61 +11,8 @@ import Input from "../components/ui/input";
 import dayjs from "dayjs";
 import CheckBox from "../components/ui/checkbox";
 
-const servicos: IServico[] = [
-	{
-		id: "1",
-		address: "Ilha de Cinnabar",
-		neighborhood: "Kalos",
-		value: 350,
-		date: "23/10/2024",
-	},
-	{
-		id: "2",
-		address: "Ilha dos Macacos",
-		neighborhood: "Unova",
-		value: 450,
-		date: "21/10/2024",
-	},
-	{
-		id: "3",
-		address: "Ilha de Viridian",
-		neighborhood: "Kanto",
-		value: 550,
-		date: "27/10/2024",
-	},
-
-	{
-		id: "4",
-		address: "Ilha dos Macacos",
-		neighborhood: "Unova",
-		value: 450,
-		date: "21/10/2024",
-	},
-	{
-		id: "5",
-		address: "Ilha de Viridian",
-		neighborhood: "Kanto",
-		value: 550,
-		date: "27/10/2024",
-	},
-	{
-		id: "6",
-		address: "Ilha dos Macacos",
-		neighborhood: "Unova",
-		value: 450,
-		date: "21/10/2024",
-	},
-	{
-		id: "7",
-		address: "Ilha de Viridian",
-		neighborhood: "Kanto",
-		value: 550,
-		date: "27/10/2024",
-	},
-];
-
 const Ajudante = () => {
-	const [listaServicos, setListaServicos] = useState(servicos);
+	//const [listaServicos, setListaServicos] = useState(servicos);
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 	const [data, setData] = useState(dayjs());
 	const [apelido, setApelido] = useState("");
@@ -108,14 +55,14 @@ const Ajudante = () => {
 			</Text>
 			<View>
 				<ScrollView className="h-[352px]">
-					{listaServicos.map((servico) => (
+					{/* {listaServicos.map((servico) => (
 						<CardServico
 							key={servico.id}
 							servico={servico}
 							onPress={() => navigate("Servico")}
 							onLongPress={() => setModalConfirmacaoPagamento(true)}
 						/>
-					))}
+					))} */}
 				</ScrollView>
 				<View className="flex-row gap-2 justify-center mt-3">
 					<Button className="bg-blue-500 p-4 mt-2 rounded-md w-[166px]" onPress={() => setModalEditarAjudante(true)}>
@@ -183,7 +130,7 @@ const Ajudante = () => {
 					<Button
 						className="bg-blue-500 p-4 rounded-md mt-4"
 						onPress={() => {
-							if (apelido == "" || nome == "" || email == "" || telefone == "" || data == null || usuario == "") {
+							if (apelido === "" || nome === "" || email === "" || telefone === "" || data == null || usuario === "") {
 								Alert.alert("Você deve preencher todos os campos!");
 							} else {
 								setMostrarConfirmacao(true);
