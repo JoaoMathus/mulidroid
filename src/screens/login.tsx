@@ -10,15 +10,17 @@ import http from "../http/http";
 import type IUser from "../interfaces/IUser";
 import * as LocalAuthentication from "expo-local-authentication";
 import LogoMulidroid from "../components/LogoMulidroid";
+import cache from "../utils/cache";
 
 const Login = () => {
 	const [suportaBiometria, setSuportaBiometria] = useState(false);
 	const [temBiometria, setTemBiometria] = useState(false);
 	const [modalEsqueciASenha, setModalEsqueciASenha] = useState(false);
-	const [usuario, setUsuario] = useState("");
-	const [senha, setSenha] = useState("");
+	const [usuario, setUsuario] = useState<string>("");
+	const [senha, setSenha] = useState<string>("");
 	const [modalUsername, setModalUsername] = useState("");
 	const [modalEmail, setModalEmail] = useState("");
+	const [usouBiometria, setUsouBiometria] = useState(false);
 	const { logado, setLogado, adminAqui, setAdminAqui, employeeId, setEmployeeId } = useContext(UserContext);
 	const { navigate } = useNavigation().navigator;
 
@@ -29,34 +31,68 @@ const Login = () => {
 		})();
 	});
 
-	const logarUsuario =  async () => {
-		const res = await http.post<IUser>("user", {
-			username: usuario,
-			password: senha
-		}).then((user) => {
-			setEmployeeId(user.data.employeeId);
-			setLogado(true);
-			setAdminAqui(user.data.admin);
-			if (!adminAqui) navigate("Perfil");
-		}).catch(() => {
-			Alert.alert("Usuário ou senha errada.");
-		})
+	const logarLocal = async (username: string, password: string, employeeId: string, admin: boolean) => {
+		console.log("LOGANDO LOCAL::" + username + " " + password);
+
+		setEmployeeId(employeeId);
+		setLogado(true);
+		setAdminAqui(admin);
+		cache.armazenarUser({username: usuario, password: senha, employeeId: employeeId, admin: admin});
+		if (!adminAqui) navigate("Perfil");
 	}
 
-	LocalAuthentication.isEnrolledAsync().then((data) => {
-		setTemBiometria(data);
-	});
+	const logarUsuario = async () => {
+		try {
+			const res = await http.post<IUser>("user", {
+				username: usuario,
+				password: senha
+			});
+
+			console.log("LOGANDO::" + usuario + " " + senha);
+
+			setEmployeeId(res.data.employeeId);
+			setLogado(true);
+			setAdminAqui(res.data.admin);
+			cache.armazenarUser({username: usuario, password: senha, employeeId: res.data.employeeId, admin: res.data.admin});
+			if (!adminAqui) navigate("Perfil");
+		} catch (error) {
+			console.log("ERRO ao logar usuário" + error);
+		}
+	}
+
+	useEffect(() => {
+		LocalAuthentication.isEnrolledAsync().then((data) => {
+			setTemBiometria(data);
+		});
+	}, []);
+
+	const temUserNoLocal = async () => {
+		const user = await cache.resgatarUser();
+		console.log("TEM USER NO LOCAL??? " + JSON.stringify(user));
+		return user != null;
+	}
 
 	const autenticarComBiometria = async () => {
-		const resultado = LocalAuthentication.authenticateAsync({
+		const resultado = await LocalAuthentication.authenticateAsync({
 			promptMessage: "Use a biometria"
 		});
 
-		if ((await resultado).success) {
-			setLogado(true);
-			setAdminAqui(true);
+		if (resultado.success) {
+			const user = await cache.resgatarUser();
+			await logarLocal(user.username, user.password, user.employeeId, user.admin);
 		}
 	}
+
+	const verificaSeUsaBiometria = async () => {
+		if (suportaBiometria && temBiometria && (await temUserNoLocal()) && !usouBiometria) {
+			autenticarComBiometria();
+			setUsouBiometria(true);
+		}
+	};
+
+	useEffect(() => {
+		verificaSeUsaBiometria();
+	}, [suportaBiometria, temBiometria, usouBiometria]);
 
 	return (
 		<>
@@ -91,12 +127,6 @@ const Login = () => {
 						Login
 					</Text>
 				</Button>
-				{(suportaBiometria && temBiometria) ? (
-					<Button className="bg-white p-4" onPress={() => autenticarComBiometria()}>
-						<Text className="text-center text-lg" weight="bold">Toque aqui para biometria!</Text>
-					</Button>
-					) : (<></>)
-				}
 			</View>
 			<Modal
 				visible={modalEsqueciASenha}
@@ -107,7 +137,9 @@ const Login = () => {
 				<View className="mt-10 p-6 gap-5 h-full justify-center">
 					<Input label="Usuário" onChangeText={setModalUsername} value={modalUsername} />
 					<Input label="Email" onChangeText={setModalEmail} value={modalEmail} />
-					<Button className="bg-blue-500 p-4 mt-10" onPress={() => Alert.alert("Envia email")}>
+					<Button className="bg-blue-500 p-4 mt-10" onPress={() => {
+						Alert.alert("Envia email");
+					}}>
 						<Text className="text-center text-lg text-white" weight="semiBold">Enviar email</Text>
 					</Button>
 					<Button className="bg-red-500 p-4" onPress={() => setModalEsqueciASenha(false)}>
