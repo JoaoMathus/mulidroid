@@ -8,7 +8,7 @@ interface IStoredUser {
     admin: boolean;
 }
 
-const expiraEm = 5; /* minutos */
+const expiraEm = 4320; /* minutos, vulgo 3 dias */
 const userKey = "user";
 
 /**
