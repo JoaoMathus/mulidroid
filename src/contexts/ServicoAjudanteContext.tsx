@@ -25,11 +25,11 @@ export const ServicoAjudanteProvider = ({
   const [servicos, setServicos] = useState<IServico[]>([]);
 
   const buscarDados = () => {
-    http.get<IAjudante[]>("/ajudantes").then((res) => {
+    http.get<IAjudante[]>("/employee").then((res) => {
       setAjudantes(res.data);
     });
 
-    http.get<IServico[]>("/servicos").then(res => {
+    http.get<IServico[]>("/service").then(res => {
       setServicos(res.data);
     });
   }
