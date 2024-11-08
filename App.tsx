@@ -27,7 +27,20 @@ import { StyleSheet } from "react-native";
 import UserContext from "./src/hooks/userContext";
 import { ServicoAjudanteProvider } from "./src/contexts/ServicoAjudanteContext";
 
-const Stack = createStackNavigator();
+
+export type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+  Perfil: undefined;
+  Ajudante: undefined;
+  Servico: { serviceId: string; outroParametro?: string };
+  "Cadastro de Ajudante": undefined;
+  "Cadastro de Serviço": undefined;
+  "Cadastro de Veículo": undefined;
+};
+
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [logado, setLogado] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, Alert, Modal } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
@@ -13,98 +13,17 @@ import styles from "../components/ui/styles";
 import dayjs from "dayjs";
 import { fontVariants } from "../utils/fontVariants";
 import DateTimePicker from "react-native-ui-datepicker";
+import http from "../http/http";
+import type { IServico, IServicoForList } from "../interfaces/IServico";
+import { type RouteProp, useRoute } from '@react-navigation/native';
+import type { RootStackParamList } from "../../App";
 
-const ajudantes: IAjudanteForList[] = [
-	{
-		id: '1',
-		alias: "Alomomola",
-		name: "Zé Carambola",
-		phoneNumber: "21999999999",
-		birthdate: "04/04/2004",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '2',
-		alias: "Garbodor",
-		name: "Anderson Linhares",
-		phoneNumber: "2177377773",
-		birthdate: "26/06/2006",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '3',
-		alias: "Alomomola",
-		name: "Zé Carambola",
-		phoneNumber: "21999999991",
-		birthdate: "04/04/2004",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '4',
-		alias: "Garbodor",
-		name: "Anderson Linhares",
-		phoneNumber: "21777117777",
-		birthdate: "26/06/2006",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '5',
-		alias: "Alomomola",
-		name: "Zé Carambola",
-		phoneNumber: "21996999999",
-		birthdate: "04/04/2004",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '6',
-		alias: "Garbodor",
-		name: "Anderson Linhares",
-		phoneNumber: "21775777777",
-		birthdate: "26/06/2006",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '7',
-		alias: "Alomomola",
-		name: "Zé Carambola",
-		phoneNumber: "21999299999",
-		birthdate: "04/04/2004",
-		driver: false,
-		servicesCount: 2
-	},
-	{
-		id: '8',
-		alias: "Garbodor",
-		name: "Anderson Linhares",
-		phoneNumber: "21737777777",
-		birthdate: "26/06/2006",
-		driver: false,
-		servicesCount: 2
-	},
-];
+type ServicoRouteProp = RouteProp<RootStackParamList, 'Servico'>;
 
-// Dados para o dropdown
-const dados = [
-	{ nome: "Alomomola" },
-	{ nome: "Garbodor" },
-	{ nome: "Girafarig" },
-	{ nome: "Snorlax" },
-	{ nome: "Armaldo" },
-];
-
-/**
- * 
- * TODO: na modal de edição, alto preencher com os dados salvos previamente.
- */
 const Servico = () => {
 	const [expandAddress, setExpandAdress] = useState(1);
-	const [listaAjudantes, setListaAjudantes] = useState(ajudantes);
+	const [servico, setServico] = useState<IServicoForList>({} as IServicoForList)
+	const [ajudantes, setAjudantes] = useState<IAjudanteForList[]>([]);
 	const [modalConfirmacaoPagamento, setModalConfirmacaoPagamento] = useState(false);
 	const [modalEditarServico, setModalEditarServico] = useState(false);
 	const [endereco, setEndereco] = useState("");
@@ -117,8 +36,21 @@ const Servico = () => {
 	const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 	const { navigate } = useNavigation().navigator;
 
+	const route = useRoute<ServicoRouteProp>();
+	const { serviceId } = route.params || {}
+
+	const buscarServico = async () => {
+		const res = await http.get<IServicoForList>(`service/${serviceId}`)
+		setServico(res.data);
+	}
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		buscarServico()
+	}, [])
+
 	return (
-		<View className="px-8 w-full">
+		<View className="px-8 mb-8 w-full flex-1">
 			<View>
 				<Button
 					onPress={() =>
@@ -130,24 +62,24 @@ const Servico = () => {
 						lines={expandAddress}
 						weight="black"
 					>
-						São José do Vale do Rio Preto
+						{servico.address}
 					</Text>
 				</Button>
-				<Text className="text-xl">Cascadura</Text>
+				<Text className="text-xl">{servico.neighborhood}</Text>
 				<View className="flex-row gap-1 mt-4">
 					<Calendar size={15} color={"#202020"} />
-					<Text className="text-black/50">26/10/2024</Text>
+					<Text className="text-black/50">{servico.serviceDate}</Text>
 				</View>
 			</View>
 			<Divider margin={6} />
 			<Text className="text-xl mb-3" weight="bold">
 				Ajudantes
 			</Text>
-			<View>
+			<View className="flex-1">
 				<ScrollView className="h-[352px]">
-					{listaAjudantes.map((ajudante) => (
+					{servico.employees.map((ajudante) => (
 						<CardAjudante
-							key={ajudante.phoneNumber}
+							key={ajudante.id}
 							ajudante={ajudante}
 							onPress={() => navigate("Ajudante")}
 							onLongPress={() => setModalConfirmacaoPagamento(true)}
@@ -218,9 +150,9 @@ const Servico = () => {
 							fontFamily={fontVariants.light}
 							containerStyle={styles.container}
 							search
-							data={dados}
-							labelField="nome"
-							valueField="nome"
+							data={ajudantes}
+							labelField="name"
+							valueField="name"
 							placeholder="Selecione"
 							searchPlaceholder="Procurar..."
 							value={ajudantesSelecionados}

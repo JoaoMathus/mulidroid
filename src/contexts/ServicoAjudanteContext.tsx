@@ -1,13 +1,13 @@
 import { type ReactNode, createContext, useEffect, useState } from "react";
 import type { IAjudante, IAjudanteForList } from "../interfaces/IAjudante";
-import type IServico from "../interfaces/IServico";
+import type {IServico, IServicoForList} from "../interfaces/IServico";
 import http from "../http/http";
 
 interface ServicoAjudanteContextProps {
   ajudantes: IAjudanteForList[];
   setAjudantes: React.Dispatch<React.SetStateAction<IAjudanteForList[]>>;
-  servicos: IServico[];
-  setServicos: React.Dispatch<React.SetStateAction<IServico[]>>;
+  servicos: IServicoForList[];
+  setServicos: React.Dispatch<React.SetStateAction<IServicoForList[]>>;
   buscarDados: () => void;
 }
 
@@ -22,14 +22,14 @@ export const ServicoAjudanteProvider = ({
   children,
 }: ServicoAjudanteProviderProps) => {
   const [ajudantes, setAjudantes] = useState<IAjudanteForList[]>([]);
-  const [servicos, setServicos] = useState<IServico[]>([]);
+  const [servicos, setServicos] = useState<IServicoForList[]>([]);
 
   const buscarDados = () => {
     http.get<IAjudanteForList[]>("/employee").then((res) => {
       setAjudantes(res.data);
     });
 
-    http.get<IServico[]>("/service").then(res => {
+    http.get<IServicoForList[]>("/service").then(res => {
       setServicos(res.data);
     });
   }

@@ -33,4 +33,4 @@ const Faturameto = () => {
   )
 }
 
-export default Faturameto
+export default Faturameto;

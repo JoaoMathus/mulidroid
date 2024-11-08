@@ -4,7 +4,7 @@ import Button from "../components/ui/button";
 import Text from "../components/ui/text";
 import { Calendar, Phone } from "lucide-react-native";
 import Divider from "../components/ui/divider";
-import type IServico from "../interfaces/IServico";
+import type {IServico} from "../interfaces/IServico";
 import CardServico from "../components/card-servico";
 import useNavigation from "../hooks/useNavigation";
 import Input from "../components/ui/input";

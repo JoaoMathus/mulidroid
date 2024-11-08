@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import Text from "../components/ui/text";
 import Button from "../components/ui/button";
-import type IServico from "../interfaces/IServico";
+import type {IServico, IServicoForList} from "../interfaces/IServico";
 import HomeOptions from "../components/home-options";
 import Faturameto from "../components/faturamento";
 import Diarias from "../components/diarias";
@@ -11,27 +11,11 @@ import ListaAjudantes from "../components/lista-ajudantes";
 import http from "../http/http";
 import type { IAjudanteForList } from "../interfaces/IAjudante";
 import { nosso_get } from "../http/http";
+import { ServicoAjudanteContext } from "../contexts/ServicoAjudanteContext";
 
 const TelaHome = () => {
-	const [listaServicos, setListaServicos] = useState<IServico[]>([]);
-	const [listaAjudantes, setListaAjudantes] = useState<IAjudanteForList[]>([]);
+	const { ajudantes, servicos } = useContext(ServicoAjudanteContext);
 	const [mostrarServicos, setMostrarServicos] = useState(true);
-
-	const buscarServicos = async () => {
-		const res = await nosso_get("service"); // com cache
-		setListaServicos(res.data);
-	}
-
-	const buscarAjudantes = async () => {
-		const res = await http.get<IAjudanteForList[]>("employee");
-		setListaAjudantes(res.data);
-	}
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		buscarServicos();
-		buscarAjudantes();
-	}, []);
 
 	return (
 		<View className="gap-4 mt-12 px-5 flex-1">
@@ -52,9 +36,9 @@ const TelaHome = () => {
 				</Button>
 			</View>
 			{mostrarServicos ? (
-				<ListaServicos listaServicos={listaServicos} />
+				<ListaServicos listaServicos={servicos} />
 			) : (
-				<ListaAjudantes listaAjudantes={listaAjudantes} />)
+				<ListaAjudantes listaAjudantes={ajudantes} />)
 			}
 			<HomeOptions />
 		</View>

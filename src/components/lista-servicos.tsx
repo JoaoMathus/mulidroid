@@ -1,13 +1,15 @@
-import { ScrollView, View } from "react-native";
-import type IServico from "../interfaces/IServico";
+import { ScrollView } from "react-native";
+import type {IServico, IServicoForList} from "../interfaces/IServico";
 import CardServico from "./card-servico";
 import useNavigation from "../hooks/useNavigation";
 import UserContext from "../hooks/userContext";
 import { useContext } from "react";
 
 interface ListaServicoProps {
-  listaServicos: IServico[]
+  listaServicos: IServicoForList[]
 }
+
+
 
 const ListaServicos = ({ listaServicos }: ListaServicoProps) => {
   const { navigate } = useNavigation().navigator;
@@ -21,8 +23,9 @@ const ListaServicos = ({ listaServicos }: ListaServicoProps) => {
           key={servico.serviceId}
           servico={servico}
           onPress={() => {
-            // Se for user normal, não pode ver info detalhada do serviço, né?
-            if (adminAqui) navigate("Servico");
+            if (adminAqui) navigate("Servico", {
+              serviceId: servico.serviceId
+            });
           }}
         />
       ))}

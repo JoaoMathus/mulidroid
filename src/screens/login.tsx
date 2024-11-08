@@ -90,6 +90,7 @@ const Login = () => {
 		}
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		verificaSeUsaBiometria();
 	}, [suportaBiometria, temBiometria, usouBiometria]);

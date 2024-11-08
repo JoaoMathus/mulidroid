@@ -8,5 +8,5 @@ export interface IAjudante {
 }
 
 export interface IAjudanteForList extends Partial<IAjudante> {
-	servicesCount: number | null;
+	servicesCount?: number;
 }
