@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mulidroid",
-    "slug": "mulidroid",
+    "name": "mulidroidApp",
+    "slug": "mulidroidaplicativo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,16 +12,33 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mulinatti.mulidroidaplicativo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mulinatti.mulidroidaplicativo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f4798835-2d0f-4e62-a818-e5628188f073"
+      }
+    },
+    "owner": "mulinatti",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f4798835-2d0f-4e62-a818-e5628188f073"
     }
   }
 }
