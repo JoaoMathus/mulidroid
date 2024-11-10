@@ -109,13 +109,12 @@ const ServicoForm = () => {
 					</Text>
 				</Button>
 				<Modal
-					testID="modal-data"
+					testID="modal-datepicker"
 					animationType="slide"
-					transparent={false}
 					visible={mostrarDatePicker}
 					onRequestClose={() => {
 						Alert.alert("Data salva!");
-						setMostrarDatePicker(!mostrarDatePicker);
+						setMostrarDatePicker(false);
 					}}
 				>
 					<View className="mt-10 p-6">
@@ -139,7 +138,7 @@ const ServicoForm = () => {
 						<Button
 							className="bg-blue-500 p-4 rounded-md mt-4"
 							onPress={() => {
-								setMostrarDatePicker(!mostrarDatePicker);
+								setMostrarDatePicker(false);
 							}}
 						>
 							<Text className="text-lg text-center text-white">Selecionar</Text>
@@ -193,7 +192,7 @@ const ServicoForm = () => {
 						<View className="gap-2">
 							<Button
 								className="bg-red-500 p-4 rounded-md mt-4"
-								onPress={() => setMostrarConfirmacao(!mostrarConfirmacao)}
+								onPress={() => setMostrarConfirmacao(false)}
 							>
 								<Text className="text-xl text-center text-white">Cancelar</Text>
 							</Button>

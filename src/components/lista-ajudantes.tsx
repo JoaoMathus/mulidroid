@@ -9,12 +9,13 @@ import UserContext from "../hooks/userContext";
 
 interface ListaAjudantesProps {
   listaAjudantes: IAjudante[];
-  idDeServico?: string
+  idDeServico?: string;
+  testID?: string;
 }
 
 
 
-const ListaAjudantes = ({ listaAjudantes, idDeServico }: ListaAjudantesProps) => {
+const ListaAjudantes = ({ listaAjudantes, idDeServico, testID }: ListaAjudantesProps) => {
   const { navigate } = useNavigation().navigator;
   const {employeeId} = useContext(UserContext);
 
@@ -27,6 +28,7 @@ const ListaAjudantes = ({ listaAjudantes, idDeServico }: ListaAjudantesProps) =>
 
   return (
     <ScrollView
+      testID={testID}
       fadingEdgeLength={100}
       className="h-full">
       {listaAjudantes?.map((ajudante) => (

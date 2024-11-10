@@ -6,15 +6,17 @@ import UserContext from "../hooks/userContext";
 import { useContext } from "react";
 
 interface ListaServicoProps {
-  listaServicos: IServico[]
+  listaServicos: IServico[];
+  testID?: string;
 }
 
-const ListaServicos = ({ listaServicos }: ListaServicoProps) => {
+const ListaServicos = ({ listaServicos, testID }: ListaServicoProps) => {
   const { navigate } = useNavigation().navigator;
   const { adminAqui } = useContext(UserContext);
 
   return (
     <ScrollView
+      testID={testID}
       fadingEdgeLength={100}>
       {listaServicos?.map((servico) => (
         <CardServico
