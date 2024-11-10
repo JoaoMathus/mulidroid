@@ -8,9 +8,10 @@ interface InputProps {
 	secureTextEntry?: boolean;
 	onChangeText?: React.Dispatch<React.SetStateAction<string>>;
 	value?: string;
+	testID?: string;
 }
 
-const Input = ({ label, secureTextEntry, onChangeText, value }: InputProps) => {
+const Input = ({ label, secureTextEntry, onChangeText, value, testID }: InputProps) => {
 	return (
 		<View className="w-full relative">
 			<Text className="mb-2" weight="medium">
@@ -24,6 +25,7 @@ const Input = ({ label, secureTextEntry, onChangeText, value }: InputProps) => {
 				cursorColor={"#0077ff"}
 				className="placeholder:text-black/20 rounded-md border border-black/10 w-full py-3 px-4 text-xl"
 				style={{ fontFamily: fontVariants.light }}
+				testID={testID}
 			/>
 		</View>
 	);

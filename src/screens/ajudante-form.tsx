@@ -29,10 +29,10 @@ const AjudanteForm = () => {
 			<Text className="text-left text-3xl" weight="black">
 				Cadastro de Ajudante
 			</Text>
-			<Input label="Apelido" onChangeText={setApelido} value={apelido} />
-			<Input label="Nome" onChangeText={setNome} value={nome} />
-			<Input label="Email" onChangeText={setEmail} value={email} />
-			<Input label="Telefone" onChangeText={setTelefone} value={telefone} />
+			<Input label="Apelido" testID="input-apelido" onChangeText={setApelido} value={apelido} />
+			<Input label="Nome" testID="input-nome" onChangeText={setNome} value={nome} />
+			<Input label="Email" testID="input-email" onChangeText={setEmail} value={email} />
+			<Input label="Telefone" testID="input-telefone" onChangeText={setTelefone} value={telefone} />
 			<View>
 					<Text className="mb-2" weight="medium">
 						Data de nascimento
@@ -47,9 +47,10 @@ const AjudanteForm = () => {
 						</Text>
 					</Button>
 				</View>
-			<Input label="Usuário" onChangeText={setUsuario} value={usuario} />
+			<Input label="Usuário" testID="input-usuario" onChangeText={setUsuario} value={usuario} />
 			<CheckBox onChecked={setMotorista} />
 			<Button
+				testId="botao-cadastrar"
 				className="bg-blue-500 p-4 rounded-md mt-4"
 				onPress={() => {
 						if (apelido === "" || nome === "" || email === "" || telefone === "" || data == null || usuario === "") {

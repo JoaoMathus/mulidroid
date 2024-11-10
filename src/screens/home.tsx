@@ -20,21 +20,21 @@ const TelaHome = () => {
 				<Diarias />
 			</View>
 			<View className="flex-row w-full gap-4">
-				<Button className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(true)}>
+				<Button testId="botao-servicos" className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(true)}>
 					<Text className="text-center text-white" weight="semiBold">
 						Serviços
 					</Text>
 				</Button>
-				<Button className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(false)}>
+				<Button testId="botao-ajudantes" className="bg-blue-500 flex-1 p-3 rounded-md" onPress={() => setMostrarServicos(false)}>
 					<Text className="text-center text-white" weight="semiBold">
 						Ajudantes
 					</Text>
 				</Button>
 			</View>
 			{mostrarServicos ? (
-				<ListaServicos listaServicos={servicos} />
+				<ListaServicos testID="lista-servicos" listaServicos={servicos} />
 			) : (
-				<ListaAjudantes listaAjudantes={ajudantes} />)
+				<ListaAjudantes testID="lista-ajudantes" listaAjudantes={ajudantes} />)
 			}
 			<HomeOptions />
 		</View>

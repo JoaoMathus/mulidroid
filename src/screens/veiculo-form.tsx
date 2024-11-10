@@ -18,6 +18,7 @@ const VeiculoForm = () => {
 			<Input label="Placa" onChangeText={setPlaca} value={placa} />
 			<Input label="Modelo" onChangeText={setModelo} value={modelo} />
 			<Button
+				testId="botao-cadastrar"
 				className="bg-blue-500 p-4 rounded-md mt-4"
 				onPress={() => {
 						if (placa === "" || modelo === "") {
